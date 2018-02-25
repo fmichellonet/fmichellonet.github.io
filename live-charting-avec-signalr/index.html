@@ -1,0 +1,225 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Live charting avec SignalR</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:2368/assets/css/screen.css?v=e6afc982da">
+    <link rel="stylesheet" type="text/css" href="http://localhost:2368/assets/css/prism.css?v=e6afc982da">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="amphtml" href="http://localhost:2368/live-charting-avec-signalr/amp/">
+    
+    <meta property="og:site_name" content="mymemoryleaks">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Live charting avec SignalR">
+    <meta property="og:description" content="SignalR is awesome ! Oui il va falloir vous habituer à entendre dire que cette librairie est un petit bijou. Mais qu'est-ce qu'elle a de si bien cette librairie SignalR ? SignalR fournit une couche d'abstraction au-dessus des WebSocket et des long polling connections pour les développeurs .NET et fonctionne sous IIS">
+    <meta property="og:url" content="http://localhost:2368/live-charting-avec-signalr/">
+    <meta property="og:image" content="http://mah1979.qsandbox.com/wp-content/uploads/2011/09/SignalR_awesome.png">
+    <meta property="article:published_time" content="2011-09-26T21:21:00.000Z">
+    <meta property="article:modified_time" content="2018-02-11T22:55:14.000Z">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Live charting avec SignalR">
+    <meta name="twitter:description" content="SignalR is awesome ! Oui il va falloir vous habituer à entendre dire que cette librairie est un petit bijou. Mais qu'est-ce qu'elle a de si bien cette librairie SignalR ? SignalR fournit une couche d'abstraction au-dessus des WebSocket et des long polling connections pour les développeurs .NET et fonctionne sous IIS">
+    <meta name="twitter:url" content="http://localhost:2368/live-charting-avec-signalr/">
+    <meta name="twitter:image" content="http://mah1979.qsandbox.com/wp-content/uploads/2011/09/SignalR_awesome.png">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Fabrice Michellonet">
+    <meta property="og:image:width" content="519">
+    <meta property="og:image:height" content="83">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "mymemoryleaks",
+        "logo": "http://localhost:2368/content/images/2018/02/mosquito.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Fabrice Michellonet",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "http://localhost:2368/author/fabrice/",
+        "sameAs": []
+    },
+    "headline": "Live charting avec SignalR",
+    "url": "http://localhost:2368/live-charting-avec-signalr/",
+    "datePublished": "2011-09-26T21:21:00.000Z",
+    "dateModified": "2018-02-11T22:55:14.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "http://mah1979.qsandbox.com/wp-content/uploads/2011/09/SignalR_awesome.png",
+        "width": 519,
+        "height": 83
+    },
+    "description": "SignalR is awesome ! Oui il va falloir vous habituer à entendre dire que cette librairie est un petit bijou. Mais qu&#x27;est-ce qu&#x27;elle a de si bien cette librairie SignalR ? SignalR fournit une couche d&#x27;abstraction au-dessus des WebSocket et des long polling connections pour les développeurs .NET et fonctionne sous IIS",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:2368/"
+    }
+}
+    </script>
+
+    <script type="text/javascript" src="http://localhost:2368/public/ghost-sdk.js?v=e6afc982da"></script>
+<script type="text/javascript">
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "85ce418ba3bc"
+});
+</script>
+    <meta name="generator" content="Ghost 1.21">
+    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="../rss/index.html">
+</head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home"><a href="../">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="../rss/index.rss">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head " style="background-image: url(http://mah1979.qsandbox.com/wp-content/uploads/2011/09/SignalR_awesome.png)">
+    <div class="main-header-background-square"></div>
+    <nav class="main-nav overlay clearfix">
+        <a class="blog-logo" href="../"><img src="../content/images/2018/02/mosquito.png" alt="mymemoryleaks"></a>
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">Live charting avec SignalR</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2011-09-26">26 septembre 2011</time> 
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div class="kg-card-markdown"><p><a href="https://github.com/SignalR">SignalR</a> is awesome ! Oui il va falloir vous habituer à entendre dire que cette librairie est un petit bijou.</p>
+<p><img src="http://mah1979.qsandbox.com/wp-content/uploads/2011/09/SignalR_awesome-300x48.png" alt="tweet signalr"></p>
+<p><strong>Mais qu'est-ce qu'elle a de si bien cette librairie SignalR ?</strong></p>
+<p>SignalR fournit une couche d'abstraction au-dessus des <a href="http://en.wikipedia.org/wiki/WebSocket">WebSocket</a> et des <a href="http://en.wikipedia.org/wiki/Long_polling#Long_polling">long polling connections</a> pour les développeurs .NET et fonctionne sous IIS sans avoir à installer un autre service à côté.</p>
+<p>Jusqu'alors il existait bien des solutions commerciales de ces technos dans l'écosystème .NET mais aucune n'avait vraiment convaincu, souvent par manque d'intégration forte entre le client et le serveur; rendant la communication entre les deux fastidieuse.<br>
+Avec SignalR c'est tout le contraire, le code serveur et le code client ne semble faire qu'un. Les lignes de code glissent du serveur vers le navigateur, sans aucune lourdeur. C'est <strong>SIMPLE</strong>.</p>
+<p><strong>Comme d'hab, rien de mieux qu'un petit bout de code pour démontrer ça.</strong></p>
+<p>Bon, si vous avez lu le titre vous avez une petite idée de ce que l'on va coder...</p>
+<p>Coté composants techniques, évidement SignalR pour la communication client/serveur et <a href="http://www.highcharts.com/">Highchart</a> coté client pour dessiner le chart.</p>
+<p>Après avoir créé un nouveau projet WebForm ou MVC ajoutez le package SignalR via <a href="http://nuget.org/">nuget</a>.<br>
+Intéressons-nous au code javascript. (<em>A noter que le code lié à la configuration du chart à été omis a des fins de clarté.</em>)</p>
+<p>$(function () { var stockExchangeServer = $.connection.stockExchange; stockExchangeServer.drawShareValue = function (id, content) { if (id != this.Id) { return; } // set up the updating of the chart. var series = chart.series[0]; var x = new Date(parseInt(content[0].Date.substr(6))).getTime(), y = content[0].Price; series.addPoint([x, y], true, true); }; $.connection.hub.start(function () { stockExchangeServer.connect(); .done(function (success) { if (success === false) { console.log(":("); } console.log("connected"); }); }); });</p>
+<p>Pour initier la communication avec le serveur, il suffit comme vous pouvez le voir d'utiliser la méthode <code>$.connection.hub.start()</code>;<br>
+On se contente alors de faire appel à la méthode <code>connect</code>; nous implémenterons cette dernière côté serveur.... oui vous avez bien lu, côté serveur.</p>
+<p>Remarquez également la définition de la méthode <code>drawShareValue()</code> qui se charge de dessiner un nouveau point dans le chart, nous ferons appel à elle dans le code serveur.</p>
+<p>Côté serveur, nous allons définir un hub, la classe de base qui abstrait la communication client/serveur dans l'api SignalR.</p>
+<p>public class StockExchange : Hub { private Timer _timer; private double _fowlerPrice = 10.2; private double VaryPrice() { Random rnd = new Random(); _fowlerPrice = _fowlerPrice + (rnd.Next(-1, 2) * rnd.NextDouble()); return _fowlerPrice; } public bool Connect() { // Set unique id for client. Caller.Id = Context.ClientId; _timer = new Timer { Interval = 1000 }; _timer.Elapsed += (sender, e) =&gt; Send( new List<shareprice>(new[] { new SharePrice { Date = DateTime.Now, Price = VaryPrice(), Share = new Share {Name = "Fowler-Corp"} } })); _timer.Start(); return true; } public void Send(IEnumerable<shareprice> sp) { Clients.drawShareValue(Context.ClientId, sp); } }</shareprice></shareprice></p>
+<p>Avez-vous remarqué la méthode Connect()? On y a fait appel à partir du code JS.<br>
+Et l'appel à drawShareValue(), fait bien référence à la méthode que l'on à définit dans le javascript. Enorme, non?</p>
+<p>Tout cela est possible parce que SignalR utilise dans ses fondements le typage <a href="http://en.wikipedia.org/wiki/C_Sharp_4.0#Dynamic_member_lookup">dynamic</a> à laquelle vient s'ajouter une résolution de Propriété/Méthode "simple" par convention, évitant ainsi d'avoir à écrire du code verbeux.</p>
+<p>Au final, voici ce que l'on peut obtenir...</p>
+<p><img src="http://mah1979.qsandbox.com/wp-content/uploads/2011/09/chart_crop-300x118.png" alt="chart"></p>
+<p>Bon ok, l'image ne bouge pas, il faut imaginer qu'un point vient s'ajouter chaque seconde dans le graph 🙂</p>
+<p>Pour ceux qui voudrait jeter un coup d’œil à la solution entière, vous pouvez la récupérer sur <a href="https://github.com/fmichellonet/SignalR.Samples.MVCLiveChart">Github</a></p>
+<p>Avez-vous utilisé d'autres technos/framework pour faciliter les communications "temps réel" entre le serveur et le browser?</p>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../author/fabrice/" style="background-image: url(http://www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&amp;)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../author/fabrice/">Fabrice Michellonet</a></h4>
+
+                    <p>Read <a href="../author/fabrice/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Live%20charting%20avec%20SignalR&amp;url=http://localhost:2368/live-charting-avec-signalr/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/live-charting-avec-signalr/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/live-charting-avec-signalr/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+    </article>
+</main>
+
+<aside class="read-next">
+    <a class="read-next-story " style="background-image: url(http://mah1979.qsandbox.com/wp-content/uploads/2011/10/EF_Table.png)" href="../entity-framework-et-aop/">
+        <section class="post">
+            <h2>Entity Framework et AOP</h2>
+            <p>Cela fait des mois que je repousse la publication d'un post sur l'AOP, car je ne voulais pas vous…</p>
+        </section>
+    </a>
+    <a class="read-next-story prev no-cover" href="../entityframework-patterns-repository-unit-of-work/">
+        <section class="post">
+            <h2>EntityFramework.Patterns : Repository &amp; Unit Of Work</h2>
+            <p>Je vous propose un très rapide post pour faciliter la prise en main des Patterns Repository et Unit Of…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="../">mymemoryleaks</a> © 2018</section>
+            <section class="poweredby">Powered by <a href="http://boo-demo.tenoku.com/">Ghost + Boo</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="http://localhost:2368/assets/js/jquery.fitvids.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="http://localhost:2368/assets/js/index.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="http://localhost:2368/assets/js/prism.js?v=e6afc982da"></script>
+    <script src="https://cdn.jsdelivr.net/mobile-detect.js/1.3.3/mobile-detect.min.js"></script>
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+
+</body>

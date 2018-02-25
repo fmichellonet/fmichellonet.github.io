@@ -1,0 +1,216 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Comment invoquer une méthode dont on connait le nom à l’exécution sur un dynamic?</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:2368/assets/css/screen.css?v=e6afc982da">
+    <link rel="stylesheet" type="text/css" href="http://localhost:2368/assets/css/prism.css?v=e6afc982da">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="amphtml" href="amp/index.html">
+    
+    <meta property="og:site_name" content="mymemoryleaks">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Comment invoquer une méthode dont on connait le nom à l’exécution sur un dynamic?">
+    <meta property="og:description" content="Comment invoquer une méthode dont on connait le nom à l'exécution sur un dynamic? Le mot clé dynamic en C# n'est pas nouveau, il a vu le jour avec C# 4 et pourtant il n’apparaît pas si souvent que ça dans les bouts de code que je fréquente. Dernièrement">
+    <meta property="og:url" content="http://localhost:2368/comment-invoquer-une-methode-dont-on-connait-le-nom-a-lexecution-sur-un-dynamic/">
+    <meta property="article:published_time" content="2015-07-24T12:51:00.000Z">
+    <meta property="article:modified_time" content="2018-02-11T22:54:53.000Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Comment invoquer une méthode dont on connait le nom à l’exécution sur un dynamic?">
+    <meta name="twitter:description" content="Comment invoquer une méthode dont on connait le nom à l'exécution sur un dynamic? Le mot clé dynamic en C# n'est pas nouveau, il a vu le jour avec C# 4 et pourtant il n’apparaît pas si souvent que ça dans les bouts de code que je fréquente. Dernièrement">
+    <meta name="twitter:url" content="http://localhost:2368/comment-invoquer-une-methode-dont-on-connait-le-nom-a-lexecution-sur-un-dynamic/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Fabrice Michellonet">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "mymemoryleaks",
+        "logo": "http://localhost:2368/content/images/2018/02/mosquito.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Fabrice Michellonet",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "http://localhost:2368/author/fabrice/",
+        "sameAs": []
+    },
+    "headline": "Comment invoquer une méthode dont on connait le nom à l’exécution sur un dynamic?",
+    "url": "http://localhost:2368/comment-invoquer-une-methode-dont-on-connait-le-nom-a-lexecution-sur-un-dynamic/",
+    "datePublished": "2015-07-24T12:51:00.000Z",
+    "dateModified": "2018-02-11T22:54:53.000Z",
+    "description": "Comment invoquer une méthode dont on connait le nom à l&#x27;exécution sur un dynamic? Le mot clé dynamic en C# n&#x27;est pas nouveau, il a vu le jour avec C# 4 et pourtant il n’apparaît pas si souvent que ça dans les bouts de code que je fréquente. Dernièrement",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:2368/"
+    }
+}
+    </script>
+
+    <script type="text/javascript" src="http://localhost:2368/public/ghost-sdk.js?v=e6afc982da"></script>
+<script type="text/javascript">
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "85ce418ba3bc"
+});
+</script>
+    <meta name="generator" content="Ghost 1.21">
+    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="../rss/index.html">
+</head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home"><a href="../">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="../rss/index.rss">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <div class="main-header-background-square"></div>
+    <nav class="main-nav  clearfix">
+        <a class="blog-logo" href="../"><img src="../content/images/2018/02/mosquito.png" alt="mymemoryleaks"></a>
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">Comment invoquer une méthode dont on connait le nom à l’exécution sur un dynamic?</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2015-07-24">24 juillet 2015</time> 
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div class="kg-card-markdown"><p>Comment invoquer une méthode dont on connait le nom à l'exécution sur un dynamic?</p>
+<p>Le mot clé dynamic en C# n'est pas nouveau, il a vu le jour avec C# 4 et pourtant il n’apparaît pas si souvent que ça dans les bouts de code que je fréquente.</p>
+<p>Dernièrement je l'ai recroisé en utilisant <a href="http://signalr.net/">SignalR</a>; les hubs qui sont générés sont des objets dynamic.</p>
+<p>Quoi qu'il en soit, dernièrement j'ai eu besoin d'invoquer une méthode dont le nom ne m'était connu qu'à l'exécution.<br>
+Croyez-moi, j'y ai passé un petit moment avant d'y arriver... Cela révèle vraisemblablement ma grande ignorance 🙂</p>
+<p>Ce blog post prendra donc la forme d'un post-it qui me fera gagner du temps la prochaine fois que je me frotterai a cette bête-là. Si pour vous les classes <a href="https://msdn.microsoft.com/fr-fr/library/microsoft.csharp.runtimebinder(v=vs.110).aspx">Binder</a> et <a href="https://msdn.microsoft.com/en-us/library/system.runtime.compilerservices.callsite(v=vs.110).aspx">CallSite</a> n'ont plus de secret ce blog post vous semblera vraisemblablement bien terne.</p>
+<p>Posons le problème, on me donne un objet dynamic auquel une méthode est ajoutée à l'exécution</p>
+<p>private string sentence = "Hello world"; public dynamic BuildObj() { dynamic myDynObj = new ExpandoObject(); myDynObj.SayHello = new Func<string>(() =&gt; sentence); return myDynObj; }</string></p>
+<p>Si j'avais connaissance de la méthode lors de la compilation je pourrais l'appeler ainsi :</p>
+<p>[Test] public void CallDirectlyMethod() { dynamic myObj = BuildObj(); var ret = myObj.SayHello(); Assert.That(ret, Is.EqualTo(sentence)); }</p>
+<p>Malheureusement la signature de la méthode ne m'est connue qu'à l'exécution.<br>
+Ok, premier réflexe je sors l'attirail de la reflection.... mais les résultats restent catastrophiques :</p>
+<p>[Test] public void CallMethodWithReflectionFails() { dynamic myObj = BuildObj(); Type t = myObj.GetType(); var method = t.GetMethod("SayHello", BindingFlags.Default | BindingFlags.Instance | BindingFlags.InvokeMethod | BindingFlags.NonPublic); Assert.That(method, Is.Null); }</p>
+<p>Quels que soient les bindings flags, impossible de trouver la méthode... FAIL!!</p>
+<p>Voici, donc la combinaison magique, un savant mélange de Runtime.Binder et CallSite...</p>
+<p>[Test] public void CallMethodWithCallSite() { dynamic myObj = BuildObj(); var callSiteBinder = Binder.InvokeMember(CSharpBinderFlags.None, "SayHello", Enumerable.Empty<type>(), myObj.GetType(), new [] { CSharpArgumentInfo.Create(CSharpArgumentInfoFlags.None, null) }); var callSite = CallSite&lt;Func&lt;CallSite, object, object&gt;&gt;.Create(callSiteBinder); string ret = callSite.Target(callSite, myObj); Assert.That(ret, Is.EqualTo(sentence)); }</type></p>
+<p>Ok, essayons de décrypter un peu ce code qui semble un peu alambiqué.<br>
+Binder.InvokeMember va nous permettre à l'exécution de pointer la bonne méthode un peu comme le ferait typeof(myObj).GetMethod()<br>
+Le premier paramètre permet de spécifier la manière dont est traité le type de retour. Dans le cas d'une Action nous aurions pu utiliser CSharpBinderFlags.ResultDiscarded. Dans notre cas, une Func, CSharpBinderFlags.None fonctionne bien.</p>
+<p>puis viens en seconde position, évidement le nom de la méthode a appelé, passée sous forme de chaine.</p>
+<p>En troisième position, il conviendra de fournir la liste des arguments de types à nécessaire dans le cas d'une méthode générique.</p>
+<p>Viens ensuite le type sur lequel effectuer l'invocation, ce qui permet de pointer une surcharge.</p>
+<p>Et finalement les informations sur les paramètres attendus et le type de retour (le premier élément du tableau);</p>
+<p>La création du CallSite&lt;Func&lt;CallSite, object, object&gt;&gt; permet d'arrêter la signature du delegate que l'on cherche à appeler. Notez, que le dernier argument générique "object" devrait etre "string", car il représente le type de retour de la func... mais pour une raison qui m'échappe l'utilisation de string comme type de retour entraîne une erreur au runtime, alors que le retour de la func est bien affecté à une variable string à la ligne du dessous... il faut bien garder un peu de magie 🙂</p>
+<p>Ok, évidemment il ne nous reste plus qu'à effectuer l'invocation, ce qui est réalisé via le code callSite.Target(callSite, myObj);</p>
+<p>J'espère que ce post évitera quelques cheveux blancs a ceux qui se trouveront confronté au problème.</p>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../author/fabrice/" style="background-image: url(http://www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&amp;)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../author/fabrice/">Fabrice Michellonet</a></h4>
+
+                    <p>Read <a href="../author/fabrice/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Comment%20invoquer%20une%20m%C3%A9thode%20dont%20on%20connait%20le%20nom%20%C3%A0%20l%E2%80%99ex%C3%A9cution%20sur%20un%20dynamic%3F&amp;url=http://localhost:2368/comment-invoquer-une-methode-dont-on-connait-le-nom-a-lexecution-sur-un-dynamic/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/comment-invoquer-une-methode-dont-on-connait-le-nom-a-lexecution-sur-un-dynamic/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/comment-invoquer-une-methode-dont-on-connait-le-nom-a-lexecution-sur-un-dynamic/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+    </article>
+</main>
+
+<aside class="read-next">
+    <a class="read-next-story no-cover" href="../prolific-usb-to-ttl-et-windows-10/">
+        <section class="post">
+            <h2>Prolific usb to ttl et windows 10</h2>
+            <p>Dernièrement j'ai ressorti ma BeableBone Black histoire de faire une peu de veille techno. J'vous raconterai un de ces…</p>
+        </section>
+    </a>
+    <a class="read-next-story prev " style="background-image: url(http://mah1979.qsandbox.com/wp-content/uploads/2015/06/bbb_overview.png)" href="../beaglebone-black-du-carton-a-mono/">
+        <section class="post">
+            <h2>BeagleBone Black du carton à Mono</h2>
+            <p>L’IOT, on en parle partout, de plus en plus ; évidemment l’univers Microsoft n’est pas en retrait…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="../">mymemoryleaks</a> © 2018</section>
+            <section class="poweredby">Powered by <a href="http://boo-demo.tenoku.com/">Ghost + Boo</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="http://localhost:2368/assets/js/jquery.fitvids.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="http://localhost:2368/assets/js/index.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="http://localhost:2368/assets/js/prism.js?v=e6afc982da"></script>
+    <script src="https://cdn.jsdelivr.net/mobile-detect.js/1.3.3/mobile-detect.min.js"></script>
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+
+</body>

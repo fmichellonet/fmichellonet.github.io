@@ -1,0 +1,218 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Série Elasticsearch</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:2368/assets/css/screen.css?v=e6afc982da">
+    <link rel="stylesheet" type="text/css" href="http://localhost:2368/assets/css/prism.css?v=e6afc982da">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="amphtml" href="amp/index.html">
+    
+    <meta property="og:site_name" content="mymemoryleaks">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Série Elasticsearch">
+    <meta property="og:description" content="Ce post fait office de sommaire à toute une série d’articles que j’ai bon espoir d’écrire sur cette toute fin d’année 2014 et le début 2015. Mais pourquoi parler d’Elasticsearch, moi qui ne traite que de technos Microsoft sur ce blog? Cela part du constat">
+    <meta property="og:url" content="http://localhost:2368/serie-elasticsearch/">
+    <meta property="article:published_time" content="2014-12-23T09:37:00.000Z">
+    <meta property="article:modified_time" content="2018-02-11T22:55:15.000Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Série Elasticsearch">
+    <meta name="twitter:description" content="Ce post fait office de sommaire à toute une série d’articles que j’ai bon espoir d’écrire sur cette toute fin d’année 2014 et le début 2015. Mais pourquoi parler d’Elasticsearch, moi qui ne traite que de technos Microsoft sur ce blog? Cela part du constat">
+    <meta name="twitter:url" content="http://localhost:2368/serie-elasticsearch/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Fabrice Michellonet">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "mymemoryleaks",
+        "logo": "http://localhost:2368/content/images/2018/02/mosquito.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Fabrice Michellonet",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "http://localhost:2368/author/fabrice/",
+        "sameAs": []
+    },
+    "headline": "Série Elasticsearch",
+    "url": "http://localhost:2368/serie-elasticsearch/",
+    "datePublished": "2014-12-23T09:37:00.000Z",
+    "dateModified": "2018-02-11T22:55:15.000Z",
+    "description": "Ce post fait office de sommaire à toute une série d’articles que j’ai bon espoir d’écrire sur cette toute fin d’année 2014 et le début 2015. Mais pourquoi parler d’Elasticsearch, moi qui ne traite que de technos Microsoft sur ce blog? Cela part du constat",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:2368/"
+    }
+}
+    </script>
+
+    <script type="text/javascript" src="http://localhost:2368/public/ghost-sdk.js?v=e6afc982da"></script>
+<script type="text/javascript">
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "85ce418ba3bc"
+});
+</script>
+    <meta name="generator" content="Ghost 1.21">
+    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="../rss/index.html">
+</head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home"><a href="../">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="../rss/index.rss">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <div class="main-header-background-square"></div>
+    <nav class="main-nav  clearfix">
+        <a class="blog-logo" href="../"><img src="../content/images/2018/02/mosquito.png" alt="mymemoryleaks"></a>
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">Série Elasticsearch</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-12-23">23 décembre 2014</time> 
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div class="kg-card-markdown"><p>Ce post fait office de sommaire à toute une série d’articles que j’ai bon espoir d’écrire sur cette toute fin d’année 2014 et le début 2015.</p>
+<p>Mais pourquoi parler d’Elasticsearch, moi qui ne traite que de technos Microsoft sur ce blog?</p>
+<p>Cela part du constat qu’a mon humble avis, la stack BI Microsoft pèche sur deux points :</p>
+<ul>
+<li>Premièrement, il n’existe pas d’outils permettant une exploration décente des données non encore nettoyées, rangées, retraitées etc.… d’ailleurs, plus la volumétrie est importante et plus ce point est difficilement adressable.<br>
+(i.e : sur de petites volumétries, j’en entends déjà me dire qu’Excel peut avoir ce rôle, avec un enchevêtrement de tableaux croisés dynamiques etc… )</li>
+<li>L’outillage de reporting est assez pauvre et n’est vraiment pas penser pour être à destination des fonctionnels.<br>
+Je m’explique Reporting Services fait le job lorsqu’il s’agit de réaliser un document pro format, mais nécessite des compétences techniques que nos fonctionnels ne disposent pas ; et c’est bien normal.<br>
+Vous aurez probablement également entendu parler de la version « User Friendly » de « Reporting Services », j’ai nommé Report Builder. La tentative est louable, mais le résultat n’est pas la à hauteur.<br>
+Encore une fois dans les faits, bien peut de fonctionnels ont les connaissances, l’envie et le temps de l’utiliser.</li>
+</ul>
+<p>C’est avec ces regrets dans l’âme, que je me retrouve lors de la conférence <a href="http://ncraft.io/">ncraft 2014</a> à assister à une superbe session d’<a href="http://code972.com/blog">Itamar Syn-Hershko</a> consacrée au couple Elasticsearch et Kibana.</p>
+<p>Je vous passe les détails de <a href="https://www.youtube.com/watch?v=s_1IiYQyB20">cette présentation</a>, mais effet whaou garanti vers la fin de la session lorsque Kibana rentre en scène.</p>
+<p>Certain doivent se dire qu’il m’a fallu presque 1 an pour commencer à sortir un article, quelle productivité !</p>
+<p>Pour être tout à fait franc, il y a 1 an il manquait encore quelques features indispensable a mon sens pour que Kibana puisse jouer un rôle aussi important que ce pour quoi il à été conçu. L’exemple le plus probant était l’impossibilité de réaliser un « distinc count » ; un « show stopper » pour qui compte faire un peu de BI sérieusement.</p>
+<p>Voila pour le petit historique et mes états d’âmes ; Kibana est arrivé à maturité selon moi dans ses cas d’utilisation standard et cela mérité bien qu’on s’y intéresse ainsi qu’a l’écosystème qui gravite autour.</p>
+<p>Voici enfin l’heure du menu :</p>
+<ul>
+<li><a href="http://mah1979.qsandbox.com/kibana-explorez-vos-donnees/">1ere Partie : Explorez vos données avec Kibana</a></li>
+<li>2eme Partie : Chargez vos données, les yeux fermés avec Logstash</li>
+<li>3eme Partie : Introduction à Elasticsearch</li>
+<li>4eme Partie : Changement de mapping et Reindexation</li>
+<li>5eme Partie : Reporting avancé &amp; Dashbording (Kibana)</li>
+<li>6eme Partie : Transformation de données (Logstash)</li>
+</ul>
+<p>Il y’a de forte chance que ce sommaire soit agrémenté d’autres articles dans le futur ; le domaine étant extrêmement large.</p>
+<p>Dernier point, l’ordre des premiers articles peut vous paraître étrange ; j’ai voulu partir de ce qui apportera le plus de valeur ajouté aux fonctionnels pour finir par ce qui requiers le plus de compétences techniques.</p>
+<p>Il ne me reste qu'a vous souhaiter une bonne lecture, et n'hésitez pas a me laisser vos commentaires.</p>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../author/fabrice/" style="background-image: url(http://www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&amp;)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../author/fabrice/">Fabrice Michellonet</a></h4>
+
+                    <p>Read <a href="../author/fabrice/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=S%C3%A9rie%20Elasticsearch&amp;url=http://localhost:2368/serie-elasticsearch/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/serie-elasticsearch/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/serie-elasticsearch/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+    </article>
+</main>
+
+<aside class="read-next">
+    <a class="read-next-story " style="background-image: url(http://mah1979.qsandbox.com/wp-content/uploads/2014/12/kibana1.png)" href="../kibana-explorez-vos-donnees/">
+        <section class="post">
+            <h2>Kibana : Explorez vos données.</h2>
+            <p>Cet article fait partie d’une sérié dédiée à Elasticsearch, reportez vous à l’article sommaire pour accéder facilement…</p>
+        </section>
+    </a>
+    <a class="read-next-story prev " style="background-image: url(http://mah1979.qsandbox.com/wp-content/uploads/2014/04/config_couchbase.png)" href="../utiliser-couchbase-comme-serveur-de-cache/">
+        <section class="post">
+            <h2>Utiliser Couchbase comme serveur de cache</h2>
+            <p>Dernièrement, je vous présentais une façon simple d'utiliser le cache dans vos applications .NET Cependant cette solution possède plusieurs…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="../">mymemoryleaks</a> © 2018</section>
+            <section class="poweredby">Powered by <a href="http://boo-demo.tenoku.com/">Ghost + Boo</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="http://localhost:2368/assets/js/jquery.fitvids.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="http://localhost:2368/assets/js/index.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="http://localhost:2368/assets/js/prism.js?v=e6afc982da"></script>
+    <script src="https://cdn.jsdelivr.net/mobile-detect.js/1.3.3/mobile-detect.min.js"></script>
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+
+</body>

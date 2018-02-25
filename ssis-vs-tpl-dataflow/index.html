@@ -1,0 +1,226 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>SSIS vs TPL.Dataflow</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:2368/assets/css/screen.css?v=e6afc982da">
+    <link rel="stylesheet" type="text/css" href="http://localhost:2368/assets/css/prism.css?v=e6afc982da">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="amphtml" href="amp/index.html">
+    
+    <meta property="og:site_name" content="mymemoryleaks">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="SSIS vs TPL.Dataflow">
+    <meta property="og:description" content="Il y a quelques jours je tweetais de joie, après être tombé sur la msdn concernant TPL.Dataflow L'API propose un système de pipeline que l'on peut aisément imaginer utiliser dans un process d'ETL. Ni une ni deux, je m'imagine délaisser SSII lors de mes prochaines alims de base de">
+    <meta property="og:url" content="http://localhost:2368/ssis-vs-tpl-dataflow/">
+    <meta property="og:image" content="http://mah1979.qsandbox.com/wp-content/uploads/2013/10/djoub.png">
+    <meta property="article:published_time" content="2013-10-31T17:18:00.000Z">
+    <meta property="article:modified_time" content="2018-02-11T22:55:10.000Z">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SSIS vs TPL.Dataflow">
+    <meta name="twitter:description" content="Il y a quelques jours je tweetais de joie, après être tombé sur la msdn concernant TPL.Dataflow L'API propose un système de pipeline que l'on peut aisément imaginer utiliser dans un process d'ETL. Ni une ni deux, je m'imagine délaisser SSII lors de mes prochaines alims de base de">
+    <meta name="twitter:url" content="http://localhost:2368/ssis-vs-tpl-dataflow/">
+    <meta name="twitter:image" content="http://mah1979.qsandbox.com/wp-content/uploads/2013/10/djoub.png">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Fabrice Michellonet">
+    <meta property="og:image:width" content="522">
+    <meta property="og:image:height" content="93">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "mymemoryleaks",
+        "logo": "http://localhost:2368/content/images/2018/02/mosquito.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Fabrice Michellonet",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "http://localhost:2368/author/fabrice/",
+        "sameAs": []
+    },
+    "headline": "SSIS vs TPL.Dataflow",
+    "url": "http://localhost:2368/ssis-vs-tpl-dataflow/",
+    "datePublished": "2013-10-31T17:18:00.000Z",
+    "dateModified": "2018-02-11T22:55:10.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "http://mah1979.qsandbox.com/wp-content/uploads/2013/10/djoub.png",
+        "width": 522,
+        "height": 93
+    },
+    "description": "Il y a quelques jours je tweetais de joie, après être tombé sur la msdn concernant TPL.Dataflow L&#x27;API propose un système de pipeline que l&#x27;on peut aisément imaginer utiliser dans un process d&#x27;ETL. Ni une ni deux, je m&#x27;imagine délaisser SSII lors de mes prochaines alims de base de",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:2368/"
+    }
+}
+    </script>
+
+    <script type="text/javascript" src="http://localhost:2368/public/ghost-sdk.js?v=e6afc982da"></script>
+<script type="text/javascript">
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "85ce418ba3bc"
+});
+</script>
+    <meta name="generator" content="Ghost 1.21">
+    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="../rss/index.html">
+</head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home"><a href="../">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="../rss/index.rss">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head " style="background-image: url(http://mah1979.qsandbox.com/wp-content/uploads/2013/10/djoub.png)">
+    <div class="main-header-background-square"></div>
+    <nav class="main-nav overlay clearfix">
+        <a class="blog-logo" href="../"><img src="../content/images/2018/02/mosquito.png" alt="mymemoryleaks"></a>
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">SSIS vs TPL.Dataflow</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2013-10-31">31 octobre 2013</time> 
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div class="kg-card-markdown"><p>Il y a quelques jours je tweetais de joie, après être tombé sur la msdn concernant <a href="http://msdn.microsoft.com/en-us/library/hh228603(v=vs.110).aspx">TPL.Dataflow</a><br>
+L'API propose un système de pipeline que l'on peut aisément imaginer utiliser dans un process d'ETL.</p>
+<p>Ni une ni deux, je m'imagine délaisser SSII lors de mes prochaines alims de base de données et enfin pouvoir unit tester mon ETL.<br>
+L'accueil fait par mes collègues purement BI fut plutôt frileux... n'est ce pas David 🙂</p>
+<p><img src="http://mah1979.qsandbox.com/wp-content/uploads/2013/10/djoub-300x53.png" alt=""></p>
+<p>Au rayon des réponses constructives, <a href="http://fbro.wordpress.com/">Fred Brossard</a>, me fait revenir très vite sur terre, en demandant à voir les perfs du framework.</p>
+<p>C'est ce que je me propose de présenter ici avec un exemple simple.<br>
+L'idée est d'importer le snapshot de <a href="http://meta.stackoverflow.com/questions/198915/is-there-a-direct-download-link-with-a-raw-data-dump-of-stack-overflow-not-a-t">septembre des posts de stackoverflow</a>; d'abord avec notre bon vieux SSIS puis avec TPL.Dataflow.</p>
+<p>En entrée on a donc un bon gros fichier XML de 170MO correspondant aux nouveaux posts du mois.</p>
+<p>Commençons par SSIS, rien de sorcier, une XML source qui se déverse directement dans une SQL Destination pointant vers ma jolie table.</p>
+<p><img src="http://mah1979.qsandbox.com/wp-content/uploads/2013/10/ssis-300x264.png" alt=""></p>
+<p>Ce qui nous donne env. 150K lignes intégrées en env. 20 sec</p>
+<p><img src="http://mah1979.qsandbox.com/wp-content/uploads/2013/10/ssis_executed-300x266.png" alt=""><br>
+<img src="http://mah1979.qsandbox.com/wp-content/uploads/2013/10/ssis_elapsed-300x36.png" alt=""></p>
+<p>Ok, passons à la version C#. Ce que je vous livre ici est une version non optimisée et naive d'un algo d'import avec TPL.Dataflow.</p>
+<p>Commencons par créer nos taches :</p>
+<p>// XML datasource var inputBlock = new BufferBlock<xdocument>(); // Split xml, one for each <row> element var xDocumentToXmlRow = new TransformManyBlock&lt;XDocument, XElement&gt;( x =&gt; x.Root.DescendantNodes().OfType<xelement>()); // Convert xml <row> element to a Post object. var xmlRowToObjectBlock = new TransformBlock&lt;XElement, Post&gt;( x =&gt; x.FromXElement<post>(), new ExecutionDataflowBlockOptions {MaxDegreeOfParallelism = DataflowBlockOptions.Unbounded}); // a buffer of 10000 elements var batch = new BatchBlock<post>(10000); // SQL destination, using bulk insert. var sqlBulk = new ActionBlock&lt;Post[]&gt;(x =&gt; { using (SqlBulkCopy sbc = new SqlBulkCopy("Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=Stackoverflow;Data Source=(local)", SqlBulkCopyOptions.TableLock)) { sbc.DestinationTableName = "Posts"; // Number of records to be processed in one go sbc.BatchSize = 10000; // commit to the server sbc.WriteToServer(x.ToList().ToDataTable()); sbc.Close(); } }, new ExecutionDataflowBlockOptions { MaxDegreeOfParallelism = DataflowBlockOptions.Unbounded });</post></post></row></xelement></row></xdocument></p>
+<p>Il nous faut maintenant ordonnancer ces taches, comme nous le faisons dans SSIS en reliant les taches entre elles.</p>
+<p>using (inputBlock.LinkTo(xDocumentToXmlRow)) using (xDocumentToXmlRow.LinkTo(xmlRowToObjectBlock)) using (xmlRowToObjectBlock.LinkTo(batch)) using (batch.LinkTo(sqlBulk)) { inputBlock.Completion.ContinueWith(t =&gt; xDocumentToXmlRow.Complete()); xDocumentToXmlRow.Completion.ContinueWith(t =&gt; xmlRowToObjectBlock.Complete()); xmlRowToObjectBlock.Completion.ContinueWith(t =&gt; batch.Complete()); batch.Completion.ContinueWith(t =&gt; sqlBulk.Complete()); var inputfile = XDocument.Load(@"C:!PoCStackoverflowSourcefilesPosts.xml"); inputBlock.Post(inputfile); inputBlock.Complete(); sqlBulk.Completion.Wait(); }</p>
+<p>Aller, sans plus attendre, voici le résultat de l’exécution :</p>
+<p><img src="http://mah1979.qsandbox.com/wp-content/uploads/2013/10/TPL.Dataflow_executed-300x83.png" alt=""></p>
+<p>Je suis sur que vous êtes aussi étonnés que moi... TPL est plus rapide (de quelques 15%) par rapport à SSIS dans ce cas simple.<br>
+Pour être tout à fait franc, je ne m'y attendais pas du tout. Je pensais qu'il y aurait vraisemblablement une 20 aine de % d'écart, mais en faveur de SSIS.</p>
+<p>Bien que cet exemple simplissime ne puisse pas permettre de généraliser, TPL.Dataflow semble apporter des performances suffisantes, si non meilleures qu'SSIS;<br>
+mais surtout, cet API va nous permettre d’écrire des tests unitaires sur nos jobs d'intégration. C'est ce que je vous présenterai dans un prochain article.</p>
+<p>Et vous, avez vous déjà utilisé TPL.Dataflow? Pourriez-vous l'utiliser dans vos projets? A la lumière de ce post, que pensez vous de ces performances?</p>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../author/fabrice/" style="background-image: url(http://www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&amp;)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../author/fabrice/">Fabrice Michellonet</a></h4>
+
+                    <p>Read <a href="../author/fabrice/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=SSIS%20vs%20TPL.Dataflow&amp;url=http://localhost:2368/ssis-vs-tpl-dataflow/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/ssis-vs-tpl-dataflow/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/ssis-vs-tpl-dataflow/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+    </article>
+</main>
+
+<aside class="read-next">
+    <a class="read-next-story no-cover" href="../entityframework-patterns-0-8-est-compatible-ef-6/">
+        <section class="post">
+            <h2>EntityFramework.Patterns 0.8 est compatible EF 6</h2>
+            <p>Ça faisait longtemps que je n'avais pas remis les mains dans ce projet, plus d'un an pour être exact.…</p>
+        </section>
+    </a>
+    <a class="read-next-story prev no-cover" href="../entity-framework-cache/">
+        <section class="post">
+            <h2>Entity Framework Cache</h2>
+            <p>Malgré la version 5 d'Entity Framework sortie il y a peu de temps, beaucoup déplorent l’absence d’un…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="../">mymemoryleaks</a> © 2018</section>
+            <section class="poweredby">Powered by <a href="http://boo-demo.tenoku.com/">Ghost + Boo</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="http://localhost:2368/assets/js/jquery.fitvids.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="http://localhost:2368/assets/js/index.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="http://localhost:2368/assets/js/prism.js?v=e6afc982da"></script>
+    <script src="https://cdn.jsdelivr.net/mobile-detect.js/1.3.3/mobile-detect.min.js"></script>
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+
+</body>

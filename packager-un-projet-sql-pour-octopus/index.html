@@ -1,0 +1,225 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Packager un projet SQL pour Octopus</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:2368/assets/css/screen.css?v=e6afc982da">
+    <link rel="stylesheet" type="text/css" href="http://localhost:2368/assets/css/prism.css?v=e6afc982da">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="amphtml" href="amp/index.html">
+    
+    <meta property="og:site_name" content="mymemoryleaks">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Packager un projet SQL pour Octopus">
+    <meta property="og:description" content="Que ce soit manuellement ou de manière automatique, lorsque l'on parle de déploiement il va nous falloir définir un package de déploiement. Dans l'univers Octopus, les packages de déploiement sont des fichiers avec une extension .nupkg. Voyons comment en créer un pour un projet de Base de données. Ajouter une">
+    <meta property="og:url" content="http://localhost:2368/packager-un-projet-sql-pour-octopus/">
+    <meta property="article:published_time" content="2016-09-01T20:07:00.000Z">
+    <meta property="article:modified_time" content="2018-02-11T22:54:52.000Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Packager un projet SQL pour Octopus">
+    <meta name="twitter:description" content="Que ce soit manuellement ou de manière automatique, lorsque l'on parle de déploiement il va nous falloir définir un package de déploiement. Dans l'univers Octopus, les packages de déploiement sont des fichiers avec une extension .nupkg. Voyons comment en créer un pour un projet de Base de données. Ajouter une">
+    <meta name="twitter:url" content="http://localhost:2368/packager-un-projet-sql-pour-octopus/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Fabrice Michellonet">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "mymemoryleaks",
+        "logo": "http://localhost:2368/content/images/2018/02/mosquito.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Fabrice Michellonet",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "http://localhost:2368/author/fabrice/",
+        "sameAs": []
+    },
+    "headline": "Packager un projet SQL pour Octopus",
+    "url": "http://localhost:2368/packager-un-projet-sql-pour-octopus/",
+    "datePublished": "2016-09-01T20:07:00.000Z",
+    "dateModified": "2018-02-11T22:54:52.000Z",
+    "description": "Que ce soit manuellement ou de manière automatique, lorsque l&#x27;on parle de déploiement il va nous falloir définir un package de déploiement. Dans l&#x27;univers Octopus, les packages de déploiement sont des fichiers avec une extension .nupkg. Voyons comment en créer un pour un projet de Base de données. Ajouter une",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:2368/"
+    }
+}
+    </script>
+
+    <script type="text/javascript" src="http://localhost:2368/public/ghost-sdk.js?v=e6afc982da"></script>
+<script type="text/javascript">
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "85ce418ba3bc"
+});
+</script>
+    <meta name="generator" content="Ghost 1.21">
+    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="../rss/index.html">
+</head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home"><a href="../">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="../rss/index.rss">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <div class="main-header-background-square"></div>
+    <nav class="main-nav  clearfix">
+        <a class="blog-logo" href="../"><img src="../content/images/2018/02/mosquito.png" alt="mymemoryleaks"></a>
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">Packager un projet SQL pour Octopus</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2016-09-01">01 septembre 2016</time> 
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div class="kg-card-markdown"><p>Que ce soit manuellement ou de manière automatique, lorsque l'on parle de déploiement il va nous falloir définir un package de déploiement.</p>
+<p>Dans l'univers Octopus, les packages de déploiement sont des fichiers avec une extension .nupkg. Voyons comment en créer un pour un projet de Base de données.</p>
+<h2 id="ajouterunedpendanceversoctopack">Ajouter une dépendance vers Octopack</h2>
+<p><a href="https://github.com/OctopusDeploy/OctoPack">Octopack</a> est l’utilitaire que nous allons utiliser pour générer ce package de déploiement. Démystifions le terme, octopack produit un fichier qui n’est autre qu’un zip, contenant les fichiers à déployer ainsi qu’un ensemble de métadonnées et potentiellement des scripts powershell.<br>
+Bref, rien de bien extraordinaire.</p>
+<p>Pour l’installer dans notre projet de base de données, nous allons utiliser Nuget, qui est un gestionnaire de dépendances très performant et bien connu des développeurs. Cependant il n’est pas facilement accessible lorsqu’on travailler sur un projet SQL/SSIS/SSRS/SSAS.</p>
+<p>Pour tromper Visual Studio nous allons commencer par ajouter un projet C# de type console pour faire simple</p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=0B3FYDprTEqfhX2MtUFgtaWkzSnc" alt=""></p>
+<p>Ajoutons sur ce projet C# une dépendance vers Octopack.</p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=0B3FYDprTEqfhWW5GRURBWXZOaGc" alt=""></p>
+<p>Dans la nouvelle fenêtre on cherche le package Octopack, et on l’installe.</p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=0B3FYDprTEqfhYTBIVkZQenpZWkU" alt=""></p>
+<p>Après avoir acquitté la fenêtre de preview d’install, la fenêtre «Output» de visual Studio devrait vous confirmer que l’installation s’est bien passée.</p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=0B3FYDprTEqfhNVVFYnBwZEs1bmc" alt=""></p>
+<p>Il aurait été formidable de pouvoir l’installer directement dans notre projet de base, mais nous allons devoir transpirer un peu plus pour arriver à nos fins.<br>
+Ready ?? Ouvrons le fichier csproj de l’application console et copions la portion de msbuild qui correspond à Octopack</p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=0B3FYDprTEqfhT0RybERZZi1hWnc" alt=""></p>
+<p>Puis, copions la discrètement dans notre fichier sqlproj, de la même manière à la fin de celui-ci.<br>
+Un petit rebuild pour vérifier que tout fonctionne toujours bien… et TADAM y’a toujours pas de package de déploiement généré.</p>
+<h2 id="crerlepackage">Créer le package</h2>
+<p>Bon si vous avez été un peu curieux, vous aurez remarqué que la portion de msbuild que l’on a copiée a pour but d’importer un autre fichier msbuild (qui se trouve dans le répertoire packagesOctoPack.3.4.1toolsOctoPack.targets)</p>
+<p>En baragouinant un peu le msbuild, on comprend assez vite que la variable <code>RunOctoPack</code> est initialisée à <code>false et c’est elle qui déclenche ou non la génération du package.</code></p>
+<p>Alors évidemment, une solution possible est de modifier cette variable à true. Néanmoins cela induit qu’un package de déploiement sera créé a chaque build du projet. Ce n’est vraisemblablement pas ce que vous souhaitez.</p>
+<p>Je vous propose plutôt d’ouvrir une console DOS et une fois dans le répertoire du projet, tapez la commande suivante :</p>
+<p>msbuild ContinuousBI.Sql.sqlproj /t:Build /p:RunOctoPack=true</p>
+<p>Si tout s’est bien passé vous devriez avoir une sortie similaire a celle-ci :</p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=0B3FYDprTEqfhVUh0aGctS2RJb0k" alt=""></p>
+<p>Cette fois ci, si vous jetez un œil dans le sous-dossier obj/octopacked de votre projet vous y découvrirez un fichier .nupkg qui est le package de déploiement</p>
+<h2 id="aquoiressemblemonpackage">A quoi ressemble mon package ?</h2>
+<p>Pour aller un peu plus loin nous pouvons jeter un œil à ce qui a été produit pour nous par Octopack.<br>
+Je vous propose d’utiliser <a href="https://npe.codeplex.com/downloads/get/clickOnce/NuGetPackageExplorer.application">nuget package explorer</a><br>
+Ouvrez le et glissez déposez le fichier .nupkg, vous devriez obtenir un résultat semblable à celui-ci.</p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=0B3FYDprTEqfhTTFubGpDVU9wa3M" alt=""></p>
+<p>C’est confirmé, le dacpac issu de la compilation à bien été reconnu ; il est embarqué dans package de déploiement.</p>
+<p>Nous verrons dans le prochain post comment le déployer avec Octopus.</p>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../author/fabrice/" style="background-image: url(http://www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&amp;)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../author/fabrice/">Fabrice Michellonet</a></h4>
+
+                    <p>Read <a href="../author/fabrice/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Packager%20un%20projet%20SQL%20pour%20Octopus&amp;url=http://localhost:2368/packager-un-projet-sql-pour-octopus/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/packager-un-projet-sql-pour-octopus/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/packager-un-projet-sql-pour-octopus/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+    </article>
+</main>
+
+<aside class="read-next">
+    <a class="read-next-story no-cover" href="../odata-ngtable-un-duo-de-choc/">
+        <section class="post">
+            <h2>OData &amp; ngTable : un duo de choc</h2>
+            <p>Dernièrement, j’ai pas mal fait joujou avec OData. C’est quand même super plaisant de pouvoir requêter une…</p>
+        </section>
+    </a>
+    <a class="read-next-story prev no-cover" href="../prolific-usb-to-ttl-et-windows-10/">
+        <section class="post">
+            <h2>Prolific usb to ttl et windows 10</h2>
+            <p>Dernièrement j'ai ressorti ma BeableBone Black histoire de faire une peu de veille techno. J'vous raconterai un de ces…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="../">mymemoryleaks</a> © 2018</section>
+            <section class="poweredby">Powered by <a href="http://boo-demo.tenoku.com/">Ghost + Boo</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="http://localhost:2368/assets/js/jquery.fitvids.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="http://localhost:2368/assets/js/index.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="http://localhost:2368/assets/js/prism.js?v=e6afc982da"></script>
+    <script src="https://cdn.jsdelivr.net/mobile-detect.js/1.3.3/mobile-detect.min.js"></script>
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+
+</body>
