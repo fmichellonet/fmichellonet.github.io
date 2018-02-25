@@ -1,0 +1,37 @@
+﻿.modal-danger .modal-header button {
+    color: #fff;
+}
+
+.modal-danger .modal-body  {
+    background-color: #fff !important;
+    color: #333 !important;
+}
+
+.modal-danger .modal-footer {
+    background-color: #fff !important;
+    color: #333 !important;
+    border-top: 1px solid #e5e5e5;
+}
+
+.modal-danger .modal-footer .btn {
+    color: #444;
+    border-color: #ddd;
+}
+
+.file-wrapper {
+    display: inline-block;
+    text-align: center;
+}
+
+.file-wrapper .btn.btn-app {
+    padding: 6px 12px;
+}
+
+.file-wrapper div.btn.btn-box-tool {
+    display: inline;
+    font-size: 20px;
+}
+
+.icheckbox_flat-red {
+    margin-top: 5px !important;
+}

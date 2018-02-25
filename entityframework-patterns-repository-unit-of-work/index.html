@@ -1,4 +1,5 @@
-
+﻿<!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,17 +9,17 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="shortcut icon" href="..\favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="http://localhost:2368/assets/css/screen.css?v=e6afc982da">
-    <link rel="stylesheet" type="text/css" href="http://localhost:2368/assets/css/prism.css?v=e6afc982da">
+    <link rel="stylesheet" type="text/css" href="..\assets\css\screen.css?v=e6afc982da">
+    <link rel="stylesheet" type="text/css" href="..\assets\css\prism.css?v=e6afc982da">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
 
-    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="..\favicon.ico" type="image/x-icon">
     <link rel="canonical" href="index.html">
     <meta name="referrer" content="no-referrer-when-downgrade">
-    <link rel="amphtml" href="http://localhost:2368/entityframework-patterns-repository-unit-of-work/amp/">
+    <link rel="amphtml" href="amp\index.html">
     
     <meta property="og:site_name" content="mymemoryleaks">
     <meta property="og:type" content="article">
@@ -33,6 +34,7 @@
     <meta name="twitter:url" content="http://localhost:2368/entityframework-patterns-repository-unit-of-work/">
     <meta name="twitter:label1" content="Written by">
     <meta name="twitter:data1" content="Fabrice Michellonet">
+    <meta name="twitter:site" content="@MyMemoryLeaks">
     
     <script type="application/ld+json">
 {
@@ -67,7 +69,7 @@
 }
     </script>
 
-    <script type="text/javascript" src="http://localhost:2368/public/ghost-sdk.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\public\ghost-sdk.js?v=e6afc982da"></script>
 <script type="text/javascript">
 ghost.init({
 	clientId: "ghost-frontend",
@@ -75,19 +77,19 @@ ghost.init({
 });
 </script>
     <meta name="generator" content="Ghost 1.21">
-    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="../rss/index.html">
+    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="..\rss\index.xml">
 </head>
 <body class="post-template nav-closed">
 
     <div class="nav">
     <h3 class="nav-title">Menu</h3>
-    <a href="index.html#" class="nav-close">
+    <a href="#" class="nav-close">
         <span class="hidden">Close</span>
     </a>
     <ul>
-            <li class="nav-home"><a href="../">Home</a></li>
+            <li class="nav-home"><a href="..\index.html">Home</a></li>
     </ul>
-        <a class="subscribe-button icon-feed" href="../rss/index.rss">Subscribe</a>
+        <a class="subscribe-button icon-feed" href="..\rss\index.xml">Subscribe</a>
 </div>
 <span class="nav-cover"></span>
 
@@ -100,8 +102,8 @@ ghost.init({
 <header class="main-header post-head no-cover">
     <div class="main-header-background-square"></div>
     <nav class="main-nav  clearfix">
-        <a class="blog-logo" href="../"><img src="../content/images/2018/02/mosquito.png" alt="mymemoryleaks"></a>
-            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+        <a class="blog-logo" href="..\index.html"><img src="..\content\images\2018\02\mosquito.png" alt="mymemoryleaks"></a>
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
     </nav>
 </header>
 
@@ -121,17 +123,17 @@ ghost.init({
 Unit Of Work, est la quant à lui pour valider transactionnellement un ensemble de modifications faites sur les données.</p>
 <p>Pour la version longue vous pourrez trouver votre bonheur sur le site de <a href="http://martinfowler.com/">Martin Fowler</a> <a href="http://martinfowler.com/eaaCatalog/repository.html">ici pour le Repository</a> et <a href="http://martinfowler.com/eaaCatalog/unitOfWork.html">ici pour Unit Of Work</a></p>
 <p>Partons d'un modèle simplissime comme celui ci-dessous :</p>
-<p>public class Context : DbContext { public virtual DbSet<product> Products { get; set; } public virtual DbSet<productcategory> Categories { get; set; } public Context() { Database.SetInitializer(new DropCreateDatabaseAlways<context>()); } } public class Product { public int Id { get; set; } public string Name { get; set; } public int? ProductCategoryId { get; set; } public virtual ProductCategory ProductCategory { get; set; } } public class ProductCategory { public int Id { get; set; } public string Name { get; set; } }</context></productcategory></product></p>
+<p>public class Context : DbContext { public virtual DbSet<product> Products { get; set; } public virtual DbSet<productcategory> Categories { get; set; } public Context() { Database.SetInitializer(new DropCreateDatabaseAlways<context>()); } } public class Product { public int Id { get; set; } public string Name { get; set; } public int? ProductCategoryId { get; set; } public virtual ProductCategory ProductCategory { get; set; } } public class ProductCategory { public int Id { get; set; } public string Name { get; set; } }<p>
 <p>Commençons par créer le Repository</p>
-<p>using(Context ctx = new Context()) { DbContextAdapter adapter = new DbContextAdapter(ctx); IRepository<product> productRepo = new Repository<product>(adp); ... }</product></product></p>
+<p>using(Context ctx = new Context()) { DbContextAdapter adapter = new DbContextAdapter(ctx); IRepository<product> productRepo = new Repository<product>(adp); ... }<p>
 <p>Interrogeons la base pour ramener l'ensemble des produits :</p>
-<p>IEnumerable<product> lst = productRepo.GetAll();</product></p>
-<p>Ramenons le premier élément dont le nom commence par "Bike"</p>
-<p>Product prod = productRepo.First(p =&gt; p.Name.StartsWith("Bike"));</p>
+<p>IEnumerable<product> lst = productRepo.GetAll();<p>
+<p>Ramenons le premier élément dont le nom commence par &quot;Bike&quot;</p>
+<p>Product prod = productRepo.First(p =&gt; p.Name.StartsWith(&quot;Bike&quot;));</p>
 <p>L'utilisation de la méthode Single a pour effet de ramener un seul élément de la base de données; mais lève une exception si plusieurs éléments répondent aux critères demandés.</p>
-<p>productRepo.Single(p =&gt; p.Name.StartsWith("Roc"))</p>
+<p>productRepo.Single(p =&gt; p.Name.StartsWith(&quot;Roc&quot;))</p>
 <p>Find(), permet de filtrer en fonction de plusieurs critères :</p>
-<p>IEnumerable<product> lst = productRepo.Find( p =&gt; p.Id &lt; 100 &amp;&amp; p.Name.Contains("o") &amp;&amp; p.Name.Length &lt; 20);</product></p>
+<p>IEnumerable<product> lst = productRepo.Find( p =&gt; p.Id &lt; 100 &amp;&amp; p.Name.Contains(&quot;o&quot;) &amp;&amp; p.Name.Length &lt; 20);<p>
 <p>Toutes ces méthodes acceptent optionnellement un ensemble de liens de navigation inter entités</p>
 <p>params Expression&lt;Func&lt;T, object&gt;&gt;[] includeProperties</p>
 <p>définissant les jointures à effectuer lors du requêtage.<br>
@@ -140,24 +142,24 @@ Ainsi :</p>
 <p>charge le produit et sa catégorie associée en une seule requete SQL; Cette façon de faire nous protège du fameux problème du <a href="http://stackoverflow.com/questions/97197/what-is-the-n1-selects-problem">Select N+1</a> lié au <a href="http://en.wikipedia.org/wiki/Lazy_loading">lazy loading</a> utilisé par défaut avec Entity Framework.</p>
 <p>Après l’interrogation de la base passons a la persistance de nos données. Pour cela nous allons faire appel au pattern UnitOfWork.<br>
 L'insertion d'un nouvel élément prend cette forme :</p>
-<p>using(...) { ... IUnitOfWork unitOfWork = new UnitOfWork(adp); Product p = new Product{Name = "Skateboard"}; productRepo.Insert(p); unitOfWork.Commit(); }</p>
+<p>using(...) { ... IUnitOfWork unitOfWork = new UnitOfWork(adp); Product p = new Product{Name = &quot;Skateboard&quot;}; productRepo.Insert(p); unitOfWork.Commit(); }</p>
 <p>Vous l'aurez compris la mise à jour et la suppression sont aussi simple que ca :</p>
-<p>Product p = productRepo.First(c =&gt; c.Name == "Bike"); p.Name = "New bike"; productRepo.Update(p); Product delete = productRepo.First(p =&gt; p.Name.StartsWith("To be")); productRepo.Delete(delete); unitOfWork.Commit();</p>
+<p>Product p = productRepo.First(c =&gt; c.Name == &quot;Bike&quot;); p.Name = &quot;New bike&quot;; productRepo.Update(p); Product delete = productRepo.First(p =&gt; p.Name.StartsWith(&quot;To be&quot;)); productRepo.Delete(delete); unitOfWork.Commit();</p>
 <p>Dans les prochains jours je vous montrerais comment injecter Repository et Unit of work dans une couche Service par exemple avec un conteneur DI comme <a href="http://ninject.org/">NInject</a>.</p>
-</div>
+</product></product></product></product></context></productcategory></product></div>
         </section>
 
         <footer class="post-footer">
 
 
             <figure class="author-image">
-                <a class="img" href="../author/fabrice/" style="background-image: url(http://www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&amp;)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
+                <a class="img" href="..\author\fabrice\index.html" style="background-image: url(//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&#x3D;250&amp;d&#x3D;mm&amp;r&#x3D;x)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
             </figure>
 
             <section class="author">
-                <h4><a href="../author/fabrice/">Fabrice Michellonet</a></h4>
+                <h4><a href="..\author\fabrice\index.html">Fabrice Michellonet</a></h4>
 
-                    <p>Read <a href="../author/fabrice/">more posts</a> by this author.</p>
+                    <p>Read <a href="..\author\fabrice\index.html">more posts</a> by this author.</p>
                 <div class="author-meta">
                     
                     
@@ -184,16 +186,16 @@ L'insertion d'un nouvel élément prend cette forme :</p>
 </main>
 
 <aside class="read-next">
-    <a class="read-next-story " style="background-image: url(http://mah1979.qsandbox.com/wp-content/uploads/2011/09/SignalR_awesome.png)" href="../live-charting-avec-signalr/">
+    <a class="read-next-story " style="background-image: url(http://mah1979.qsandbox.com/wp-content/uploads/2011/09/SignalR_awesome.png)" href="..\live-charting-avec-signalr\index.html">
         <section class="post">
             <h2>Live charting avec SignalR</h2>
-            <p>SignalR is awesome ! Oui il va falloir vous habituer à entendre dire que cette librairie est un petit bijou.…</p>
+            <p>SignalR is awesome ! Oui il va falloir vous habituer à entendre dire que cette librairie est un petit bijou.&hellip;</p>
         </section>
     </a>
-    <a class="read-next-story prev no-cover" href="../release-dentityframework-patterns/">
+    <a class="read-next-story prev no-cover" href="..\release-dentityframework-patterns\index.html">
         <section class="post">
-            <h2>Release d'EntityFramework.Patterns</h2>
-            <p>Bon ça y est je me suis décidé à trouver un toit pour EntityFramework.Patterns, une librairie qui s'adossant…</p>
+            <h2>Release d&#x27;EntityFramework.Patterns</h2>
+            <p>Bon ça y est je me suis décidé à trouver un toit pour EntityFramework.Patterns, une librairie qui s'adossant&hellip;</p>
         </section>
     </a>
 </aside>
@@ -201,18 +203,19 @@ L'insertion d'un nouvel élément prend cette forme :</p>
 
 
         <footer class="site-footer clearfix">
-            <section class="copyright"><a href="../">mymemoryleaks</a> © 2018</section>
+            <section class="copyright"><a href="..\index.html">mymemoryleaks</a> &copy; 2018</section>
             <section class="poweredby">Powered by <a href="http://boo-demo.tenoku.com/">Ghost + Boo</a></section>
         </footer>
 
     </div>
 
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
     
-    <script type="text/javascript" src="http://localhost:2368/assets/js/jquery.fitvids.js?v=e6afc982da"></script>
-    <script type="text/javascript" src="http://localhost:2368/assets/js/index.js?v=e6afc982da"></script>
-    <script type="text/javascript" src="http://localhost:2368/assets/js/prism.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\jquery.fitvids.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\index.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\prism.js?v=e6afc982da"></script>
     <script src="https://cdn.jsdelivr.net/mobile-detect.js/1.3.3/mobile-detect.min.js"></script>
     <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
 
 </body>
+</html>

@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Overflow : l&#x27;attribut oublié.</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="..\favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="..\assets\css\screen.css?v=e6afc982da">
+    <link rel="stylesheet" type="text/css" href="..\assets\css\prism.css?v=e6afc982da">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <link rel="shortcut icon" href="..\favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="amphtml" href="amp\index.html">
+    
+    <meta property="og:site_name" content="mymemoryleaks">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Overflow : l&#x27;attribut oublié.">
+    <meta property="og:description" content="Hier, Jérome Berthaud, me parlait d&#x27;une découverte qu&#x27;il avait faite lors de son escapade nocturne de la veille sur la toile. Il cherchait une solution au sempiternel problème soulevé par les éléments floatés à l&#x27;intérieur d&#x27;un autre élément de type bloc et surtout comment revenir dans le flux normal du">
+    <meta property="og:url" content="http://localhost:2368/overflow-lattribut-oublie/">
+    <meta property="article:published_time" content="2008-06-20T08:23:00.000Z">
+    <meta property="article:modified_time" content="2008-06-20T08:23:00.000Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Overflow : l&#x27;attribut oublié.">
+    <meta name="twitter:description" content="Hier, Jérome Berthaud, me parlait d&#x27;une découverte qu&#x27;il avait faite lors de son escapade nocturne de la veille sur la toile. Il cherchait une solution au sempiternel problème soulevé par les éléments floatés à l&#x27;intérieur d&#x27;un autre élément de type bloc et surtout comment revenir dans le flux normal du">
+    <meta name="twitter:url" content="http://localhost:2368/overflow-lattribut-oublie/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Fabrice Michellonet">
+    <meta name="twitter:site" content="@MyMemoryLeaks">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "mymemoryleaks",
+        "logo": "http://localhost:2368/content/images/2018/02/mosquito.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Fabrice Michellonet",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "http://localhost:2368/author/fabrice/",
+        "sameAs": []
+    },
+    "headline": "Overflow : l&#x27;attribut oublié.",
+    "url": "http://localhost:2368/overflow-lattribut-oublie/",
+    "datePublished": "2008-06-20T08:23:00.000Z",
+    "dateModified": "2008-06-20T08:23:00.000Z",
+    "description": "Hier, Jérome Berthaud, me parlait d&#x27;une découverte qu&#x27;il avait faite lors de son escapade nocturne de la veille sur la toile. Il cherchait une solution au sempiternel problème soulevé par les éléments floatés à l&#x27;intérieur d&#x27;un autre élément de type bloc et surtout comment revenir dans le flux normal du",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:2368/"
+    }
+}
+    </script>
+
+    <script type="text/javascript" src="..\public\ghost-sdk.js?v=e6afc982da"></script>
+<script type="text/javascript">
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "85ce418ba3bc"
+});
+</script>
+    <meta name="generator" content="Ghost 1.21">
+    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="..\rss\index.xml">
+</head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home"><a href="..\index.html">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="..\rss\index.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <div class="main-header-background-square"></div>
+    <nav class="main-nav  clearfix">
+        <a class="blog-logo" href="..\index.html"><img src="..\content\images\2018\02\mosquito.png" alt="mymemoryleaks"></a>
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">Overflow : l&#x27;attribut oublié.</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2008-06-20">20 juin 2008</time> 
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div class="kg-card-markdown"><p>Hier, Jérome Berthaud, me parlait d'une découverte qu'il avait faite lors de son escapade nocturne de la veille sur la toile. Il cherchait une solution au sempiternel problème soulevé par les éléments <code>floatés</code> à l'intérieur d'un autre élément de type <code>bloc</code> et surtout comment revenir dans le flux normal du positionnement. Voici un exemple de ce cas de figure :</p>
+<div id="outer">  
+ <div id="inner"> <h2>A Column</h2> </div>  
+ <h1>Main Content</h1>  
+ <p>Lorem ipsum</p>  
+</div>
+<p>L'idée ici, est d'avoir une colonne (d'identifiant inner) ne prenant qu'une petite partie de l'espace d'affichage, par exemple une barre de navigation. Et bien sur le reste de l'écran réservé au contenu principal du site. Il nous est bien évidemment possible de définir la taille de cette colonne, mais de par sa nature d'élément de <code>block</code>, le contenu principal va de facto se retrouver repoussé en dessous d'elle, à moins de choisir de la floater.</p>
+<p>Et voilà nous y sommes, si le contenu de la colonne se met a s'allonger et finalement dépasser la longueur du contenu principal, toute la mise en forme s'écroule comme un château de cartes. Alors comment s'assurer que le bloc principal s'ajustera toujours à la longueur de notre colonne?</p>
+<p>Ayant moi même rencontré des dizaines de fois ce problème, je m'empresse de lui répondre qu'il faut rajouter à la fin du bloc (d'identifiant outer) un nouvel élément auquel on ajoutera la propriété css <code>clear : both</code>, mais que malheureusement cette solution salie le code html.</p>
+<p>Effectivement, Jérôme convient qu'il s'agit d'une solution (d'ailleurs recommandée par le W3C), mais qu'une bien meilleure solution avait été apportée par <a href="http://pmob.co.uk/">Paul O’Brien</a>. Celle-ci consiste à ajouter la propriété css <code>overflow:auto</code> sur le le bloc principal, et magie le bloc principal s'adapte a la hauteur de la colonne intérieur.</p>
+<h1 id="inner">inner</h1>
+<p>{<br>
+width:26%;<br>
+float:left;<br>
+}</p>
+<h1 id="outer">outer</h1>
+<p>{<br>
+background-color:#fff;<br>
+width:100%;<br>
+overflow:auto;<br>
+}</p>
+<p>Cerise sur le gâteau, cela fonctionne sur tout les navigateurs excepté Netscpate 4...</p>
+<p>C'est surement une des meilleure astuce css de ces derniers mois, merci <a href="http://pmob.co.uk/">Paul O’Brien</a> pour l'avoir découverte et merci Jérôme de me l'avoir montrée.</p>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="..\author\fabrice\index.html" style="background-image: url(//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&#x3D;250&amp;d&#x3D;mm&amp;r&#x3D;x)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="..\author\fabrice\index.html">Fabrice Michellonet</a></h4>
+
+                    <p>Read <a href="..\author\fabrice\index.html">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Overflow%20%3A%20l'attribut%20oubli%C3%A9.&amp;url=http://localhost:2368/overflow-lattribut-oublie/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/overflow-lattribut-oublie/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/overflow-lattribut-oublie/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+    </article>
+</main>
+
+<aside class="read-next">
+    <a class="read-next-story no-cover" href="..\masquer-la-barre-blogger\index.html">
+        <section class="post">
+            <h2>Masquer la barre Blogger</h2>
+            <p>J'ai vu pas mal de billets proposant des solutions permettant de retirer la barre Blogger qui est ajoutée automatiquement&hellip;</p>
+        </section>
+    </a>
+    <a class="read-next-story prev no-cover" href="..\retour-sur-le-border-container\index.html">
+        <section class="post">
+            <h2>Retour sur le Border Container</h2>
+            <p>Je me suis peut-être un peu emballé sur le Border Container; je le pensais un peu plus flexible, mais&hellip;</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="..\index.html">mymemoryleaks</a> &copy; 2018</section>
+            <section class="poweredby">Powered by <a href="http://boo-demo.tenoku.com/">Ghost + Boo</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="..\assets\js\jquery.fitvids.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\index.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\prism.js?v=e6afc982da"></script>
+    <script src="https://cdn.jsdelivr.net/mobile-detect.js/1.3.3/mobile-detect.min.js"></script>
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+
+</body>
+</html>

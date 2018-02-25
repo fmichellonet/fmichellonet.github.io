@@ -1,4 +1,5 @@
-
+﻿<!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,31 +9,32 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="shortcut icon" href="..\favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="http://localhost:2368/assets/css/screen.css?v=e6afc982da">
-    <link rel="stylesheet" type="text/css" href="http://localhost:2368/assets/css/prism.css?v=e6afc982da">
+    <link rel="stylesheet" type="text/css" href="..\assets\css\screen.css?v=e6afc982da">
+    <link rel="stylesheet" type="text/css" href="..\assets\css\prism.css?v=e6afc982da">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
 
-    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="..\favicon.ico" type="image/x-icon">
     <link rel="canonical" href="index.html">
     <meta name="referrer" content="no-referrer-when-downgrade">
-    <link rel="amphtml" href="amp/index.html">
+    <link rel="amphtml" href="amp\index.html">
     
     <meta property="og:site_name" content="mymemoryleaks">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Entity Framework Cache">
-    <meta property="og:description" content="Malgré la version 5 d'Entity Framework sortie il y a peu de temps, beaucoup déplorent l’absence d’un mécanisme de cache implémenté dans le Framework. Pour ceux qui ont un peu creusé le sujet, il y a bien les &amp;quot;Tracing and Caching Provider Wrappers for Entity Framework&amp;quot;">
+    <meta property="og:description" content="Malgré la version 5 d&#x27;Entity Framework sortie il y a peu de temps, beaucoup déplorent l’absence d’un mécanisme de cache implémenté dans le Framework. Pour ceux qui ont un peu creusé le sujet, il y a bien les &amp;quot;Tracing and Caching Provider Wrappers for Entity Framework&amp;quot;">
     <meta property="og:url" content="http://localhost:2368/entity-framework-cache/">
     <meta property="article:published_time" content="2012-09-05T14:58:00.000Z">
     <meta property="article:modified_time" content="2018-02-11T22:55:10.000Z">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Entity Framework Cache">
-    <meta name="twitter:description" content="Malgré la version 5 d'Entity Framework sortie il y a peu de temps, beaucoup déplorent l’absence d’un mécanisme de cache implémenté dans le Framework. Pour ceux qui ont un peu creusé le sujet, il y a bien les &amp;quot;Tracing and Caching Provider Wrappers for Entity Framework&amp;quot;">
+    <meta name="twitter:description" content="Malgré la version 5 d&#x27;Entity Framework sortie il y a peu de temps, beaucoup déplorent l’absence d’un mécanisme de cache implémenté dans le Framework. Pour ceux qui ont un peu creusé le sujet, il y a bien les &amp;quot;Tracing and Caching Provider Wrappers for Entity Framework&amp;quot;">
     <meta name="twitter:url" content="http://localhost:2368/entity-framework-cache/">
     <meta name="twitter:label1" content="Written by">
     <meta name="twitter:data1" content="Fabrice Michellonet">
+    <meta name="twitter:site" content="@MyMemoryLeaks">
     
     <script type="application/ld+json">
 {
@@ -67,7 +69,7 @@
 }
     </script>
 
-    <script type="text/javascript" src="http://localhost:2368/public/ghost-sdk.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\public\ghost-sdk.js?v=e6afc982da"></script>
 <script type="text/javascript">
 ghost.init({
 	clientId: "ghost-frontend",
@@ -75,19 +77,19 @@ ghost.init({
 });
 </script>
     <meta name="generator" content="Ghost 1.21">
-    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="../rss/index.html">
+    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="..\rss\index.xml">
 </head>
 <body class="post-template nav-closed">
 
     <div class="nav">
     <h3 class="nav-title">Menu</h3>
-    <a href="index.html#" class="nav-close">
+    <a href="#" class="nav-close">
         <span class="hidden">Close</span>
     </a>
     <ul>
-            <li class="nav-home"><a href="../">Home</a></li>
+            <li class="nav-home"><a href="..\index.html">Home</a></li>
     </ul>
-        <a class="subscribe-button icon-feed" href="../rss/index.rss">Subscribe</a>
+        <a class="subscribe-button icon-feed" href="..\rss\index.xml">Subscribe</a>
 </div>
 <span class="nav-cover"></span>
 
@@ -100,8 +102,8 @@ ghost.init({
 <header class="main-header post-head no-cover">
     <div class="main-header-background-square"></div>
     <nav class="main-nav  clearfix">
-        <a class="blog-logo" href="../"><img src="../content/images/2018/02/mosquito.png" alt="mymemoryleaks"></a>
-            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+        <a class="blog-logo" href="..\index.html"><img src="..\content\images\2018\02\mosquito.png" alt="mymemoryleaks"></a>
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
     </nav>
 </header>
 
@@ -117,35 +119,35 @@ ghost.init({
 
         <section class="post-content">
             <div class="kg-card-markdown"><p>Malgré la version 5 d'Entity Framework sortie il y a peu de temps, beaucoup déplorent l’absence d’un mécanisme de cache implémenté dans le Framework.</p>
-<p>Pour ceux qui ont un peu creusé le sujet, il y a bien les <a href="http://code.msdn.microsoft.com/EFProviderWrappers-c0b88f32">"Tracing and Caching Provider Wrappers for Entity Framework"</a> parus début 2011. Cependant, ce n’est pas la solution ultime ; à l’époque Code First n’existait pas ce qui rend cette librairie incompatible avec Code First.</p>
+<p>Pour ceux qui ont un peu creusé le sujet, il y a bien les <a href="http://code.msdn.microsoft.com/EFProviderWrappers-c0b88f32">&quot;Tracing and Caching Provider Wrappers for Entity Framework&quot;</a> parus début 2011. Cependant, ce n’est pas la solution ultime ; à l’époque Code First n’existait pas ce qui rend cette librairie incompatible avec Code First.</p>
 <p>Pour être tout à fait franc, le code des wrappers est disponible, je pense donc qu’en bidouillant un peu, ça doit être possible d’adapter le code pour Code First.</p>
 <p>A l’occasion de la sortie d’<a href="http://efpatterns.codeplex.com/">EntityFramework.Patterns 0.7</a>, je vous propose de voir ensemble comme utiliser les fonctionnalités de cache fournies par cette librairie.</p>
 <p>Soit le contexte suivant :</p>
-<p>public class EfContext : DbContext { public DbSet<user> Users { get; set; } public EfContext() { Database.SetInitializer(new DropCreateDatabaseIfModelChanges<efcontext>()); } }</efcontext></user></p>
+<p>public class EfContext : DbContext { public DbSet<user> Users { get; set; } public EfContext() { Database.SetInitializer(new DropCreateDatabaseIfModelChanges<efcontext>()); } }<p>
 <p>Et l’entité User tel que :</p>
-<p>public class User { public int Id { get; set; } public string Name { get; set; } public virtual ICollection<userrole> UserRoles { get; set; } }</userrole></p>
+<p>public class User { public int Id { get; set; } public string Name { get; set; } public virtual ICollection<userrole> UserRoles { get; set; } }<p>
 <p>On peut facilement utiliser le cache en mémoire (il est possible d’en utiliser d’autre) fournit par EntityFramework.Patterns pour mettre en cache une collection de User.</p>
-<p>// On charge tous les users et on les stocke dans le cache. using (EfContext ctx = new EfContext()) { IEnumerable<user> usrs = ctx.Users.ToCache(); } // autre code... // Cette fois ci, on récupère les users à partir du cache. using (EfContext ctx = new EfContext()) { IEnumerable<user> usrs = ctx.Users.FromCache(); }</user></user></p>
+<p>// On charge tous les users et on les stocke dans le cache. using (EfContext ctx = new EfContext()) { IEnumerable<user> usrs = ctx.Users.ToCache(); } // autre code... // Cette fois ci, on récupère les users à partir du cache. using (EfContext ctx = new EfContext()) { IEnumerable<user> usrs = ctx.Users.FromCache(); }<p>
 <p>Simple non ?</p>
 <p>Pour ceux qui préfèrent éviter l’accès direct au context d’Entity Framework et qui isolent leur accès à la base dans des repository, EntityFramework.Patterns vous facilitera la tâche également.</p>
 <p>Il vous suffit de wrapper votre Repository<t> avec le CacheableRepository qui vous apporte les fonctionnalités de cache.</t></p>
-<p>using (EfContext ctx = new EfContext()) { DbContextAdapter adpt = new DbContextAdapter(ctx); IRepository<user> repo = new CacheableRepository<user>( new Repository<user>(adpt) ); // On charge tous les utilisateurs. // Par defaut le CacheableRepository va mettre en cache le resultset // en provenance de la base et le réutilisera le cas échéant plus tard. IEnumerable<user> usrs = repo.GetAll(); // autre code. // Cette fois-ci, les users proviennent du cache. Il n'y a pas d'accès en base. usrs = repo.GetAll(); }</user></user></user></user></p>
+<p>using (EfContext ctx = new EfContext()) { DbContextAdapter adpt = new DbContextAdapter(ctx); IRepository<user> repo = new CacheableRepository<user>( new Repository<user>(adpt) ); // On charge tous les utilisateurs. // Par defaut le CacheableRepository va mettre en cache le resultset // en provenance de la base et le réutilisera le cas échéant plus tard. IEnumerable<user> usrs = repo.GetAll(); // autre code. // Cette fois-ci, les users proviennent du cache. Il n'y a pas d'accès en base. usrs = repo.GetAll(); }<p>
 <p>Comme vous le voyez le CacheableRepository fait appel au cache pour vous ; et vous permet de ne pas avoir à gérer la suppression d’éléments dans le cache lorsque les éléments ont étés modifiés/supprimés/insérés etc…</p>
 <p>Je reviendrais ultérieurement dans un prochain post sur les mécanismes avancés du cache proposés par EntityFramework.Patterns.</p>
-</div>
+</user></user></user></user></user></user></userrole></efcontext></user></div>
         </section>
 
         <footer class="post-footer">
 
 
             <figure class="author-image">
-                <a class="img" href="../author/fabrice/" style="background-image: url(http://www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&amp;)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
+                <a class="img" href="..\author\fabrice\index.html" style="background-image: url(//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&#x3D;250&amp;d&#x3D;mm&amp;r&#x3D;x)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
             </figure>
 
             <section class="author">
-                <h4><a href="../author/fabrice/">Fabrice Michellonet</a></h4>
+                <h4><a href="..\author\fabrice\index.html">Fabrice Michellonet</a></h4>
 
-                    <p>Read <a href="../author/fabrice/">more posts</a> by this author.</p>
+                    <p>Read <a href="..\author\fabrice\index.html">more posts</a> by this author.</p>
                 <div class="author-meta">
                     
                     
@@ -172,16 +174,16 @@ ghost.init({
 </main>
 
 <aside class="read-next">
-    <a class="read-next-story " style="background-image: url(http://mah1979.qsandbox.com/wp-content/uploads/2013/10/djoub.png)" href="../ssis-vs-tpl-dataflow/">
+    <a class="read-next-story " style="background-image: url(http://mah1979.qsandbox.com/wp-content/uploads/2013/10/djoub.png)" href="..\ssis-vs-tpl-dataflow\index.html">
         <section class="post">
             <h2>SSIS vs TPL.Dataflow</h2>
-            <p>Il y a quelques jours je tweetais de joie, après être tombé sur la msdn concernant TPL.Dataflow L'API…</p>
+            <p>Il y a quelques jours je tweetais de joie, après être tombé sur la msdn concernant TPL.Dataflow L'API&hellip;</p>
         </section>
     </a>
-    <a class="read-next-story prev no-cover" href="../implementer-une-securite-a-base-de-roles-avec-windows-authentication-sql-server/">
+    <a class="read-next-story prev no-cover" href="..\implementer-une-securite-a-base-de-roles-avec-windows-authentication-sql-server\index.html">
         <section class="post">
             <h2>Implémenter une sécurité à base de rôles avec Windows Authentication &amp; SQL Server</h2>
-            <p>Ces derniers jours j'ai été confronté à une problématique très intéressante; j'aimerais la partager avec vous aujourd'hui et vous…</p>
+            <p>Ces derniers jours j'ai été confronté à une problématique très intéressante; j'aimerais la partager avec vous aujourd'hui et vous&hellip;</p>
         </section>
     </a>
 </aside>
@@ -189,18 +191,19 @@ ghost.init({
 
 
         <footer class="site-footer clearfix">
-            <section class="copyright"><a href="../">mymemoryleaks</a> © 2018</section>
+            <section class="copyright"><a href="..\index.html">mymemoryleaks</a> &copy; 2018</section>
             <section class="poweredby">Powered by <a href="http://boo-demo.tenoku.com/">Ghost + Boo</a></section>
         </footer>
 
     </div>
 
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
     
-    <script type="text/javascript" src="http://localhost:2368/assets/js/jquery.fitvids.js?v=e6afc982da"></script>
-    <script type="text/javascript" src="http://localhost:2368/assets/js/index.js?v=e6afc982da"></script>
-    <script type="text/javascript" src="http://localhost:2368/assets/js/prism.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\jquery.fitvids.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\index.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\prism.js?v=e6afc982da"></script>
     <script src="https://cdn.jsdelivr.net/mobile-detect.js/1.3.3/mobile-detect.min.js"></script>
     <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
 
 </body>
+</html>

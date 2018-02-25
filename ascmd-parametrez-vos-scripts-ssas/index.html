@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>ASCMD : Parametrez vos scripts SSAS.</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="..\favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="..\assets\css\screen.css?v=e6afc982da">
+    <link rel="stylesheet" type="text/css" href="..\assets\css\prism.css?v=e6afc982da">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <link rel="shortcut icon" href="..\favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="amphtml" href="amp\index.html">
+    
+    <meta property="og:site_name" content="mymemoryleaks">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="ASCMD : Parametrez vos scripts SSAS.">
+    <meta property="og:description" content="Beaucoup d&#x27;entre vous doivent dors et déjà connaitre cette astuce qui facilite les problématiques de déploiement de vos cubes Olap (Sql Server Analysis Services); Pour ma part je n&#x27;ai découvert qu&#x27;aujourd&#x27;hui qu&#x27;il est possible de parametrer les scripts XMLA, MDX et DMX lors de leur execution via ASCMD. Petit retour">
+    <meta property="og:url" content="http://localhost:2368/ascmd-parametrez-vos-scripts-ssas/">
+    <meta property="article:published_time" content="2008-09-22T21:36:00.000Z">
+    <meta property="article:modified_time" content="2008-09-22T21:36:00.000Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="ASCMD : Parametrez vos scripts SSAS.">
+    <meta name="twitter:description" content="Beaucoup d&#x27;entre vous doivent dors et déjà connaitre cette astuce qui facilite les problématiques de déploiement de vos cubes Olap (Sql Server Analysis Services); Pour ma part je n&#x27;ai découvert qu&#x27;aujourd&#x27;hui qu&#x27;il est possible de parametrer les scripts XMLA, MDX et DMX lors de leur execution via ASCMD. Petit retour">
+    <meta name="twitter:url" content="http://localhost:2368/ascmd-parametrez-vos-scripts-ssas/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Fabrice Michellonet">
+    <meta name="twitter:site" content="@MyMemoryLeaks">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "mymemoryleaks",
+        "logo": "http://localhost:2368/content/images/2018/02/mosquito.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Fabrice Michellonet",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "http://localhost:2368/author/fabrice/",
+        "sameAs": []
+    },
+    "headline": "ASCMD : Parametrez vos scripts SSAS.",
+    "url": "http://localhost:2368/ascmd-parametrez-vos-scripts-ssas/",
+    "datePublished": "2008-09-22T21:36:00.000Z",
+    "dateModified": "2008-09-22T21:36:00.000Z",
+    "description": "Beaucoup d&#x27;entre vous doivent dors et déjà connaitre cette astuce qui facilite les problématiques de déploiement de vos cubes Olap (Sql Server Analysis Services); Pour ma part je n&#x27;ai découvert qu&#x27;aujourd&#x27;hui qu&#x27;il est possible de parametrer les scripts XMLA, MDX et DMX lors de leur execution via ASCMD. Petit retour",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:2368/"
+    }
+}
+    </script>
+
+    <script type="text/javascript" src="..\public\ghost-sdk.js?v=e6afc982da"></script>
+<script type="text/javascript">
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "85ce418ba3bc"
+});
+</script>
+    <meta name="generator" content="Ghost 1.21">
+    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="..\rss\index.xml">
+</head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home"><a href="..\index.html">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="..\rss\index.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <div class="main-header-background-square"></div>
+    <nav class="main-nav  clearfix">
+        <a class="blog-logo" href="..\index.html"><img src="..\content\images\2018\02\mosquito.png" alt="mymemoryleaks"></a>
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">ASCMD : Parametrez vos scripts SSAS.</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2008-09-22">22 septembre 2008</time> 
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div class="kg-card-markdown"><p>Beaucoup d'entre vous doivent dors et déjà connaitre cette astuce qui facilite les problématiques de déploiement de vos cubes Olap (<a href="http://en.wikipedia.org/wiki/Microsoft_Analysis_Services">Sql Server Analysis Services</a>); Pour ma part je n'ai découvert qu'aujourd'hui qu'il est possible de parametrer les scripts <a href="http://en.wikipedia.org/wiki/XMLA">XMLA</a>, <a href="http://en.wikipedia.org/wiki/Multidimensional_Expressions">MDX </a>et <a href="http://msdn.microsoft.com/fr-fr/library/ms132058%28SQL.90%29.aspx">DMX</a> lors de leur execution via ASCMD.</p>
+<p>Petit retour en arrière, ASCMD est un utilitaire en ligne de commande qui permet d'exécuter des scripts sur une instance d'Analysis Services locale ou distante. Le code source est fournit dans les <a href="http://www.codeplex.com/MSFTASProdSamples/Release/ProjectReleases.aspx?ReleaseId=4001">samples de SQL Server</a> sous forme d'un projet C# à compiler.</p>
+<p>Dans le cadre d'une livraison chez un de vos client par exemple, ASCMD s'avère fort utile car il permet de scripter toutes les opérations possible que vous souhaiter effectuer; ceci vous affranchit de la lourde tache des backup/restore couramment usités dans la version 2000 d'Analysis Services.</p>
+<p>Prenons un exemple concret; Le script suivant, permet de modifier le nom du serveur sur lequel est disponible la source de données relationnelle :</p>
+<alter objectexpansion="ExpandFull" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">  
+ <object>  
+ <databaseid>Adventure Works DW</databaseid>  
+ <datasourceid>Adventure Works DW</datasourceid>  
+ </object>  
+ <objectdefinition>  
+ <datasource xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xsi:type="RelationalDataSource">  
+ <id>Adventure Works DW</id>  
+ <name>Adventure Works DW</name>  
+ <connectionstring>Provider=SQLNCLI.1;Data Source=$(ServerName);Persist Security Info=False;Integrated Security=SSPI;Initial Catalog=AdventureWorksDW</connectionstring>  
+ <impersonationinfo>  
+ <impersonationmode>ImpersonateServiceAccount</impersonationmode>  
+ </impersonationinfo>  
+ <timeout>PT0S</timeout>  
+ </datasource>  
+ </objectdefinition>  
+</alter>
+<p>Notez la déclaration et l'utilisation de la variable <strong>$(ServerName)</strong>. Celle-ci va pouvoir être définit lors de l'execution de la manière suivante :</p>
+<p>ascmd.exe -S localhost -i modifyDS.xmla -v ServerName=My_production_server</p>
+<p>Cette fonctionnalité ouvre de nouveaux horizons pour les déploiements, plus besoin de demander à vos interlocuteurs de faire ceci ou cela;</p>
+<ul>
+<li>Scriptez vos actions sous forme de scripts XMLA parametrés.</li>
+<li>Livrez un fichier ini, seul point que votre interlocuteur devra éditer afin de le faire correspondre à son environnement.</li>
+<li>Demander à votre interlocuteur de lancer le seul fichier fichier bat fournit réunissant l'ensemble des commandes à executer.</li>
+<li>Vous êtes zen, vous venez de considérablement diminuer les chances d'erreurs du à une mauvaise manipulation de votre interlocuteur.</li>
+</ul>
+<p>Bon déploiements à tous.</p>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="..\author\fabrice\index.html" style="background-image: url(//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&#x3D;250&amp;d&#x3D;mm&amp;r&#x3D;x)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="..\author\fabrice\index.html">Fabrice Michellonet</a></h4>
+
+                    <p>Read <a href="..\author\fabrice\index.html">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=ASCMD%20%3A%20Parametrez%20vos%20scripts%20SSAS.&amp;url=http://localhost:2368/ascmd-parametrez-vos-scripts-ssas/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/ascmd-parametrez-vos-scripts-ssas/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/ascmd-parametrez-vos-scripts-ssas/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+    </article>
+</main>
+
+<aside class="read-next">
+    <a class="read-next-story no-cover" href="..\ogame-skript-fr-v0-3\index.html">
+        <section class="post">
+            <h2>OGame Skript [FR] v0.3</h2>
+            <p>Depuis l'annonce de la première version Française d'OGame Skript sur le forum officiel OGame, les choses ont pris une&hellip;</p>
+        </section>
+    </a>
+    <a class="read-next-story prev no-cover" href="..\ogame-allystats\index.html">
+        <section class="post">
+            <h2>OGame AllyStats</h2>
+            <p>Je vous l'avais annoncé à demi mots le 12 septembre dernier (OGame Skript [Fr] releasé), j'allais écrire au moins&hellip;</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="..\index.html">mymemoryleaks</a> &copy; 2018</section>
+            <section class="poweredby">Powered by <a href="http://boo-demo.tenoku.com/">Ghost + Boo</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="..\assets\js\jquery.fitvids.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\index.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\prism.js?v=e6afc982da"></script>
+    <script src="https://cdn.jsdelivr.net/mobile-detect.js/1.3.3/mobile-detect.min.js"></script>
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[mymemoryleaks]]></title><description><![CDATA[Blog sur les technos Microsoft.]]></description><link>http://localhost:2368/</link><image><url>http://localhost:2368/favicon.png</url><title>mymemoryleaks</title><link>http://localhost:2368/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Sun, 25 Feb 2018 21:47:48 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Déployer un webjob avec VSTS]]></title><description><![CDATA[<div class="kg-card-markdown"><p>Si vous avez déjà eu besoin de déployer un <a href="https://docs.microsoft.com/fr-fr/azure/app-service/web-sites-create-web-jobs">azure webjob</a> via vsts, vous avez du tomber sur ce <a href="https://medium.com/@thomashellstrom/building-azure-webjobs-in-vsts-4306e141df49">bon blog post de Thomas Hellstrøm</a>. Néanmoins, en suivant telles quelles les instructions de notre ami Thomas, vous risquer de casser la webapp qui host votre webjob.</p>
+<p>Ce blog post va</p></div>]]></description><link>http://localhost:2368/deployer-un-webjob-avec-vsts/</link><guid isPermaLink="false">5a80cd959d8a9d2c745cb121</guid><dc:creator><![CDATA[Fabrice Michellonet]]></dc:creator><pubDate>Fri, 09 Feb 2018 22:52:00 GMT</pubDate><content:encoded><![CDATA[<div class="kg-card-markdown"><p>Si vous avez déjà eu besoin de déployer un <a href="https://docs.microsoft.com/fr-fr/azure/app-service/web-sites-create-web-jobs">azure webjob</a> via vsts, vous avez du tomber sur ce <a href="https://medium.com/@thomashellstrom/building-azure-webjobs-in-vsts-4306e141df49">bon blog post de Thomas Hellstrøm</a>. Néanmoins, en suivant telles quelles les instructions de notre ami Thomas, vous risquer de casser la webapp qui host votre webjob.</p>
+<p>Ce blog post va prendre la tournure d’une recette de cuisine, d’un pense bête ; cela m’évitera de me reposer la même question dans quelques mois, et j'espère secrètement que cela puisse aider certains d'entre vous.</p>
+<p>On commence donc par utiliser la fonction « Publish as Azure Webjob » à partir de Visual Studio 2017.</p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=1oxmVOgeleLcE0HoiBmqXgw4NdZPzV1f6" alt=""></p>
+<p>Pas la peine d’aller au bout du deploy, ce tool va ajouter le package nuget <a href="https://www.nuget.org/packages/Microsoft.Web.WebJobs.Publish/">Microsoft.Web.WebJobs.Publish</a> et créer le fichier « webjob-publish-settings.json » dans le répertoire properties de votre projet.</p>
+<p>On passe ensuite sur le build sur VSTS. Thomas nous propose de définir les arguments suivants sur la tache msbuild :</p>
+<pre><code class="language-powershell">/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:Configuration=Release
+</code></pre>
+<p>Notez le paramètre <cite>/p:WebPublishMethod=Package</cite>, qui produira un fichier zip.</p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=1Y9grjF4l84j-rI2G-7wRxUalCeD3h2cJ" alt=""></p>
+<p>Et en jetant un œil dans le fichier zip, mauvaise surprise, on est en train de packager le dossier bin avec des dll qui vont venir écraser celles qui appartiennent à la webapp.</p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=13Jx4y2OZzK3HOhF9C1Bnl7yMs6fs_-DQ" alt=""></p>
+<p>Du coup j’vous propose de corriger ça.<br>
+On commence par changer les arguments de la tache msbuild.</p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=1-t4EzYGYxTRwzM5iLDSSJzQSPEUDRs3L" alt=""></p>
+<pre><code class="language-powershell">/p:DeployOnBuild=true /p:WebPublishMethod=FileSystem /p:publishUrl=&quot;$(build.artifactstagingdirectory)&quot; /p:DeployDefaultTarget=WebPublish
+</code></pre>
+<p>Ce qui va produire le même contenu que le fichier zip mais directement sur le système de fichier.</p>
+<p>Puis on ajoute une tache delete file, qui se chargera de supprimer le dossier /bin que nous voulons éviter de déployer.</p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=13y7Jd2gEmFBlOKOeAr2EVsypWOf63FTZ" alt=""></p>
+<p>Voila, cette fois ci nous y sommes. J’espère que cela pourra vous aider!</p>
+</div>]]></content:encoded></item><item><title><![CDATA[VSTS – Quand y’a plus de crédits, y’en a encore.]]></title><description><![CDATA[<div class="kg-card-markdown"><p>Ça, c’est la poisse: <code>Your account has no free minutes remaining</code>.</p>
+<p>Le scénario est à se pendre, tu montes ton projet en intégration continue et après quelques (dizaines) de commit tu te retrouves dans l’impossibilité de complétera une PR ou juste vérifier que le dernier commit n’a</p></div>]]></description><link>http://localhost:2368/vsts-quand-ya-plus-de-credits-yen-a-encore/</link><guid isPermaLink="false">5a80cd959d8a9d2c745cb120</guid><dc:creator><![CDATA[Fabrice Michellonet]]></dc:creator><pubDate>Mon, 29 Jan 2018 23:14:00 GMT</pubDate><content:encoded><![CDATA[<div class="kg-card-markdown"><p>Ça, c’est la poisse: <code>Your account has no free minutes remaining</code>.</p>
+<p>Le scénario est à se pendre, tu montes ton projet en intégration continue et après quelques (dizaines) de commit tu te retrouves dans l’impossibilité de complétera une PR ou juste vérifier que le dernier commit n’a pas introduit de régressions.</p>
+<p>Du coup je me propose de présenter ici, comment créer à moindre frais un agent de build sur-vitaminé. Et le fait d’avoir une machine un peu costaud, n’est pas un moindre mal ; qui ne s’est pas arraché les cheveux en attendant que l’agent de build hosté veuille bien se lancer et faire son travail… ?</p>
+<p>Plutôt que de créer nous même une vm, installer windows, msbuild et tout le nécessaire a un agent de build, on va plutôt utiliser azure <a href="https://azure.microsoft.com/fr-fr/services/devtest-lab/">DevTest Lab</a>. L’idée est de tirer parti des template de vm qui sont mises a notre dispo.</p>
+<p>Après avoir créé votre première instance DevTest lab, on ajoute une vm basée sur l’image Visual Studio Community 2017 (latest release) on Windows Server 2016 (x64).</p>
+<p><a href="https://drive.google.com/uc?export=download&amp;id=1yq-8OdL7oeffvZ-lsW8Ll01dy0n6g8KQ"><img src="https://drive.google.com/uc?export=download&amp;id=1yq-8OdL7oeffvZ-lsW8Ll01dy0n6g8KQ" alt=""></a></p>
+<p>On va vous demander un login et un mot de passe pour le compte admin de la future vm.<br>
+Je vous conseille de stocker votre mot de passe dans le coffre-fort « my secret » pour une plus grande sécurité. (ce n’est donc pas mon mot de passe que vous voyez 😊)</p>
+<p>Bon il nous faut maintenant choisir les caractéristiques de la vm. J’ai opté pour 32 GO de ram et 8 vcpu, une D8S_V3, elle ne sera allumée que quelques minutes le temps de faire le build, donc elle ne nous coutera pas bien cher.</p>
+<p>Place aux artefacts, il convient de voir cela comme des scripts additionnels qui installeront d’autres programmes/services sur votre vm. Ça tombe bien, l’artefact VSTS Build agent nous procure le service de build qui convient.</p>
+<p><a href="https://drive.google.com/uc?export=download&amp;id=1uhrvXnuNP5G6U7X66SdH3tj7XSmK380K"><img src="https://drive.google.com/uc?export=download&amp;id=1uhrvXnuNP5G6U7X66SdH3tj7XSmK380K" alt=""></a></p>
+<p>Quelques précisions, le champs VSTS account name doit se conformer au pattern suivant : <code>https://{{vsts_account_name}}.visualstudio.com</code></p>
+<p>Le secret correspond une clé privée que vous pourrez crée en vous rendant à l’adresse <code>https://{{vsts_account_name}}.visualstudio.com/_details/security/tokens</code></p>
+<p>Finalement, l’agent pool doit être un pool pré-existant. A vérifier/créer ici : <code>https://{{vsts_account_name}}.visualstudio.com/_admin/_AgentPool</code></p>
+<p>Petit plus, dans le cas ou vous envisagez de builder des projets front, profitez de cette étape pour ajouter l’artefact NODE JS.</p>
+<p>Bon, aller y’a plus qu’a cliquer sur OK, attendre quelques minutes et l’agent devrait apparaitre dans le pool que vous avez choisi.</p>
+<p><a href="https://drive.google.com/uc?export=download&amp;id=1fLWtBjZ32fLL-ilmRq1GqPr3-dm8DK3j"><img src="https://drive.google.com/uc?export=download&amp;id=1fLWtBjZ32fLL-ilmRq1GqPr3-dm8DK3j" alt=""></a></p>
+<p>Quoi qu’il en soit pas de panique, si vous vous êtes trompé sur un paramètre des artefacts, il sera toujours possible de retenter l’installation a postériori ou bien de procéder a l’installation manuellement.</p>
+<p>Dernier point, si vos crédits azure ne vous permettent pas de laisser cette vm allumée tout le temps, voici deux petites commandes qui vous permettront d’allumer et d’éteindre la vm a volonté. (a utiliser dans une console <a href="https://docs.microsoft.com/fr-fr/cli/azure/install-azure-cli?view=azure-cli-latest">azure cli</a></p>
+<pre><code class="language-powershell">az lab vm {{command}} --lab-name {{devtestlab}} --name {{vm-name}} --resource-group {{resource-group}}
+</code></pre>
+<p>command : start ou stop<br>
+devtestlab : le nom de votre instance DevTest lab<br>
+vm-name : le nom de votre vm<br>
+resource-group : le nom du resource group ou est installé la vm.</p>
+</div>]]></content:encoded></item><item><title><![CDATA[OData & ngTable : un duo de choc]]></title><description><![CDATA[<div class="kg-card-markdown"><p>Dernièrement, j’ai pas mal fait joujou avec <a href="http://www.odata.org/documentation/">OData</a>.<br>
+C’est quand même super plaisant de pouvoir requêter une source de données via une URL et avec une richesse proche de ce que l’on connait avec du SQL.<br>
+Une fois n’est pas coutume je ne vais pas parler</p></div>]]></description><link>http://localhost:2368/odata-ngtable-un-duo-de-choc/</link><guid isPermaLink="false">5a80cd959d8a9d2c745cb11f</guid><dc:creator><![CDATA[Fabrice Michellonet]]></dc:creator><pubDate>Mon, 12 Dec 2016 11:46:00 GMT</pubDate><content:encoded><![CDATA[<div class="kg-card-markdown"><p>Dernièrement, j’ai pas mal fait joujou avec <a href="http://www.odata.org/documentation/">OData</a>.<br>
+C’est quand même super plaisant de pouvoir requêter une source de données via une URL et avec une richesse proche de ce que l’on connait avec du SQL.<br>
+Une fois n’est pas coutume je ne vais pas parler de .NET mais plutôt partager avec vous un bout de javascript qui met en évidence la facilité avec laquelle vous pourrez brancher des tables <a href="http://ng-table.com/">ngtable</a> avec votre backend odata.</p>
+<p>Trêve de bavardage, on passe au code :</p>
+<iframe width="100%" height="1000" src="//jsfiddle.net/mymemoryleaks/r5hfj5b2/12/embedded/js,html,css,result/dark/" allowpaymentrequest="" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<p>Pour cette illustration, j'ai utilisé le web service <a href="http://services.odata.org/">services.odata.org</a> qui expose la base Northwind (sample Microsoft) que l'on a tous croisés un jour.</p>
+<p>Juste un mot sur le code, évidemment c'est le service odataTableService qui fait la glue entre OData et ngTable; c'est lui qui permet de réaliser les filtrages et les sorts. Une fois que ce service est disponible dans votre app, regardez avec quelle simplicité, votre controller peut créer une table :</p>
+<pre><code class="language-javascript">$scope.tableParams = odataTableService.createTableParams({ endPoint: 'http://services.odata.org/V3/Northwind/Northwind.svc/Products' });
+</code></pre>
+<p>Je me demande vraiment pourquoi OData n'a pas plus que ça le vent en poupe.</p>
+</div>]]></content:encoded></item><item><title><![CDATA[Packager un projet SQL pour Octopus]]></title><description><![CDATA[<div class="kg-card-markdown"><p>Que ce soit manuellement ou de manière automatique, lorsque l'on parle de déploiement il va nous falloir définir un package de déploiement.</p>
+<p>Dans l'univers Octopus, les packages de déploiement sont des fichiers avec une extension .nupkg. Voyons comment en créer un pour un projet de Base de données.</p>
+<h2 id="ajouterunedpendanceversoctopack">Ajouter une</h2></div>]]></description><link>http://localhost:2368/packager-un-projet-sql-pour-octopus/</link><guid isPermaLink="false">5a80cd959d8a9d2c745cb11e</guid><dc:creator><![CDATA[Fabrice Michellonet]]></dc:creator><pubDate>Thu, 01 Sep 2016 20:07:00 GMT</pubDate><content:encoded><![CDATA[<div class="kg-card-markdown"><p>Que ce soit manuellement ou de manière automatique, lorsque l'on parle de déploiement il va nous falloir définir un package de déploiement.</p>
+<p>Dans l'univers Octopus, les packages de déploiement sont des fichiers avec une extension .nupkg. Voyons comment en créer un pour un projet de Base de données.</p>
+<h2 id="ajouterunedpendanceversoctopack">Ajouter une dépendance vers Octopack</h2>
+<p><a href="https://github.com/OctopusDeploy/OctoPack">Octopack</a> est l’utilitaire que nous allons utiliser pour générer ce package de déploiement. Démystifions le terme, octopack produit un fichier qui n’est autre qu’un zip, contenant les fichiers à déployer ainsi qu’un ensemble de métadonnées et potentiellement des scripts powershell.<br>
+Bref, rien de bien extraordinaire.</p>
+<p>Pour l’installer dans notre projet de base de données, nous allons utiliser Nuget, qui est un gestionnaire de dépendances très performant et bien connu des développeurs. Cependant il n’est pas facilement accessible lorsqu’on travailler sur un projet SQL/SSIS/SSRS/SSAS.</p>
+<p>Pour tromper Visual Studio nous allons commencer par ajouter un projet C# de type console pour faire simple</p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=0B3FYDprTEqfhX2MtUFgtaWkzSnc" alt=""></p>
+<p>Ajoutons sur ce projet C# une dépendance vers Octopack.</p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=0B3FYDprTEqfhWW5GRURBWXZOaGc" alt=""></p>
+<p>Dans la nouvelle fenêtre on cherche le package Octopack, et on l’installe.</p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=0B3FYDprTEqfhYTBIVkZQenpZWkU" alt=""></p>
+<p>Après avoir acquitté la fenêtre de preview d’install, la fenêtre «Output» de visual Studio devrait vous confirmer que l’installation s’est bien passée.</p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=0B3FYDprTEqfhNVVFYnBwZEs1bmc" alt=""></p>
+<p>Il aurait été formidable de pouvoir l’installer directement dans notre projet de base, mais nous allons devoir transpirer un peu plus pour arriver à nos fins.<br>
+Ready ?? Ouvrons le fichier csproj de l’application console et copions la portion de msbuild qui correspond à Octopack</p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=0B3FYDprTEqfhT0RybERZZi1hWnc" alt=""></p>
+<p>Puis, copions la discrètement dans notre fichier sqlproj, de la même manière à la fin de celui-ci.<br>
+Un petit rebuild pour vérifier que tout fonctionne toujours bien… et TADAM y’a toujours pas de package de déploiement généré.</p>
+<h2 id="crerlepackage">Créer le package</h2>
+<p>Bon si vous avez été un peu curieux, vous aurez remarqué que la portion de msbuild que l’on a copiée a pour but d’importer un autre fichier msbuild (qui se trouve dans le répertoire packagesOctoPack.3.4.1toolsOctoPack.targets)</p>
+<p>En baragouinant un peu le msbuild, on comprend assez vite que la variable <code>RunOctoPack</code> est initialisée à <code>false et c’est elle qui déclenche ou non la génération du package.</code></p>
+<p>Alors évidemment, une solution possible est de modifier cette variable à true. Néanmoins cela induit qu’un package de déploiement sera créé a chaque build du projet. Ce n’est vraisemblablement pas ce que vous souhaitez.</p>
+<p>Je vous propose plutôt d’ouvrir une console DOS et une fois dans le répertoire du projet, tapez la commande suivante :</p>
+<p>msbuild ContinuousBI.Sql.sqlproj /t:Build /p:RunOctoPack=true</p>
+<p>Si tout s’est bien passé vous devriez avoir une sortie similaire a celle-ci :</p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=0B3FYDprTEqfhVUh0aGctS2RJb0k" alt=""></p>
+<p>Cette fois ci, si vous jetez un œil dans le sous-dossier obj/octopacked de votre projet vous y découvrirez un fichier .nupkg qui est le package de déploiement</p>
+<h2 id="aquoiressemblemonpackage">A quoi ressemble mon package ?</h2>
+<p>Pour aller un peu plus loin nous pouvons jeter un œil à ce qui a été produit pour nous par Octopack.<br>
+Je vous propose d’utiliser <a href="https://npe.codeplex.com/downloads/get/clickOnce/NuGetPackageExplorer.application">nuget package explorer</a><br>
+Ouvrez le et glissez déposez le fichier .nupkg, vous devriez obtenir un résultat semblable à celui-ci.</p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=0B3FYDprTEqfhTTFubGpDVU9wa3M" alt=""></p>
+<p>C’est confirmé, le dacpac issu de la compilation à bien été reconnu ; il est embarqué dans package de déploiement.</p>
+<p>Nous verrons dans le prochain post comment le déployer avec Octopus.</p>
+</div>]]></content:encoded></item><item><title><![CDATA[Prolific usb to ttl et windows 10]]></title><description><![CDATA[<div class="kg-card-markdown"><p><img src="https://drive.google.com/uc?export=download&amp;id=0B3FYDprTEqfhdWZ0NHAxcGRMalk" alt=""></p>
+<p>Dernièrement j'ai ressorti ma <a href="https://beagleboard.org/black">BeableBone Black</a> histoire de faire une peu de veille techno. J'vous raconterai un de ces quatre en quoi monter une boite peut vite cramer tout votre temps libre, mais c'est pour la bonne cause.</p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=0B3FYDprTEqfhR3hTSnd4Z0FXNGM" alt=""></p>
+<p>Bref pour en revenir à la Beagle, je ressors mon câble série</p></div>]]></description><link>http://localhost:2368/prolific-usb-to-ttl-et-windows-10/</link><guid isPermaLink="false">5a80cd959d8a9d2c745cb11d</guid><dc:creator><![CDATA[Fabrice Michellonet]]></dc:creator><pubDate>Wed, 11 May 2016 21:34:00 GMT</pubDate><content:encoded><![CDATA[<div class="kg-card-markdown"><p><img src="https://drive.google.com/uc?export=download&amp;id=0B3FYDprTEqfhdWZ0NHAxcGRMalk" alt=""></p>
+<p>Dernièrement j'ai ressorti ma <a href="https://beagleboard.org/black">BeableBone Black</a> histoire de faire une peu de veille techno. J'vous raconterai un de ces quatre en quoi monter une boite peut vite cramer tout votre temps libre, mais c'est pour la bonne cause.</p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=0B3FYDprTEqfhR3hTSnd4Z0FXNGM" alt=""></p>
+<p>Bref pour en revenir à la Beagle, je ressors mon câble série que j'utilise pour me connecter à la console. Je fais les branchements et go sur le site de <a href="http://www.prolific.com.tw/US/ShowProduct.aspx?p_id=225&amp;pcid=41">Prolific</a> pour récupérer le dernier driver pour Windows 10.</p>
+<p>Tiens! bizarre, même après un reboot je n'ai toujours rien qui s'affiche dans mon terminal.<br>
+En creusant, je m'aperçois que le driver du câble n'est pas reconnu.</p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=0B3FYDprTEqfhWTJhdmlPLTE0Q0k" alt=""></p>
+<p>S'en suit plusieurs tentatives de réinstallation et de reboot infructueuses.</p>
+<p>Je cherche un peu sur Internet, pas mal de personnes ont des soucis avec des versions contrefaites acheté sur des sites asiatiques. Le mien vient de chez <a href="https://www.adafruit.com/product/954">Adafruit</a>, et il fonctionnait parfaitement il y a quelques mois, sur Windows 8.</p>
+<p>Ho... tiens réessayons sur cet ancien PC. Ca fonctionne parfaitement!<br>
+Énorme je récupère l'installer du driver qui se trouve sur ce dernier;<br>
+Je repasse sur mon PC équipé de Windows 10, désinstalle le driver en place, reboot, installe l'ancien driver (fonctionnant sur Windows 8) et surprise, ca fonctionne.</p>
+<p>Si ça c'est pas de l'obsolescence programmée! Honteux!<br>
+Rien que pour ça, je vous recommande plutôt d'investir dans un câble concurrent comme ce <a href="https://www.adafruit.com/products/70">FTDI</a>. J'en possède un également et fonctionne tout aussi bien.</p>
+<p>Du coup, je vous dépose le driver fonctionnel, <a href="https://drive.google.com/uc?export=download&amp;id=0B3FYDprTEqfhanJlSTBZY3ZnZnc">ici</a>. J'espères que cela pourra aider quelqu'un.</p>
+<p>Tiens, en prime je poste ici le schéma de branchement du câble Prolific avec la beagle.</p>
+<ul>
+<li>Le fil noir va sur le pin 1 (GND)</li>
+<li>le fil vert sur le pin 4 (RECEIVE)</li>
+<li>le fil blanc sur le pin 5 (TRANSMIT)</li>
+</ul>
+<p>Ne branchez surtout pas le fil rouge, c'est du 5V, vous grilleriez la beagle!!</p>
+</div>]]></content:encoded></item><item><title><![CDATA[Comment invoquer une méthode dont on connait le nom à l’exécution sur un dynamic?]]></title><description><![CDATA[<div class="kg-card-markdown"><p>Comment invoquer une méthode dont on connait le nom à l'exécution sur un dynamic?</p>
+<p>Le mot clé dynamic en C# n'est pas nouveau, il a vu le jour avec C# 4 et pourtant il n’apparaît pas si souvent que ça dans les bouts de code que je fréquente.</p>
+<p>Dernièrement</p></div>]]></description><link>http://localhost:2368/comment-invoquer-une-methode-dont-on-connait-le-nom-a-lexecution-sur-un-dynamic/</link><guid isPermaLink="false">5a80cd959d8a9d2c745cb118</guid><dc:creator><![CDATA[Fabrice Michellonet]]></dc:creator><pubDate>Fri, 24 Jul 2015 12:51:00 GMT</pubDate><content:encoded><![CDATA[<div class="kg-card-markdown"><p>Comment invoquer une méthode dont on connait le nom à l'exécution sur un dynamic?</p>
+<p>Le mot clé dynamic en C# n'est pas nouveau, il a vu le jour avec C# 4 et pourtant il n’apparaît pas si souvent que ça dans les bouts de code que je fréquente.</p>
+<p>Dernièrement je l'ai recroisé en utilisant <a href="http://signalr.net/">SignalR</a>; les hubs qui sont générés sont des objets dynamic.</p>
+<p>Quoi qu'il en soit, dernièrement j'ai eu besoin d'invoquer une méthode dont le nom ne m'était connu qu'à l'exécution.<br>
+Croyez-moi, j'y ai passé un petit moment avant d'y arriver... Cela révèle vraisemblablement ma grande ignorance 🙂</p>
+<p>Ce blog post prendra donc la forme d'un post-it qui me fera gagner du temps la prochaine fois que je me frotterai a cette bête-là. Si pour vous les classes <a href="https://msdn.microsoft.com/fr-fr/library/microsoft.csharp.runtimebinder(v=vs.110).aspx">Binder</a> et <a href="https://msdn.microsoft.com/en-us/library/system.runtime.compilerservices.callsite(v=vs.110).aspx">CallSite</a> n'ont plus de secret ce blog post vous semblera vraisemblablement bien terne.</p>
+<p>Posons le problème, on me donne un objet dynamic auquel une méthode est ajoutée à l'exécution</p>
+<p>private string sentence = &quot;Hello world&quot;; public dynamic BuildObj() { dynamic myDynObj = new ExpandoObject(); myDynObj.SayHello = new Func<string>(() =&gt; sentence); return myDynObj; }</string></p>
+<p>Si j'avais connaissance de la méthode lors de la compilation je pourrais l'appeler ainsi :</p>
+<p>[Test] public void CallDirectlyMethod() { dynamic myObj = BuildObj(); var ret = myObj.SayHello(); Assert.That(ret, Is.EqualTo(sentence)); }</p>
+<p>Malheureusement la signature de la méthode ne m'est connue qu'à l'exécution.<br>
+Ok, premier réflexe je sors l'attirail de la reflection.... mais les résultats restent catastrophiques :</p>
+<p>[Test] public void CallMethodWithReflectionFails() { dynamic myObj = BuildObj(); Type t = myObj.GetType(); var method = t.GetMethod(&quot;SayHello&quot;, BindingFlags.Default | BindingFlags.Instance | BindingFlags.InvokeMethod | BindingFlags.NonPublic); Assert.That(method, Is.Null); }</p>
+<p>Quels que soient les bindings flags, impossible de trouver la méthode... FAIL!!</p>
+<p>Voici, donc la combinaison magique, un savant mélange de Runtime.Binder et CallSite...</p>
+<p>[Test] public void CallMethodWithCallSite() { dynamic myObj = BuildObj(); var callSiteBinder = Binder.InvokeMember(CSharpBinderFlags.None, &quot;SayHello&quot;, Enumerable.Empty<type>(), myObj.GetType(), new [] { CSharpArgumentInfo.Create(CSharpArgumentInfoFlags.None, null) }); var callSite = CallSite&lt;Func&lt;CallSite, object, object&gt;&gt;.Create(callSiteBinder); string ret = callSite.Target(callSite, myObj); Assert.That(ret, Is.EqualTo(sentence)); }</type></p>
+<p>Ok, essayons de décrypter un peu ce code qui semble un peu alambiqué.<br>
+Binder.InvokeMember va nous permettre à l'exécution de pointer la bonne méthode un peu comme le ferait typeof(myObj).GetMethod()<br>
+Le premier paramètre permet de spécifier la manière dont est traité le type de retour. Dans le cas d'une Action nous aurions pu utiliser CSharpBinderFlags.ResultDiscarded. Dans notre cas, une Func, CSharpBinderFlags.None fonctionne bien.</p>
+<p>puis viens en seconde position, évidement le nom de la méthode a appelé, passée sous forme de chaine.</p>
+<p>En troisième position, il conviendra de fournir la liste des arguments de types à nécessaire dans le cas d'une méthode générique.</p>
+<p>Viens ensuite le type sur lequel effectuer l'invocation, ce qui permet de pointer une surcharge.</p>
+<p>Et finalement les informations sur les paramètres attendus et le type de retour (le premier élément du tableau);</p>
+<p>La création du CallSite&lt;Func&lt;CallSite, object, object&gt;&gt; permet d'arrêter la signature du delegate que l'on cherche à appeler. Notez, que le dernier argument générique &quot;object&quot; devrait etre &quot;string&quot;, car il représente le type de retour de la func... mais pour une raison qui m'échappe l'utilisation de string comme type de retour entraîne une erreur au runtime, alors que le retour de la func est bien affecté à une variable string à la ligne du dessous... il faut bien garder un peu de magie 🙂</p>
+<p>Ok, évidemment il ne nous reste plus qu'à effectuer l'invocation, ce qui est réalisé via le code callSite.Target(callSite, myObj);</p>
+<p>J'espère que ce post évitera quelques cheveux blancs a ceux qui se trouveront confronté au problème.</p>
+</div>]]></content:encoded></item><item><title><![CDATA[BeagleBone Black du carton à Mono]]></title><description><![CDATA[<div class="kg-card-markdown"><p><a href="http://beagleboard.org/BLACK">L’IOT</a>, on en parle partout, de plus en plus ; évidemment l’univers Microsoft n’est pas en retrait sur ce domaine avec la mise à disposition de Windows 10 sur le <a href="https://msdn.microsoft.com/fr-fr/Library/Windows/Hardware/dn914597.aspx?f=255&amp;MSPPError=-2147217396#raspberry_pi_2">Raspberry</a> ou encore le <a href="https://msdn.microsoft.com/fr-fr/Library/Windows/Hardware/dn914597.aspx?f=255&amp;MSPPError=-2147217396#minnowboard_max">MinnowBoard MAX</a></p>
+<p>Vous trouverez pas mal de blog post autour du raspberry… je vais</p></div>]]></description><link>http://localhost:2368/beaglebone-black-du-carton-a-mono/</link><guid isPermaLink="false">5a80cd959d8a9d2c745cb117</guid><dc:creator><![CDATA[Fabrice Michellonet]]></dc:creator><pubDate>Mon, 01 Jun 2015 10:31:00 GMT</pubDate><media:content url="http://mah1979.qsandbox.com/wp-content/uploads/2015/06/bbb_overview.png" medium="image"/><content:encoded><![CDATA[<div class="kg-card-markdown"><img src="http://mah1979.qsandbox.com/wp-content/uploads/2015/06/bbb_overview.png" alt="BeagleBone Black du carton à Mono"><p><a href="http://beagleboard.org/BLACK">L’IOT</a>, on en parle partout, de plus en plus ; évidemment l’univers Microsoft n’est pas en retrait sur ce domaine avec la mise à disposition de Windows 10 sur le <a href="https://msdn.microsoft.com/fr-fr/Library/Windows/Hardware/dn914597.aspx?f=255&amp;MSPPError=-2147217396#raspberry_pi_2">Raspberry</a> ou encore le <a href="https://msdn.microsoft.com/fr-fr/Library/Windows/Hardware/dn914597.aspx?f=255&amp;MSPPError=-2147217396#minnowboard_max">MinnowBoard MAX</a></p>
+<p>Vous trouverez pas mal de blog post autour du raspberry… je vais donc plutôt vous présenter comment vous lancer dans le développement .NET embarqu&amp; sur cette magnifique plateforme qu’est le <a href="http://beagleboard.org/BLACK">BeagleBone Black (BBB)</a>. Au travers de cet article je vous propose d’étudier les différentes étapes à réaliser pour pouvoir lancer votre premier « Hello World » embarqué.</p>
+<p><a href="http://mah1979.qsandbox.com/wp-content/uploads/2015/06/bbb_overview.png"><img src="http://mah1979.qsandbox.com/wp-content/uploads/2015/06/bbb_overview-300x208.png" alt="BeagleBone Black du carton à Mono"></a></p>
+<p>Tout d’abord il n’y a pas de Windows 10 sur le BBB, en tout cas pour l’instant, mais très honnêtement l’installation d’Ubuntu que je vous propose est à la portée de tous.</p>
+<h1 id="matrielncessaire">Matériel nécessaire</h1>
+<p>Je commence par un petit coup de pub pour le site <a href="https://www.adafruit.com/"> AdaFruit</a> ou vous trouverez tout le matos que vous pouvez imaginer pour nos petits joujoux.</p>
+<p>Aller Go ! Pour faciliter la visualisation de ce qui se passe sur votre BBB je vous conseille d’investir dans un câble <a href="https://www.adafruit.com/products/70">Serial TTL-232 en usb</a>. Sans celui-ci vous devrez attendre que le BeagleBone ai récupéré une IP et vous y connecter (en ssh par exemple) et interagir avec.</p>
+<p>Pour brancher le câble prenez comme repère le fil noir qui doit venir se placer sur le pin J1 de votre BBB.</p>
+<p>Installez les drivers FTDI pour prendre en compte l’adaptateur usb. Ils se trouvent <a href="http://www.ftdichip.com/Drivers/VCP.htm">ici</a></p>
+<p>Finalement en utilisant <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">Putty</a>, configuré comme ci-dessous la console s’affiche enfin sur votre pc.</p>
+<p><a href="http://mah1979.qsandbox.com/wp-content/uploads/2015/06/putty.png"><img src="http://mah1979.qsandbox.com/wp-content/uploads/2015/06/putty-300x267.png" alt="BeagleBone Black du carton à Mono"></a></p>
+<p>Si l’idée de brancher un câble Ethernet sur votre BeagleBone vous donne de l’urticaire, je vous conseille ce <a href="https://www.adafruit.com/products/70">dongle usb</a>. Il est directement reconnu sous Ubuntu.</p>
+<h1 id="installationdubuntu">Installation d’Ubuntu</h1>
+<p><a href="http://mah1979.qsandbox.com/wp-content/uploads/2015/06/ubuntu.png"><img src="http://mah1979.qsandbox.com/wp-content/uploads/2015/06/ubuntu-300x212.png" alt="BeagleBone Black du carton à Mono"></a></p>
+<p>Nous allons installer dans la mémoire eMMC la version 14.04 d’Ubuntu spécialement conçue pour la BBC. Après avoir <a href="https://rcn-ee.com/rootfs/2015-05-08/flasher/BBB-eMMC-flasher-ubuntu-14.04.2-console-armhf-2015-05-08-2gb.img.xz">téléchargé</a> le fichier img.xz, il vous faudra le décompresser avec un outil comme <a href="http://www.7-zip.org/">7zip</a>.</p>
+<p>L’image ainsi extraite pourra être copiée sur une micro sd avec <a href="http://sourceforge.net/projects/win32diskimager/files/latest/download">Win 32 Disk Imager</a></p>
+<p>Lorsque la copie se termine, insérer la micro sd dans le port prévu à cet effet sur la BBB. Tout en appuyant avec votre index sur le bouton « boot » (le plus proche du port Ethernet), alimentez la BeagleBone. Laissez le doigt appuyé jusqu’à ce que les diodes clignotent.</p>
+<p>Il faut 5 bonnes minutes pour que l’installation se termine ; mais grâce au câble TTL vous serez aux premières loges pour suivre l’installation.</p>
+<h1 id="misejourdusystmeetinstallationdemono">Mise à jour du Système et installation de mono</h1>
+<p>Ok, si vous en êtes arrivé là, c’est du tout cuit.</p>
+<p>Nous allons commencer par mettre à jour le système grâce package manager <a href="https://wiki.debian.org/Apt">APT</a>. A partir de la console tapez les commandes suivantes :</p>
+<p>sudo apt-get update sudo apt-get upgrade</p>
+<p>Après quelques minutes le système est prêt, on peut passer à Mono. Le runtime devrait être suffisant étant donné que l’on va se contenter d’exécuter des binaires créer sur votre machine de dev. Pour l’installation on tape donc :</p>
+<p>sudo apt-get install mono-runtime</p>
+<h1 id="crationdelexcutableetdploiementsurlebbb">Création de l’exécutable et déploiement sur le BBB</h1>
+<p>Je vous laisse écrire votre premier Hello Beagle World dans Visual Studio ; en créant un projet de type console et en targettant le Framework 4.5;</p>
+<p>Une fois compilé, j’ai opté pour un déploiement type « bin-deploy » en utilisant un transfert via <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">PSCP</a></p>
+<p>Une fois PSCP copié, vous pourriez copier le fichier avec une ligne de commande comme celle-ci :</p>
+<p>pscp.exe &quot;C: BBB HelloWorldbinDebugHelloWorld.exe&quot; <a href="mailto:ubuntu@192.168.10.2">ubuntu@192.168.10.2</a>:/home/ubuntu</p>
+<p>Le premier paramètre étant le ficher à transmettre le second l’url de destination au format :</p>
+<p>user@hote:/chemin_de_destination</p>
+<p>En dessert, après tous ces efforts, nous pouvons enfin exécuter sur le Beagle notre Hello World en tapant :</p>
+<p>Mono HelloWorld.exe</p>
+</div>]]></content:encoded></item><item><title><![CDATA[Kibana : Explorez vos données.]]></title><description><![CDATA[<div class="kg-card-markdown"><p>Cet article fait partie d’une sérié dédiée à <a href="http://www.elasticsearch.org/">Elasticsearch</a>, reportez vous à <a href="http://mah1979.qsandbox.com/serie-elasticsearch/">l’article sommaire</a> pour accéder facilement aux autres posts.</p>
+<p><a href="http://www.elasticsearch.org/overview/kibana/">Kibana</a> est la brique de visualisation qui gravite autour d’Elasticsearch. Voici, quelques exemple de représentations faites avec Kibana :</p>
+<p><a href="http://2.bp.blogspot.com/-4kq3k0UkJlg/VJL7YBWhIwI/AAAAAAAAJB0/9JVdU2Iiqs8/s1600/kibana1.png" title="1"><br>
+<img src="http://2.bp.blogspot.com/-4kq3k0UkJlg/VJL7YBWhIwI/AAAAAAAAJB0/9JVdU2Iiqs8/s1600/kibana1.png" alt=""><br>
+</a><br>
+<a href="http://4.bp.blogspot.com/-bhF7rAOdIWk/VJL7YDyzhLI/AAAAAAAAJB4/rkHhggrLNrs/s1600/kibana2.png" title="2"><br>
+<img src="http://4.bp.blogspot.com/-bhF7rAOdIWk/VJL7YDyzhLI/AAAAAAAAJB4/rkHhggrLNrs/s1600/kibana2.png" alt="Kibana 2"><br>
+</a><br>
+<a href="http://1.bp.blogspot.com/-n8gAeiLX1ys/VJL7YBl092I/AAAAAAAAJCA/SodVO4jCNeI/s1600/kibana3.png" title="3"><br>
+<img src="http://1.bp.blogspot.com/-n8gAeiLX1ys/VJL7YBl092I/AAAAAAAAJCA/SodVO4jCNeI/s1600/kibana3.png" alt="Kibana 3"><br>
+</a></p>
+<p>L’exploration de données et la réalisation de dashboard</p></div>]]></description><link>http://localhost:2368/kibana-explorez-vos-donnees/</link><guid isPermaLink="false">5a80cd959d8a9d2c745cb116</guid><dc:creator><![CDATA[Fabrice Michellonet]]></dc:creator><pubDate>Tue, 23 Dec 2014 09:39:00 GMT</pubDate><media:content url="http://mah1979.qsandbox.com/wp-content/uploads/2014/12/kibana1.png" medium="image"/><content:encoded><![CDATA[<div class="kg-card-markdown"><img src="http://mah1979.qsandbox.com/wp-content/uploads/2014/12/kibana1.png" alt="Kibana : Explorez vos données."><p>Cet article fait partie d’une sérié dédiée à <a href="http://www.elasticsearch.org/">Elasticsearch</a>, reportez vous à <a href="http://mah1979.qsandbox.com/serie-elasticsearch/">l’article sommaire</a> pour accéder facilement aux autres posts.</p>
+<p><a href="http://www.elasticsearch.org/overview/kibana/">Kibana</a> est la brique de visualisation qui gravite autour d’Elasticsearch. Voici, quelques exemple de représentations faites avec Kibana :</p>
+<p><a href="http://2.bp.blogspot.com/-4kq3k0UkJlg/VJL7YBWhIwI/AAAAAAAAJB0/9JVdU2Iiqs8/s1600/kibana1.png" title="1"><br>
+<img src="http://2.bp.blogspot.com/-4kq3k0UkJlg/VJL7YBWhIwI/AAAAAAAAJB0/9JVdU2Iiqs8/s1600/kibana1.png" alt="Kibana : Explorez vos données."><br>
+</a><br>
+<a href="http://4.bp.blogspot.com/-bhF7rAOdIWk/VJL7YDyzhLI/AAAAAAAAJB4/rkHhggrLNrs/s1600/kibana2.png" title="2"><br>
+<img src="http://4.bp.blogspot.com/-bhF7rAOdIWk/VJL7YDyzhLI/AAAAAAAAJB4/rkHhggrLNrs/s1600/kibana2.png" alt="Kibana : Explorez vos données."><br>
+</a><br>
+<a href="http://1.bp.blogspot.com/-n8gAeiLX1ys/VJL7YBl092I/AAAAAAAAJCA/SodVO4jCNeI/s1600/kibana3.png" title="3"><br>
+<img src="http://1.bp.blogspot.com/-n8gAeiLX1ys/VJL7YBl092I/AAAAAAAAJCA/SodVO4jCNeI/s1600/kibana3.png" alt="Kibana : Explorez vos données."><br>
+</a></p>
+<p>L’exploration de données et la réalisation de dashboard ne nécessitent aucun code, ce qui permet de donner la main aux fonctionnels ; De plus Kibana et Elastocsearch permettent d’avoir des rapports real time, se mettant à jour à mesure que les données sont stockées.</p>
+<p>Pour les lecteurs qui connaissent bien la stack SQL Serveur, on pourrait le comparer à un Report Builder sous stéroïdes et surtout qui tiendrait (mieux) ses promesses de simplicités et d’accessibilité pour les non-techniciens</p>
+<p>Je me propose dans ce billet de découvrir ensemble les fonctionnalités de « data discovering » sur un <a href="https://www.data.gouv.fr/fr/datasets/base-de-donnees-des-accidents-corporels-de-la-circulation/">dataset public</a> recensant les accidents corporels de la circulation</p>
+<p>Si ces données vous intéressent, je vous invite d’ailleurs à jeter un œil à la très bonne session (<a href="https://www.youtube.com/watch?v=2rB7CbCVb1U">video</a>, <a href="https://onedrive.live.com/?cid=11D07374EB30D233&amp;id=11D07374EB30D233%21915">slides</a>) de <a href="http://patriceharel.blogspot.com/">Patrice Harel</a> sur le mining avec SSAS et qui s’appui sur le même jeu de données.</p>
+<h1 id="installation">Installation</h1>
+<p>Commençons par l’installation qui comme pour les autres composants de la stack est triviale :<br>
+Tout commence évidement par le téléchargement du binaire <a href="http://www.elasticsearch.org/overview/kibana/installation/">ici</a>, suivi de la décompression de l’archive.<br>
+Si votre instance elasticsearh ne tourne pas sur le même serveur qui hébergera Kibana ou si elle écoute sur un port non standard, il vous faudra modifier le fichier de configuration config/kibana.yml.<br>
+Dans mon cas, je ne touche à rien!<br>
+Puis à l’aide d’une fenêtre commande, il nous faudra exécuter /bin/kibana après s’être placé dans le répertoire ou a été décompressé l’archive.<br>
+Finalement pointons notre navigateur sur l’url <a href="http://mah1979.qsandbox.com/#">http://localhost:5601</a></p>
+<h1 id="exploration">Exploration</h1>
+<p>S’il s’agit de la première fois que vous lancez Kibana, cet écran vous sera présenté, dans lequel il vous faudra choisir un index (équivalent de base de données) ainsi qu’une colonne typée date.<br>
+Ce dernier point est extrêmement important, car Kibana part du principe qu’il est naturel pour l’esprit humain et plus facile de découvrir des données lorsqu’elles sont représentées sur une frise.<br>
+<a href="http://1.bp.blogspot.com/-Z810eCg254A/VJL94zZOHZI/AAAAAAAAJCQ/8Z7RV0Y646s/s1600/kibana_configIndex.png" title="configure"><br>
+<img src="http://1.bp.blogspot.com/-Z810eCg254A/VJL94zZOHZI/AAAAAAAAJCQ/8Z7RV0Y646s/s1600/kibana_configIndex.png" alt="Kibana : Explorez vos données."><br>
+</a><br>
+Dans notre dataset, nous ne disposons malheureusement pas de la date de l’accident, qui aurait été le candidat idéal en tant que « time field ».<br>
+Pour l’exemple, nous nous rabattrons sur le champ @timestamp représentant l’instant ou a été inséré l’événement dans notre index.</p>
+<p>On se retrouve propulsé dans nos données via l’écran suivant :<br>
+<a href="http://2.bp.blogspot.com/-kmVU6veyAE0/VJL-Sxl_dwI/AAAAAAAAJCY/V6IOfdp5XuE/s1600/kibana_zones.png" title="explore"><br>
+<img src="http://2.bp.blogspot.com/-kmVU6veyAE0/VJL-Sxl_dwI/AAAAAAAAJCY/V6IOfdp5XuE/s1600/kibana_zones.png" alt="Kibana : Explorez vos données."><br>
+</a><br>
+On reconnait très vite plusieurs sections dans cette interface :</p>
+<ul>
+<li>La colonne de gauche qui contient les champs à disposition (1).</li>
+<li>Tout en haut (2), une zone de filtre ; n’oublions pas qu’elasticsearch est un moteur de recherche…</li>
+<li>L’indicateur du nombre d’enregistrements après filtrage (3).</li>
+<li>La frise temporelle sur laquelle on regarde les événements (4).</li>
+<li>Finalement la vue tableau de données au centre. Notons que pour l’instant elle nous représente la version brute des données, car nous n’avons pas encore choisit de colonnes à afficher.</li>
+</ul>
+<p>Commençons par cliquer sur les barres du graph afin d’effectuer un drilldown au niveau temps.<br>
+<a href="http://4.bp.blogspot.com/-IiU8s0EQj9k/VJL_V6DIH1I/AAAAAAAAJCk/rbUVL-Eq8Tw/s1600/kibana_timeseries.png" title="times series"><br>
+<img src="http://4.bp.blogspot.com/-IiU8s0EQj9k/VJL_V6DIH1I/AAAAAAAAJCk/rbUVL-Eq8Tw/s1600/kibana_timeseries.png" alt="Kibana : Explorez vos données."><br>
+</a><br>
+Instantanément cela nous permet de découvrir la répartition des data dans le temps. Notez, que les clics que nous avons fait sur le graph sont interprétés comme une clause de filtrage, diminuant les événements auxquels on s’intéresse.</p>
+<p>Pour avoir un aperçu du contenu des champs, je vous conseille de cliquer sur le nom d'un champ dans la colonne de gauche ; comme ceci :</p>
+<p><img src="http://1.bp.blogspot.com/-F0lPUUYf2Ug/VJL_0oFOkmI/AAAAAAAAJCs/mELz1DPeLXs/s1600/kibana_FieldCount.png" alt="Kibana : Explorez vos données."></p>
+<p>Les informations et actions présentées ici sont une vraie mine d’or.<br>
+En plus d'un premier comptage des données sous-jacentes, on peut par exemple se concentrer sur les événements qui ont eu lieu sur l’A31 en cliquant sur l'icone loupe+. Evidemment, la frise temporelle et les données sont mis à jour.<br>
+<a href="http://1.bp.blogspot.com/-pe2N46v18dE/VJMBPbsDBdI/AAAAAAAAJC4/GBDGOuzcuAo/s1600/kibana_filteredtimeseries.png" title="time series"><br>
+<img src="http://1.bp.blogspot.com/-pe2N46v18dE/VJMBPbsDBdI/AAAAAAAAJC4/GBDGOuzcuAo/s1600/kibana_filteredtimeseries.png" alt="Kibana : Explorez vos données."><br>
+</a></p>
+<p>Maintenant, intéressons nous au champ tbl qui représente le nombre de blessés légers dans un accident.</p>
+<p><img src="http://2.bp.blogspot.com/-J8qQtRTTLmk/VJMCR51JDmI/AAAAAAAAJDE/Nax3m2JrEuY/s1600/kibana_tbl.png" alt="Kibana : Explorez vos données."></p>
+<p>En cliquant sur « Visualize », on obtient la répartition top 20, sous forme d’histogramme, du nombre de blessés légers sur l’ensemble des événements de la base.<br>
+<a href="http://1.bp.blogspot.com/-42EKGG1e31g/VJMCs3vORDI/AAAAAAAAJDM/XfSnLY2gK0M/s1600/kibana_visualize.png" title="Visualize"><br>
+<img src="http://1.bp.blogspot.com/-42EKGG1e31g/VJMCs3vORDI/AAAAAAAAJDM/XfSnLY2gK0M/s1600/kibana_visualize.png" alt="Kibana : Explorez vos données."><br>
+</a><br>
+Ici aussi cette visualisation, nous permet d’appréhender rapidement la teneur de nos données.</p>
+<p>Finalement jetons un œil, au filtre qui se trouve tout en haut de l’interface de Kibana. Par défaut, vous y trouverez une *. Attention, il n’y a pas ici d’analogie avec SQL, ici l’étoile signifie sans filtre.<br>
+Nous pourrions par exemple nous intéresser à une commune en particulier, celle de Cergy par exemple (95002). Il nous suffira pour ce faire de saisir le filtre suivant :</p>
+<p>codeinsee:=95002</p>
+<p><a href="http://4.bp.blogspot.com/-MH9KuJdcVgE/VJMJZbCPthI/AAAAAAAAJDk/47EQjYENWWI/s1600/kibana_QueryEqual.png" title="Equals filter"><br>
+<img src="http://4.bp.blogspot.com/-MH9KuJdcVgE/VJMJZbCPthI/AAAAAAAAJDk/47EQjYENWWI/s1600/kibana_QueryEqual.png" alt="Kibana : Explorez vos données."><br>
+</a><br>
+Ou bien les accidents impliquant plus de 2 morts</p>
+<p>ttué:&gt;2</p>
+<p><a href="http://2.bp.blogspot.com/-Mdsx4ZiSjXw/VJMKCSepodI/AAAAAAAAJDs/leAErdXX-YE/s1600/kibana_QueryGreater.png" title="Greater filter"><br>
+<img src="http://2.bp.blogspot.com/-Mdsx4ZiSjXw/VJMKCSepodI/AAAAAAAAJDs/leAErdXX-YE/s1600/kibana_QueryGreater.png" alt="Kibana : Explorez vos données."><br>
+</a><br>
+Ou encore les accidents impliquant plus de 2 morts dans l’Oise :</p>
+<p>ttué:&gt;2 AND codeinsee [60000 TO 69999]</p>
+<p><a href="http://3.bp.blogspot.com/-H-sa9wi4IHc/VJMIlgo0inI/AAAAAAAAJDc/QS_ApVYRcyI/s1600/kibana_QueryRange.png" title="Range filter"><br>
+<img src="http://3.bp.blogspot.com/-H-sa9wi4IHc/VJMIlgo0inI/AAAAAAAAJDc/QS_ApVYRcyI/s1600/kibana_QueryRange.png" alt="Kibana : Explorez vos données."><br>
+</a></p>
+<p>Voila qui clos ce premier article sur Kibana, en espérant vous avoir donné envie d’essayer ce superbe outil.</p>
+</div>]]></content:encoded></item><item><title><![CDATA[Série Elasticsearch]]></title><description><![CDATA[<div class="kg-card-markdown"><p>Ce post fait office de sommaire à toute une série d’articles que j’ai bon espoir d’écrire sur cette toute fin d’année 2014 et le début 2015.</p>
+<p>Mais pourquoi parler d’Elasticsearch, moi qui ne traite que de technos Microsoft sur ce blog?</p>
+<p>Cela part du constat</p></div>]]></description><link>http://localhost:2368/serie-elasticsearch/</link><guid isPermaLink="false">5a80cd959d8a9d2c745cb115</guid><dc:creator><![CDATA[Fabrice Michellonet]]></dc:creator><pubDate>Tue, 23 Dec 2014 09:37:00 GMT</pubDate><content:encoded><![CDATA[<div class="kg-card-markdown"><p>Ce post fait office de sommaire à toute une série d’articles que j’ai bon espoir d’écrire sur cette toute fin d’année 2014 et le début 2015.</p>
+<p>Mais pourquoi parler d’Elasticsearch, moi qui ne traite que de technos Microsoft sur ce blog?</p>
+<p>Cela part du constat qu’a mon humble avis, la stack BI Microsoft pèche sur deux points :</p>
+<ul>
+<li>Premièrement, il n’existe pas d’outils permettant une exploration décente des données non encore nettoyées, rangées, retraitées etc.… d’ailleurs, plus la volumétrie est importante et plus ce point est difficilement adressable.<br>
+(i.e : sur de petites volumétries, j’en entends déjà me dire qu’Excel peut avoir ce rôle, avec un enchevêtrement de tableaux croisés dynamiques etc… )</li>
+<li>L’outillage de reporting est assez pauvre et n’est vraiment pas penser pour être à destination des fonctionnels.<br>
+Je m’explique Reporting Services fait le job lorsqu’il s’agit de réaliser un document pro format, mais nécessite des compétences techniques que nos fonctionnels ne disposent pas ; et c’est bien normal.<br>
+Vous aurez probablement également entendu parler de la version « User Friendly » de « Reporting Services », j’ai nommé Report Builder. La tentative est louable, mais le résultat n’est pas la à hauteur.<br>
+Encore une fois dans les faits, bien peut de fonctionnels ont les connaissances, l’envie et le temps de l’utiliser.</li>
+</ul>
+<p>C’est avec ces regrets dans l’âme, que je me retrouve lors de la conférence <a href="http://ncraft.io/">ncraft 2014</a> à assister à une superbe session d’<a href="http://code972.com/blog">Itamar Syn-Hershko</a> consacrée au couple Elasticsearch et Kibana.</p>
+<p>Je vous passe les détails de <a href="https://www.youtube.com/watch?v=s_1IiYQyB20">cette présentation</a>, mais effet whaou garanti vers la fin de la session lorsque Kibana rentre en scène.</p>
+<p>Certain doivent se dire qu’il m’a fallu presque 1 an pour commencer à sortir un article, quelle productivité !</p>
+<p>Pour être tout à fait franc, il y a 1 an il manquait encore quelques features indispensable a mon sens pour que Kibana puisse jouer un rôle aussi important que ce pour quoi il à été conçu. L’exemple le plus probant était l’impossibilité de réaliser un « distinc count » ; un « show stopper » pour qui compte faire un peu de BI sérieusement.</p>
+<p>Voila pour le petit historique et mes états d’âmes ; Kibana est arrivé à maturité selon moi dans ses cas d’utilisation standard et cela mérité bien qu’on s’y intéresse ainsi qu’a l’écosystème qui gravite autour.</p>
+<p>Voici enfin l’heure du menu :</p>
+<ul>
+<li><a href="http://mah1979.qsandbox.com/kibana-explorez-vos-donnees/">1ere Partie : Explorez vos données avec Kibana</a></li>
+<li>2eme Partie : Chargez vos données, les yeux fermés avec Logstash</li>
+<li>3eme Partie : Introduction à Elasticsearch</li>
+<li>4eme Partie : Changement de mapping et Reindexation</li>
+<li>5eme Partie : Reporting avancé &amp; Dashbording (Kibana)</li>
+<li>6eme Partie : Transformation de données (Logstash)</li>
+</ul>
+<p>Il y’a de forte chance que ce sommaire soit agrémenté d’autres articles dans le futur ; le domaine étant extrêmement large.</p>
+<p>Dernier point, l’ordre des premiers articles peut vous paraître étrange ; j’ai voulu partir de ce qui apportera le plus de valeur ajouté aux fonctionnels pour finir par ce qui requiers le plus de compétences techniques.</p>
+<p>Il ne me reste qu'a vous souhaiter une bonne lecture, et n'hésitez pas a me laisser vos commentaires.</p>
+</div>]]></content:encoded></item><item><title><![CDATA[Utiliser Couchbase comme serveur de cache]]></title><description><![CDATA[<div class="kg-card-markdown"><p>Dernièrement, je vous présentais une façon simple d'utiliser le <a href="http://mah1979.qsandbox.com/poor-mans-cache/">cache dans vos applications .NET</a><br>
+Cependant cette solution possède plusieurs inconvénients. En voici quelque uns :</p>
+<ul>
+<li>Le cache est lié au processus système de votre application (executable / IIS etc...). Si votre programme plante ou est fermé, vous perdez votre cache</li>
+<li>Si vos</li></ul></div>]]></description><link>http://localhost:2368/utiliser-couchbase-comme-serveur-de-cache/</link><guid isPermaLink="false">5a80cd959d8a9d2c745cb114</guid><dc:creator><![CDATA[Fabrice Michellonet]]></dc:creator><pubDate>Fri, 11 Apr 2014 13:13:00 GMT</pubDate><media:content url="http://mah1979.qsandbox.com/wp-content/uploads/2014/04/config_couchbase.png" medium="image"/><content:encoded><![CDATA[<div class="kg-card-markdown"><img src="http://mah1979.qsandbox.com/wp-content/uploads/2014/04/config_couchbase.png" alt="Utiliser Couchbase comme serveur de cache"><p>Dernièrement, je vous présentais une façon simple d'utiliser le <a href="http://mah1979.qsandbox.com/poor-mans-cache/">cache dans vos applications .NET</a><br>
+Cependant cette solution possède plusieurs inconvénients. En voici quelque uns :</p>
+<ul>
+<li>Le cache est lié au processus système de votre application (executable / IIS etc...). Si votre programme plante ou est fermé, vous perdez votre cache</li>
+<li>Si vos besoins en mémoire augmentent, cette solution n'est pas scalable</li>
+<li>Rien n'est mis a disposition pour monitorer votre cache</li>
+<li>Vous n'avez pas d'interface de gestion du cache (augmentation de la mémoire allouée etc...)</li>
+<li>Vous ne pouvez pas invalider le cache sans arrêter l'application.</li>
+<li>etc...</li>
+</ul>
+<p>Bref, vous avez compris, c'est une solution pour démarrer petit.</p>
+<p>Aujourd'hui, je voudrais partager avec vous une solution qui répond à tous les manques évoqués plus haut et plus encore.<br>
+Couchbase est une base NoSQL Key/Value; la value ayant comme particularité d'être un document json.<br>
+Couchbase est issu du mariage heureux de Membase (cache mémoire avec réplication des caches, persistance et interface d’admin Web sexy) et<br>
+CouchDB (NoSQL orienté document). Ce qui nous intéresse plus particulièrement aujourd'hui sont les fonctionnalités qui en font un bon serveur de cache.</p>
+<h3 id="installation">Installation</h3>
+<p>Pour l'installer, tout commence par <a href="http://www.couchbase.com/couchbase-server/overview">télécharger le setup ici</a></p>
+<p>Je vous passe le scénario d'installation qui a le bon gout de se faire en &quot;Next&quot; &gt; &quot;Next&quot; &gt; &quot;Next&quot;</p>
+<p>Passons à la configuration :</p>
+<p>Dans la première étape, il vous faudra spécifier l'emplacement des fichiers (base et index) ainsi que la mémoire dévolue à Couchbase.</p>
+<p><a href="http://3.bp.blogspot.com/-a9Gm-TdZhEk/U0fm0nM3eeI/AAAAAAAAGL8/5k4Wmmk2nNo/s1600/config_couchbase.png"><img src="http://3.bp.blogspot.com/-a9Gm-TdZhEk/U0fm0nM3eeI/AAAAAAAAGL8/5k4Wmmk2nNo/s1600/config_couchbase.png" alt="Utiliser Couchbase comme serveur de cache"></a></p>
+<p>Un peu plus loin nous allons créer le l'espace qui accueillera les objets que l'on va mettre en cache (bucket).</p>
+<p><a href="http://3.bp.blogspot.com/-wftJQDUu1Lw/U0fnPKiT2tI/AAAAAAAAGME/1Mk3vI8CflE/s1600/bucket.png"><img src="http://3.bp.blogspot.com/-wftJQDUu1Lw/U0fnPKiT2tI/AAAAAAAAGME/1Mk3vI8CflE/s1600/bucket.png" alt="Utiliser Couchbase comme serveur de cache"></a></p>
+<p>Quelques instant plus tard vous voila avec un Couchbase flambant neuf sur votre machine.</p>
+<p><a href="http://3.bp.blogspot.com/-MsQaiQROQuI/U0fniAPHxJI/AAAAAAAAGMM/QUZOAShtgKw/s1600/complete.png"><img src="http://3.bp.blogspot.com/-MsQaiQROQuI/U0fniAPHxJI/AAAAAAAAGMM/QUZOAShtgKw/s1600/complete.png" alt="Utiliser Couchbase comme serveur de cache"></a></p>
+<p>Note : si la page ne s'ouvre pas automatiquement dans votre browser, la console d'admin de couchbase se trouve a l'adresse suivante : <a href="http://localhost:8091/">http://localhost:8091/</a></p>
+<h3 id="implementation">Implementation</h3>
+<p>Couchbase dispose d'un très bel écosystème qui gravite autour, et la plateforme .NET ne fait pas exception.<br>
+Je me propose d'adapter le cache manager vu dans le <a href="http://mah1979.qsandbox.com/poor-mans-cache/">précédent article.</a><br>
+Pour rappel nous avions l'interface suivante :</p>
+<p>public interface ICacheManager { T GetOrInsert<t>(string key, Func<t> callback) where T : class; }</t></t></p>
+<p>Passons à l'implémentation. Il va nous falloir un driver, que l'on peut aisément installer via <a href="http://www.nuget.org/">nuget</a> :</p>
+<p><a href="http://1.bp.blogspot.com/--7tTMlX55hE/U0foFlp4VXI/AAAAAAAAGMU/SyojzYwUV5U/s1600/nuget_couchbase.png"><img src="http://1.bp.blogspot.com/--7tTMlX55hE/U0foFlp4VXI/AAAAAAAAGMU/SyojzYwUV5U/s1600/nuget_couchbase.png" alt="Utiliser Couchbase comme serveur de cache"></a></p>
+<p>son utilisation est des plus simple, avec des méthodes explicites comme Get() et Store().<br>
+Voici une implémentation de cache respectant notre interface basée sur Couchbase.</p>
+<p>public class CouchbaseCacheManager : ICacheManager { private readonly CouchbaseClient _client; public CouchebaseCacheManager() { _client = new CouchbaseClient(); } public T GetOrInsert<t>(string key, Func<t> callback) where T : class { T elmnt; try { if (_client.KeyExists(key)) return _client.Get<t>(key); elmnt = callback(); _client.Store(StoreMode.Add, key, elmnt); } catch (Exception) { elmnt = callback(); } return elmnt; } }</t></t></t></p>
+<p>Et vous, quel type de cache utilisez vous dans vos projets?</p>
+</div>]]></content:encoded></item><item><title><![CDATA[Poor man's cache]]></title><description><![CDATA[<div class="kg-card-markdown"><p>Depuis la version 4 du framework .NET, la gestion d'un cache est profondement encrée dans l'adn de notre framework.<br>
+Il devient alors extrêmement facile de stocker en mémoire à peu près n'importe quoi.<br>
+Je vous livre dans ce court billet, une implémentation extrêmement simple que j'utilise souvent dans mes projets.</p></div>]]></description><link>http://localhost:2368/poor-mans-cache/</link><guid isPermaLink="false">5a80cd959d8a9d2c745cb113</guid><dc:creator><![CDATA[Fabrice Michellonet]]></dc:creator><pubDate>Fri, 04 Apr 2014 15:10:00 GMT</pubDate><content:encoded><![CDATA[<div class="kg-card-markdown"><p>Depuis la version 4 du framework .NET, la gestion d'un cache est profondement encrée dans l'adn de notre framework.<br>
+Il devient alors extrêmement facile de stocker en mémoire à peu près n'importe quoi.<br>
+Je vous livre dans ce court billet, une implémentation extrêmement simple que j'utilise souvent dans mes projets.<br>
+Commençons par définir une interface, qui nous permettra <a href="http://blog.ploeh.dk/tags.html#Dependency%20Injection-ref">d'injecter</a> notre cache manager un peu partout :</p>
+<p>public interface ICacheManager { T GetOrInsert<t>(string key, Func<t> callback) where T : class; }</t></t></p>
+<p>et finalement voici une implémentation extra simple de notre cache manager</p>
+<p>public class CacheManager : ICacheManager { public T GetOrInsert<t>(string key, Func<t> callback) where T : class { ObjectCache cache = MemoryCache.Default; if (cache.Contains(key)) return cache[key] as T; T elmnt = callback(); cache.Add(new CacheItem(key, elmnt), new CacheItemPolicy()); return elmnt; } }</t></t></p>
+<p>Voici un exemple d'utilisation.</p>
+<p>IEnumerable<product> products = _cache.GetOrInsert(&quot;Ma_Clef_Unique_Cache&quot;, () =&gt; { return _productService.GetFrenchProducts(); } );</product></p>
+<p>Simple non?</p>
+</div>]]></content:encoded></item><item><title><![CDATA[IISExpress : Servir des pages vers l’extérieur.]]></title><description><![CDATA[<div class="kg-card-markdown"><p>Nul doute, IISExpress nous a simplifié la vie au quotidien de par sa facilité d'utilisation et son intégration à Visual Studio.<br>
+Aujourd'hui, je devais travailler à rendre un site compatible avec l'ipad. Ni une ni deux, je lance safari et pointe vers l'ip de ma machine de dev.<br>
+Et boom</p></div>]]></description><link>http://localhost:2368/iisexpress-servir-des-pages-vers-lexterieur/</link><guid isPermaLink="false">5a80cd959d8a9d2c745cb112</guid><dc:creator><![CDATA[Fabrice Michellonet]]></dc:creator><pubDate>Fri, 28 Mar 2014 22:23:00 GMT</pubDate><content:encoded><![CDATA[<div class="kg-card-markdown"><p>Nul doute, IISExpress nous a simplifié la vie au quotidien de par sa facilité d'utilisation et son intégration à Visual Studio.<br>
+Aujourd'hui, je devais travailler à rendre un site compatible avec l'ipad. Ni une ni deux, je lance safari et pointe vers l'ip de ma machine de dev.<br>
+Et boom une belle erreur, me prévient que IISExpress ne servira de pages qu'en local.</p>
+<p>Voici comment je l'ai configuré afin de pouvoir tester sur mon Ipad.</p>
+<h3 id="1configuronsnotresitewebafinquilsoitbindsurtouteslesipdenotremachinededev">1 - Configurons notre site web afin qu'il soit bindé sur toutes les IP de notre machine de dev.</h3>
+<p>Pour ce faire ouvrons le fichier de config de IISExpress qui se trouve sur : %userprofile%My DocumentsIISExpressconfigapplicationhost.config<br>
+Recherchons la config de notre site</p>
+<p><site name="MonSite" id="10"> <application path="/" applicationpool="Clr4IntegratedAppPool"> <virtualdirectory path="/" physicalpath="C:!ProjectMonSite"> </virtualdirectory></application> <bindings> <binding protocol="https" bindinginformation="*:44300:localhost"> </binding></bindings> </site></p>
+<p>remplaçons le binding afin que le site soit servi quelque soit l'ip sur laquelle arrive la requete</p>
+<p><site name="MonSite" id="10"> <application path="/" applicationpool="Clr4IntegratedAppPool"> <virtualdirectory path="/" physicalpath="C:!ProjectMonSite"> </virtualdirectory></application> <bindings> <binding protocol="https" bindinginformation="*:44300:*"> </binding></bindings> </site></p>
+<h3 id="2rservonslurlauniveaudukernelhttpsys">2 - Réservons l'url au niveau du kernel (HTTP.sys)</h3>
+<p>Cela se fait via la ligne de commande suivante, a executée dans une console en mode admin.</p>
+<blockquote>
+<p>netsh http add urlacl url=https://*:44300/ user=everyone</p>
+</blockquote>
+<p>Note : pour ceux qui travaillent sur un windows en français il faudra alors taper</p>
+<blockquote>
+<p>netsh http add urlacl url=https://*:44300/ user=&quot;tout le monde&quot;</p>
+</blockquote>
+<h3 id="3autoriserletraficautraversdufirewall">3 - Autoriser le trafic au travers du firewall</h3>
+<p>De nouveau une commande à exécuter via une console en mode admin :</p>
+<blockquote>
+<p>netsh firewall add portopening TCP 44300 IISExpressWeb enable ALL</p>
+</blockquote>
+<p>Voila, j'espère que cette astuce pourra vous éviter de rester coincé si vous devez exposer un site hebergé sur votre machine de dev</p>
+</div>]]></content:encoded></item><item><title><![CDATA[EntityFramework.Patterns 0.8 est compatible EF 6]]></title><description><![CDATA[<div class="kg-card-markdown"><p>Ça faisait longtemps que je n'avais pas remis les mains dans ce projet, plus d'un an pour être exact. Le passage à Entity Framework 5 n'avait pas posé de soucis car aucun breaking changes dans l'API n'avait bloqué l'utilisation de la librairie. C'est surement ce qui explique le nombre &quot;</p></div>]]></description><link>http://localhost:2368/entityframework-patterns-0-8-est-compatible-ef-6/</link><guid isPermaLink="false">5a80cd959d8a9d2c745cb111</guid><dc:creator><![CDATA[Fabrice Michellonet]]></dc:creator><pubDate>Sun, 17 Nov 2013 21:01:00 GMT</pubDate><content:encoded><![CDATA[<div class="kg-card-markdown"><p>Ça faisait longtemps que je n'avais pas remis les mains dans ce projet, plus d'un an pour être exact. Le passage à Entity Framework 5 n'avait pas posé de soucis car aucun breaking changes dans l'API n'avait bloqué l'utilisation de la librairie. C'est surement ce qui explique le nombre &quot;plutôt important&quot; (7500) download sur <a href="https://www.nuget.org/packages/EntityFramework.Patterns/">nuget gallery</a>.</p>
+<p>Mais avec EF 6 c'est une autre histoire, tout un tas de nouvelles fonctionnalités très sympa, mais aussi une api qui a pas mal bougé... ainsi plusieurs utilisateurs sur <a href="https://efpatterns.codeplex.com/">codeplex</a>, m'ont tout naturellement contacté pour me demander de mettre à jour EntityFramework.Patterns.</p>
+<p>C'est chose faite, la version 0.8 est désormais disponible via <a href="https://www.nuget.org/packages/EntityFramework.Patterns/">nuget</a> ou sous forme <a href="https://efpatterns.codeplex.com/releases/view/114986">binaire</a> et est compatible avec la dernière version d'EF</p>
+<p>Ça signifie que mes chers utilisateurs vont pouvoir profiter des gains de performances apportées par EF 6; Quant au projet sur lequel je travaille actuellement, j'espère bien upgrader EF dès demain... <a href="http://ryvonnet.wordpress.com/">Romain</a>, si tu m'entends :p</p>
+<p>Dans un avenir proche, je pense ajouter un bout d'API asynchrone aux repository d'EntityFramework.Patterns.</p>
+<p>Bon upgrade de package !!</p>
+</div>]]></content:encoded></item><item><title><![CDATA[SSIS vs TPL.Dataflow]]></title><description><![CDATA[<div class="kg-card-markdown"><p>Il y a quelques jours je tweetais de joie, après être tombé sur la msdn concernant <a href="http://msdn.microsoft.com/en-us/library/hh228603(v=vs.110).aspx">TPL.Dataflow</a><br>
+L'API propose un système de pipeline que l'on peut aisément imaginer utiliser dans un process d'ETL.</p>
+<p>Ni une ni deux, je m'imagine délaisser SSII lors de mes prochaines alims de base de</p></div>]]></description><link>http://localhost:2368/ssis-vs-tpl-dataflow/</link><guid isPermaLink="false">5a80cd959d8a9d2c745cb110</guid><dc:creator><![CDATA[Fabrice Michellonet]]></dc:creator><pubDate>Thu, 31 Oct 2013 17:18:00 GMT</pubDate><media:content url="http://mah1979.qsandbox.com/wp-content/uploads/2013/10/djoub.png" medium="image"/><content:encoded><![CDATA[<div class="kg-card-markdown"><img src="http://mah1979.qsandbox.com/wp-content/uploads/2013/10/djoub.png" alt="SSIS vs TPL.Dataflow"><p>Il y a quelques jours je tweetais de joie, après être tombé sur la msdn concernant <a href="http://msdn.microsoft.com/en-us/library/hh228603(v=vs.110).aspx">TPL.Dataflow</a><br>
+L'API propose un système de pipeline que l'on peut aisément imaginer utiliser dans un process d'ETL.</p>
+<p>Ni une ni deux, je m'imagine délaisser SSII lors de mes prochaines alims de base de données et enfin pouvoir unit tester mon ETL.<br>
+L'accueil fait par mes collègues purement BI fut plutôt frileux... n'est ce pas David 🙂</p>
+<p><img src="http://mah1979.qsandbox.com/wp-content/uploads/2013/10/djoub-300x53.png" alt="SSIS vs TPL.Dataflow"></p>
+<p>Au rayon des réponses constructives, <a href="http://fbro.wordpress.com/">Fred Brossard</a>, me fait revenir très vite sur terre, en demandant à voir les perfs du framework.</p>
+<p>C'est ce que je me propose de présenter ici avec un exemple simple.<br>
+L'idée est d'importer le snapshot de <a href="http://meta.stackoverflow.com/questions/198915/is-there-a-direct-download-link-with-a-raw-data-dump-of-stack-overflow-not-a-t">septembre des posts de stackoverflow</a>; d'abord avec notre bon vieux SSIS puis avec TPL.Dataflow.</p>
+<p>En entrée on a donc un bon gros fichier XML de 170MO correspondant aux nouveaux posts du mois.</p>
+<p>Commençons par SSIS, rien de sorcier, une XML source qui se déverse directement dans une SQL Destination pointant vers ma jolie table.</p>
+<p><img src="http://mah1979.qsandbox.com/wp-content/uploads/2013/10/ssis-300x264.png" alt="SSIS vs TPL.Dataflow"></p>
+<p>Ce qui nous donne env. 150K lignes intégrées en env. 20 sec</p>
+<p><img src="http://mah1979.qsandbox.com/wp-content/uploads/2013/10/ssis_executed-300x266.png" alt="SSIS vs TPL.Dataflow"><br>
+<img src="http://mah1979.qsandbox.com/wp-content/uploads/2013/10/ssis_elapsed-300x36.png" alt="SSIS vs TPL.Dataflow"></p>
+<p>Ok, passons à la version C#. Ce que je vous livre ici est une version non optimisée et naive d'un algo d'import avec TPL.Dataflow.</p>
+<p>Commencons par créer nos taches :</p>
+<p>// XML datasource var inputBlock = new BufferBlock<xdocument>(); // Split xml, one for each <row> element var xDocumentToXmlRow = new TransformManyBlock&lt;XDocument, XElement&gt;( x =&gt; x.Root.DescendantNodes().OfType<xelement>()); // Convert xml <row> element to a Post object. var xmlRowToObjectBlock = new TransformBlock&lt;XElement, Post&gt;( x =&gt; x.FromXElement<post>(), new ExecutionDataflowBlockOptions {MaxDegreeOfParallelism = DataflowBlockOptions.Unbounded}); // a buffer of 10000 elements var batch = new BatchBlock<post>(10000); // SQL destination, using bulk insert. var sqlBulk = new ActionBlock&lt;Post[]&gt;(x =&gt; { using (SqlBulkCopy sbc = new SqlBulkCopy(&quot;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=Stackoverflow;Data Source=(local)&quot;, SqlBulkCopyOptions.TableLock)) { sbc.DestinationTableName = &quot;Posts&quot;; // Number of records to be processed in one go sbc.BatchSize = 10000; // commit to the server sbc.WriteToServer(x.ToList().ToDataTable()); sbc.Close(); } }, new ExecutionDataflowBlockOptions { MaxDegreeOfParallelism = DataflowBlockOptions.Unbounded });</post></post></row></xelement></row></xdocument></p>
+<p>Il nous faut maintenant ordonnancer ces taches, comme nous le faisons dans SSIS en reliant les taches entre elles.</p>
+<p>using (inputBlock.LinkTo(xDocumentToXmlRow)) using (xDocumentToXmlRow.LinkTo(xmlRowToObjectBlock)) using (xmlRowToObjectBlock.LinkTo(batch)) using (batch.LinkTo(sqlBulk)) { inputBlock.Completion.ContinueWith(t =&gt; xDocumentToXmlRow.Complete()); xDocumentToXmlRow.Completion.ContinueWith(t =&gt; xmlRowToObjectBlock.Complete()); xmlRowToObjectBlock.Completion.ContinueWith(t =&gt; batch.Complete()); batch.Completion.ContinueWith(t =&gt; sqlBulk.Complete()); var inputfile = XDocument.Load(@&quot;C:!PoCStackoverflowSourcefilesPosts.xml&quot;); inputBlock.Post(inputfile); inputBlock.Complete(); sqlBulk.Completion.Wait(); }</p>
+<p>Aller, sans plus attendre, voici le résultat de l’exécution :</p>
+<p><img src="http://mah1979.qsandbox.com/wp-content/uploads/2013/10/TPL.Dataflow_executed-300x83.png" alt="SSIS vs TPL.Dataflow"></p>
+<p>Je suis sur que vous êtes aussi étonnés que moi... TPL est plus rapide (de quelques 15%) par rapport à SSIS dans ce cas simple.<br>
+Pour être tout à fait franc, je ne m'y attendais pas du tout. Je pensais qu'il y aurait vraisemblablement une 20 aine de % d'écart, mais en faveur de SSIS.</p>
+<p>Bien que cet exemple simplissime ne puisse pas permettre de généraliser, TPL.Dataflow semble apporter des performances suffisantes, si non meilleures qu'SSIS;<br>
+mais surtout, cet API va nous permettre d’écrire des tests unitaires sur nos jobs d'intégration. C'est ce que je vous présenterai dans un prochain article.</p>
+<p>Et vous, avez vous déjà utilisé TPL.Dataflow? Pourriez-vous l'utiliser dans vos projets? A la lumière de ce post, que pensez vous de ces performances?</p>
+</div>]]></content:encoded></item><item><title><![CDATA[Entity Framework Cache]]></title><description><![CDATA[<div class="kg-card-markdown"><p>Malgré la version 5 d'Entity Framework sortie il y a peu de temps, beaucoup déplorent l’absence d’un mécanisme de cache implémenté dans le Framework.</p>
+<p>Pour ceux qui ont un peu creusé le sujet, il y a bien les <a href="http://code.msdn.microsoft.com/EFProviderWrappers-c0b88f32">&quot;Tracing and Caching Provider Wrappers for Entity Framework&quot;</a></p></div>]]></description><link>http://localhost:2368/entity-framework-cache/</link><guid isPermaLink="false">5a80cd959d8a9d2c745cb10f</guid><dc:creator><![CDATA[Fabrice Michellonet]]></dc:creator><pubDate>Wed, 05 Sep 2012 14:58:00 GMT</pubDate><content:encoded><![CDATA[<div class="kg-card-markdown"><p>Malgré la version 5 d'Entity Framework sortie il y a peu de temps, beaucoup déplorent l’absence d’un mécanisme de cache implémenté dans le Framework.</p>
+<p>Pour ceux qui ont un peu creusé le sujet, il y a bien les <a href="http://code.msdn.microsoft.com/EFProviderWrappers-c0b88f32">&quot;Tracing and Caching Provider Wrappers for Entity Framework&quot;</a> parus début 2011. Cependant, ce n’est pas la solution ultime ; à l’époque Code First n’existait pas ce qui rend cette librairie incompatible avec Code First.</p>
+<p>Pour être tout à fait franc, le code des wrappers est disponible, je pense donc qu’en bidouillant un peu, ça doit être possible d’adapter le code pour Code First.</p>
+<p>A l’occasion de la sortie d’<a href="http://efpatterns.codeplex.com/">EntityFramework.Patterns 0.7</a>, je vous propose de voir ensemble comme utiliser les fonctionnalités de cache fournies par cette librairie.</p>
+<p>Soit le contexte suivant :</p>
+<p>public class EfContext : DbContext { public DbSet<user> Users { get; set; } public EfContext() { Database.SetInitializer(new DropCreateDatabaseIfModelChanges<efcontext>()); } }</efcontext></user></p>
+<p>Et l’entité User tel que :</p>
+<p>public class User { public int Id { get; set; } public string Name { get; set; } public virtual ICollection<userrole> UserRoles { get; set; } }</userrole></p>
+<p>On peut facilement utiliser le cache en mémoire (il est possible d’en utiliser d’autre) fournit par EntityFramework.Patterns pour mettre en cache une collection de User.</p>
+<p>// On charge tous les users et on les stocke dans le cache. using (EfContext ctx = new EfContext()) { IEnumerable<user> usrs = ctx.Users.ToCache(); } // autre code... // Cette fois ci, on récupère les users à partir du cache. using (EfContext ctx = new EfContext()) { IEnumerable<user> usrs = ctx.Users.FromCache(); }</user></user></p>
+<p>Simple non ?</p>
+<p>Pour ceux qui préfèrent éviter l’accès direct au context d’Entity Framework et qui isolent leur accès à la base dans des repository, EntityFramework.Patterns vous facilitera la tâche également.</p>
+<p>Il vous suffit de wrapper votre Repository<t> avec le CacheableRepository qui vous apporte les fonctionnalités de cache.</t></p>
+<p>using (EfContext ctx = new EfContext()) { DbContextAdapter adpt = new DbContextAdapter(ctx); IRepository<user> repo = new CacheableRepository<user>( new Repository<user>(adpt) ); // On charge tous les utilisateurs. // Par defaut le CacheableRepository va mettre en cache le resultset // en provenance de la base et le réutilisera le cas échéant plus tard. IEnumerable<user> usrs = repo.GetAll(); // autre code. // Cette fois-ci, les users proviennent du cache. Il n'y a pas d'accès en base. usrs = repo.GetAll(); }</user></user></user></user></p>
+<p>Comme vous le voyez le CacheableRepository fait appel au cache pour vous ; et vous permet de ne pas avoir à gérer la suppression d’éléments dans le cache lorsque les éléments ont étés modifiés/supprimés/insérés etc…</p>
+<p>Je reviendrais ultérieurement dans un prochain post sur les mécanismes avancés du cache proposés par EntityFramework.Patterns.</p>
+</div>]]></content:encoded></item></channel></rss>

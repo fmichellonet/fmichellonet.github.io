@@ -1,4 +1,5 @@
-
+﻿<!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,33 +9,34 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="shortcut icon" href="..\favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="http://localhost:2368/assets/css/screen.css?v=e6afc982da">
-    <link rel="stylesheet" type="text/css" href="http://localhost:2368/assets/css/prism.css?v=e6afc982da">
+    <link rel="stylesheet" type="text/css" href="..\assets\css\screen.css?v=e6afc982da">
+    <link rel="stylesheet" type="text/css" href="..\assets\css\prism.css?v=e6afc982da">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
 
-    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="..\favicon.ico" type="image/x-icon">
     <link rel="canonical" href="index.html">
     <meta name="referrer" content="no-referrer-when-downgrade">
-    <link rel="amphtml" href="amp/index.html">
+    <link rel="amphtml" href="amp\index.html">
     
     <meta property="og:site_name" content="mymemoryleaks">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Utiliser Couchbase comme serveur de cache">
-    <meta property="og:description" content="Dernièrement, je vous présentais une façon simple d'utiliser le cache dans vos applications .NET Cependant cette solution possède plusieurs inconvénients. En voici quelque uns : Le cache est lié au processus système de votre application (executable / IIS etc...). Si votre programme plante ou est fermé, vous perdez votre cache Si vos">
+    <meta property="og:description" content="Dernièrement, je vous présentais une façon simple d&#x27;utiliser le cache dans vos applications .NET Cependant cette solution possède plusieurs inconvénients. En voici quelque uns : Le cache est lié au processus système de votre application (executable / IIS etc...). Si votre programme plante ou est fermé, vous perdez votre cache Si vos">
     <meta property="og:url" content="http://localhost:2368/utiliser-couchbase-comme-serveur-de-cache/">
     <meta property="og:image" content="http://mah1979.qsandbox.com/wp-content/uploads/2014/04/config_couchbase.png">
     <meta property="article:published_time" content="2014-04-11T13:13:00.000Z">
     <meta property="article:modified_time" content="2018-02-11T22:55:15.000Z">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Utiliser Couchbase comme serveur de cache">
-    <meta name="twitter:description" content="Dernièrement, je vous présentais une façon simple d'utiliser le cache dans vos applications .NET Cependant cette solution possède plusieurs inconvénients. En voici quelque uns : Le cache est lié au processus système de votre application (executable / IIS etc...). Si votre programme plante ou est fermé, vous perdez votre cache Si vos">
+    <meta name="twitter:description" content="Dernièrement, je vous présentais une façon simple d&#x27;utiliser le cache dans vos applications .NET Cependant cette solution possède plusieurs inconvénients. En voici quelque uns : Le cache est lié au processus système de votre application (executable / IIS etc...). Si votre programme plante ou est fermé, vous perdez votre cache Si vos">
     <meta name="twitter:url" content="http://localhost:2368/utiliser-couchbase-comme-serveur-de-cache/">
     <meta name="twitter:image" content="http://mah1979.qsandbox.com/wp-content/uploads/2014/04/config_couchbase.png">
     <meta name="twitter:label1" content="Written by">
     <meta name="twitter:data1" content="Fabrice Michellonet">
+    <meta name="twitter:site" content="@MyMemoryLeaks">
     <meta property="og:image:width" content="704">
     <meta property="og:image:height" content="845">
     
@@ -77,7 +79,7 @@
 }
     </script>
 
-    <script type="text/javascript" src="http://localhost:2368/public/ghost-sdk.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\public\ghost-sdk.js?v=e6afc982da"></script>
 <script type="text/javascript">
 ghost.init({
 	clientId: "ghost-frontend",
@@ -85,19 +87,19 @@ ghost.init({
 });
 </script>
     <meta name="generator" content="Ghost 1.21">
-    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="../rss/index.html">
+    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="..\rss\index.xml">
 </head>
 <body class="post-template nav-closed">
 
     <div class="nav">
     <h3 class="nav-title">Menu</h3>
-    <a href="index.html#" class="nav-close">
+    <a href="#" class="nav-close">
         <span class="hidden">Close</span>
     </a>
     <ul>
-            <li class="nav-home"><a href="../">Home</a></li>
+            <li class="nav-home"><a href="..\index.html">Home</a></li>
     </ul>
-        <a class="subscribe-button icon-feed" href="../rss/index.rss">Subscribe</a>
+        <a class="subscribe-button icon-feed" href="..\rss\index.xml">Subscribe</a>
 </div>
 <span class="nav-cover"></span>
 
@@ -110,8 +112,8 @@ ghost.init({
 <header class="main-header post-head " style="background-image: url(http://mah1979.qsandbox.com/wp-content/uploads/2014/04/config_couchbase.png)">
     <div class="main-header-background-square"></div>
     <nav class="main-nav overlay clearfix">
-        <a class="blog-logo" href="../"><img src="../content/images/2018/02/mosquito.png" alt="mymemoryleaks"></a>
-            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+        <a class="blog-logo" href="..\index.html"><img src="..\content\images\2018\02\mosquito.png" alt="mymemoryleaks"></a>
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
     </nav>
 </header>
 
@@ -143,7 +145,7 @@ Couchbase est issu du mariage heureux de Membase (cache mémoire avec réplicati
 CouchDB (NoSQL orienté document). Ce qui nous intéresse plus particulièrement aujourd'hui sont les fonctionnalités qui en font un bon serveur de cache.</p>
 <h3 id="installation">Installation</h3>
 <p>Pour l'installer, tout commence par <a href="http://www.couchbase.com/couchbase-server/overview">télécharger le setup ici</a></p>
-<p>Je vous passe le scénario d'installation qui a le bon gout de se faire en "Next" &gt; "Next" &gt; "Next"</p>
+<p>Je vous passe le scénario d'installation qui a le bon gout de se faire en &quot;Next&quot; &gt; &quot;Next&quot; &gt; &quot;Next&quot;</p>
 <p>Passons à la configuration :</p>
 <p>Dans la première étape, il vous faudra spécifier l'emplacement des fichiers (base et index) ainsi que la mémoire dévolue à Couchbase.</p>
 <p><a href="http://3.bp.blogspot.com/-a9Gm-TdZhEk/U0fm0nM3eeI/AAAAAAAAGL8/5k4Wmmk2nNo/s1600/config_couchbase.png"><img src="http://3.bp.blogspot.com/-a9Gm-TdZhEk/U0fm0nM3eeI/AAAAAAAAGL8/5k4Wmmk2nNo/s1600/config_couchbase.png" alt="configure server"></a></p>
@@ -156,27 +158,27 @@ CouchDB (NoSQL orienté document). Ce qui nous intéresse plus particulièrement
 <p>Couchbase dispose d'un très bel écosystème qui gravite autour, et la plateforme .NET ne fait pas exception.<br>
 Je me propose d'adapter le cache manager vu dans le <a href="http://mah1979.qsandbox.com/poor-mans-cache/">précédent article.</a><br>
 Pour rappel nous avions l'interface suivante :</p>
-<p>public interface ICacheManager { T GetOrInsert<t>(string key, Func<t> callback) where T : class; }</t></t></p>
+<p>public interface ICacheManager { T GetOrInsert<t>(string key, Func<t> callback) where T : class; }<p>
 <p>Passons à l'implémentation. Il va nous falloir un driver, que l'on peut aisément installer via <a href="http://www.nuget.org/">nuget</a> :</p>
 <p><a href="http://1.bp.blogspot.com/--7tTMlX55hE/U0foFlp4VXI/AAAAAAAAGMU/SyojzYwUV5U/s1600/nuget_couchbase.png"><img src="http://1.bp.blogspot.com/--7tTMlX55hE/U0foFlp4VXI/AAAAAAAAGMU/SyojzYwUV5U/s1600/nuget_couchbase.png" alt=""></a></p>
 <p>son utilisation est des plus simple, avec des méthodes explicites comme Get() et Store().<br>
 Voici une implémentation de cache respectant notre interface basée sur Couchbase.</p>
-<p>public class CouchbaseCacheManager : ICacheManager { private readonly CouchbaseClient _client; public CouchebaseCacheManager() { _client = new CouchbaseClient(); } public T GetOrInsert<t>(string key, Func<t> callback) where T : class { T elmnt; try { if (_client.KeyExists(key)) return _client.Get<t>(key); elmnt = callback(); _client.Store(StoreMode.Add, key, elmnt); } catch (Exception) { elmnt = callback(); } return elmnt; } }</t></t></t></p>
+<p>public class CouchbaseCacheManager : ICacheManager { private readonly CouchbaseClient _client; public CouchebaseCacheManager() { _client = new CouchbaseClient(); } public T GetOrInsert<t>(string key, Func<t> callback) where T : class { T elmnt; try { if (_client.KeyExists(key)) return _client.Get<t>(key); elmnt = callback(); _client.Store(StoreMode.Add, key, elmnt); } catch (Exception) { elmnt = callback(); } return elmnt; } }<p>
 <p>Et vous, quel type de cache utilisez vous dans vos projets?</p>
-</div>
+</t></t></t></t></t></div>
         </section>
 
         <footer class="post-footer">
 
 
             <figure class="author-image">
-                <a class="img" href="../author/fabrice/" style="background-image: url(http://www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&amp;)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
+                <a class="img" href="..\author\fabrice\index.html" style="background-image: url(//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&#x3D;250&amp;d&#x3D;mm&amp;r&#x3D;x)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
             </figure>
 
             <section class="author">
-                <h4><a href="../author/fabrice/">Fabrice Michellonet</a></h4>
+                <h4><a href="..\author\fabrice\index.html">Fabrice Michellonet</a></h4>
 
-                    <p>Read <a href="../author/fabrice/">more posts</a> by this author.</p>
+                    <p>Read <a href="..\author\fabrice\index.html">more posts</a> by this author.</p>
                 <div class="author-meta">
                     
                     
@@ -203,16 +205,16 @@ Voici une implémentation de cache respectant notre interface basée sur Couchba
 </main>
 
 <aside class="read-next">
-    <a class="read-next-story no-cover" href="../serie-elasticsearch/">
+    <a class="read-next-story no-cover" href="..\serie-elasticsearch\index.html">
         <section class="post">
             <h2>Série Elasticsearch</h2>
-            <p>Ce post fait office de sommaire à toute une série d’articles que j’ai bon espoir d’écrire…</p>
+            <p>Ce post fait office de sommaire à toute une série d’articles que j’ai bon espoir d’écrire&hellip;</p>
         </section>
     </a>
-    <a class="read-next-story prev no-cover" href="../poor-mans-cache/">
+    <a class="read-next-story prev no-cover" href="..\poor-mans-cache\index.html">
         <section class="post">
-            <h2>Poor man's cache</h2>
-            <p>Depuis la version 4 du framework .NET, la gestion d'un cache est profondement encrée dans l'adn de notre framework.…</p>
+            <h2>Poor man&#x27;s cache</h2>
+            <p>Depuis la version 4 du framework .NET, la gestion d'un cache est profondement encrée dans l'adn de notre framework.&hellip;</p>
         </section>
     </a>
 </aside>
@@ -220,18 +222,19 @@ Voici une implémentation de cache respectant notre interface basée sur Couchba
 
 
         <footer class="site-footer clearfix">
-            <section class="copyright"><a href="../">mymemoryleaks</a> © 2018</section>
+            <section class="copyright"><a href="..\index.html">mymemoryleaks</a> &copy; 2018</section>
             <section class="poweredby">Powered by <a href="http://boo-demo.tenoku.com/">Ghost + Boo</a></section>
         </footer>
 
     </div>
 
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
     
-    <script type="text/javascript" src="http://localhost:2368/assets/js/jquery.fitvids.js?v=e6afc982da"></script>
-    <script type="text/javascript" src="http://localhost:2368/assets/js/index.js?v=e6afc982da"></script>
-    <script type="text/javascript" src="http://localhost:2368/assets/js/prism.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\jquery.fitvids.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\index.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\prism.js?v=e6afc982da"></script>
     <script src="https://cdn.jsdelivr.net/mobile-detect.js/1.3.3/mobile-detect.min.js"></script>
     <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
 
 </body>
+</html>

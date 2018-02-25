@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Analysis Services Report Pack</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="..\favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="..\assets\css\screen.css?v=e6afc982da">
+    <link rel="stylesheet" type="text/css" href="..\assets\css\prism.css?v=e6afc982da">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <link rel="shortcut icon" href="..\favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="amphtml" href="amp\index.html">
+    
+    <meta property="og:site_name" content="mymemoryleaks">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Analysis Services Report Pack">
+    <meta property="og:description" content="Avant-hier, mon client m&#x27;a demandé s&#x27;il était possible d&#x27;avoir une &amp;quot;cartographie&amp;quot; de sa base OLAP que nous sommes en train de construire. Par cartographie, il entendait a minima avoir un listing de toutes les mesures, dimensions et niveaux existants. Ma première réaction fut de vérifier si BIDS Helper">
+    <meta property="og:url" content="http://localhost:2368/analysis-services-report-pack/">
+    <meta property="article:published_time" content="2011-01-19T23:18:00.000Z">
+    <meta property="article:modified_time" content="2011-01-19T23:18:00.000Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Analysis Services Report Pack">
+    <meta name="twitter:description" content="Avant-hier, mon client m&#x27;a demandé s&#x27;il était possible d&#x27;avoir une &amp;quot;cartographie&amp;quot; de sa base OLAP que nous sommes en train de construire. Par cartographie, il entendait a minima avoir un listing de toutes les mesures, dimensions et niveaux existants. Ma première réaction fut de vérifier si BIDS Helper">
+    <meta name="twitter:url" content="http://localhost:2368/analysis-services-report-pack/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Fabrice Michellonet">
+    <meta name="twitter:site" content="@MyMemoryLeaks">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "mymemoryleaks",
+        "logo": "http://localhost:2368/content/images/2018/02/mosquito.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Fabrice Michellonet",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "http://localhost:2368/author/fabrice/",
+        "sameAs": []
+    },
+    "headline": "Analysis Services Report Pack",
+    "url": "http://localhost:2368/analysis-services-report-pack/",
+    "datePublished": "2011-01-19T23:18:00.000Z",
+    "dateModified": "2011-01-19T23:18:00.000Z",
+    "description": "Avant-hier, mon client m&#x27;a demandé s&#x27;il était possible d&#x27;avoir une &amp;quot;cartographie&amp;quot; de sa base OLAP que nous sommes en train de construire. Par cartographie, il entendait a minima avoir un listing de toutes les mesures, dimensions et niveaux existants. Ma première réaction fut de vérifier si BIDS Helper",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:2368/"
+    }
+}
+    </script>
+
+    <script type="text/javascript" src="..\public\ghost-sdk.js?v=e6afc982da"></script>
+<script type="text/javascript">
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "85ce418ba3bc"
+});
+</script>
+    <meta name="generator" content="Ghost 1.21">
+    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="..\rss\index.xml">
+</head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home"><a href="..\index.html">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="..\rss\index.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <div class="main-header-background-square"></div>
+    <nav class="main-nav  clearfix">
+        <a class="blog-logo" href="..\index.html"><img src="..\content\images\2018\02\mosquito.png" alt="mymemoryleaks"></a>
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">Analysis Services Report Pack</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2011-01-20">20 janvier 2011</time> 
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div class="kg-card-markdown"><p>Avant-hier, mon client m'a demandé s'il était possible d'avoir une &quot;cartographie&quot; de sa base OLAP que nous sommes en train de construire.</p>
+<p>Par cartographie, il entendait a minima avoir un listing de toutes les mesures, dimensions et niveaux existants. Ma première réaction fut de vérifier si <a href="http://bidshelper.codeplex.com/">BIDS Helper</a> n'avait pas ce genre de feature cachée dans un coin. Circulez rien à voir de très intéressant de ce côté-là!</p>
+<p>Je me suis ensuite rué sur Google pour voir s'il n'y avait pas un SQL Server Report Pack comme celui qui était apparu pour SQL Server 2005, mais axé Analysis Services. Rien non plus en direct de chez Redmond.<br>
+Par contre en creusant un peu je suis tombé sur l'excellent blog de la société <a href="http://capstonebi.blogspot.com/">Capstone</a> et leur superbe <a href="http://capstonebi.blogspot.com/2009/11/analysis-services-2008-metadata-report.html">Analysis Services 2008 Metadata Report Pack</a>.</p>
+<p>Voici un aperçu du rendu des rapports Reporting Services mis à disposition :</p>
+<p><a href="http://fabrice.michellonet.free.fr/MyMemoryLeaks/Posts/35/root.jpg" title="Database"><img src="http://fabrice.michellonet.free.fr/MyMemoryLeaks/Posts/35/root_thumb.jpg" alt="Database"></a> <a href="http://fabrice.michellonet.free.fr/MyMemoryLeaks/Posts/35/Cube_Det.jpg" title="Cube"><img src="http://fabrice.michellonet.free.fr/MyMemoryLeaks/Posts/35/Cube_Det_thumb.jpg" alt="Cube"></a> <a href="http://fabrice.michellonet.free.fr/MyMemoryLeaks/Posts/35/Dimension_Det.jpg" title="Dimension"><img src="http://fabrice.michellonet.free.fr/MyMemoryLeaks/Posts/35/Mining_Model_thumb.jpg" alt="Dimension"></a></p>
+<p>Et pour faire plaisir à mon ami <a href="http://fjehl.blogspot.com/">François</a>, il y a même des infos sur le Data Mining :</p>
+<p><a href="http://fabrice.michellonet.free.fr/MyMemoryLeaks/Posts/35/Mining_Model.jpg" title="Mining Model"><img src="http://fabrice.michellonet.free.fr/MyMemoryLeaks/Posts/35/Mining_Model_thumb.jpg" alt="Dimension"></a></p>
+<p>Pour installer le pack il vous faudra créer un serveur lié dans SQL Server; Voici le script SQL a mettre en adéquation avec la configuration de votre machine :</p>
+<p>EXEC master.dbo.sp_addlinkedserver @server = N'SSAS_METADATA', @srvproduct=N'SSAS', @provider=N'MSOLAP', @datasrc=N'localhost', @provstr=N'Provider=MSOLAP.4', @catalog=N'Adventure Works DW 2008R2' EXEC master.dbo.sp_addlinkedsrvlogin @rmtsrvname=N'SSAS_METADATA',@useself=N'False',@locallogin=NULL,@rmtuser=NULL,@rmtpassword=NULL</p>
+<p>Puis déployer les rapports sur Reporting Services.</p>
+<p>Je me permets de reposter l'ensemble de la solution de <a href="http://capstonebi.blogspot.com/2009/11/analysis-services-2008-metadata-report.html">Dan Meyers</a> <a href="http://fabrice.michellonet.free.fr/MyMemoryLeaks/Posts/35/Analysis%20Services%202008%20Metadata%20Report%20Pack.zip">ici</a>; version dans laquelle j'ai corrigé les connexions en dur par une connexion vers le serveur lié.</p>
+<p>En dehors de répondre au besoin ponctuel de mon client, je me dis que ces rapports pourraient très bien trouver leur place dans une documentation technique à réaliser en fin de projet.</p>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="..\author\fabrice\index.html" style="background-image: url(//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&#x3D;250&amp;d&#x3D;mm&amp;r&#x3D;x)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="..\author\fabrice\index.html">Fabrice Michellonet</a></h4>
+
+                    <p>Read <a href="..\author\fabrice\index.html">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Analysis%20Services%20Report%20Pack&amp;url=http://localhost:2368/analysis-services-report-pack/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/analysis-services-report-pack/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/analysis-services-report-pack/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+    </article>
+</main>
+
+<aside class="read-next">
+    <a class="read-next-story no-cover" href="..\mvc3-utiliser-facilement-le-datepicker-de-jquery\index.html">
+        <section class="post">
+            <h2>MVC3 - Utiliser facilement le Datepicker de JQuery.</h2>
+            <p>Un des points apportant le plus de productivité dans le framework ASP.NET MVC est surement l'avènement des Display&hellip;</p>
+        </section>
+    </a>
+    <a class="read-next-story prev no-cover" href="..\injection-html-a-base-dhttpmodule\index.html">
+        <section class="post">
+            <h2>Injection HTML à base d&#x27;HTTPModule</h2>
+            <p>Dernièrement j'ai échangé avec mon Boss, Jérôme, sur les possibilités d'enrichir un site web non dévellopé en .NET mais&hellip;</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="..\index.html">mymemoryleaks</a> &copy; 2018</section>
+            <section class="poweredby">Powered by <a href="http://boo-demo.tenoku.com/">Ghost + Boo</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="..\assets\js\jquery.fitvids.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\index.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\prism.js?v=e6afc982da"></script>
+    <script src="https://cdn.jsdelivr.net/mobile-detect.js/1.3.3/mobile-detect.min.js"></script>
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+
+</body>
+</html>

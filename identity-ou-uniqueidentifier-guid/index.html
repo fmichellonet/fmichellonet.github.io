@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Identity ou UniqueIdentifier (Guid) ?</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="..\favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="..\assets\css\screen.css?v=e6afc982da">
+    <link rel="stylesheet" type="text/css" href="..\assets\css\prism.css?v=e6afc982da">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <link rel="shortcut icon" href="..\favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="amphtml" href="amp\index.html">
+    
+    <meta property="og:site_name" content="mymemoryleaks">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Identity ou UniqueIdentifier (Guid) ?">
+    <meta property="og:description" content="Je dois être maudit ! Cela fait prés de 3 ans que sur tous les projets sur lesquels j’interviens, le sempiternel [troll](http://fr.wikipedia.org/wiki/Troll_%28Internet%29) du Identity vs Guid revient me hanter. ![](http://img145.imageshack.us/img145/9742/grandecart.jpg)Non, non, non… je ne">
+    <meta property="og:url" content="http://localhost:2368/identity-ou-uniqueidentifier-guid/">
+    <meta property="article:published_time" content="2010-10-25T22:12:00.000Z">
+    <meta property="article:modified_time" content="2010-10-25T22:12:00.000Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Identity ou UniqueIdentifier (Guid) ?">
+    <meta name="twitter:description" content="Je dois être maudit ! Cela fait prés de 3 ans que sur tous les projets sur lesquels j’interviens, le sempiternel [troll](http://fr.wikipedia.org/wiki/Troll_%28Internet%29) du Identity vs Guid revient me hanter. ![](http://img145.imageshack.us/img145/9742/grandecart.jpg)Non, non, non… je ne">
+    <meta name="twitter:url" content="http://localhost:2368/identity-ou-uniqueidentifier-guid/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Fabrice Michellonet">
+    <meta name="twitter:site" content="@MyMemoryLeaks">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "mymemoryleaks",
+        "logo": "http://localhost:2368/content/images/2018/02/mosquito.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Fabrice Michellonet",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "http://localhost:2368/author/fabrice/",
+        "sameAs": []
+    },
+    "headline": "Identity ou UniqueIdentifier (Guid) ?",
+    "url": "http://localhost:2368/identity-ou-uniqueidentifier-guid/",
+    "datePublished": "2010-10-25T22:12:00.000Z",
+    "dateModified": "2010-10-25T22:12:00.000Z",
+    "description": "Je dois être maudit ! Cela fait prés de 3 ans que sur tous les projets sur lesquels j’interviens, le sempiternel [troll](http://fr.wikipedia.org/wiki/Troll_%28Internet%29) du Identity vs Guid revient me hanter. ![](http://img145.imageshack.us/img145/9742/grandecart.jpg)Non, non, non… je ne",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:2368/"
+    }
+}
+    </script>
+
+    <script type="text/javascript" src="..\public\ghost-sdk.js?v=e6afc982da"></script>
+<script type="text/javascript">
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "85ce418ba3bc"
+});
+</script>
+    <meta name="generator" content="Ghost 1.21">
+    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="..\rss\index.xml">
+</head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home"><a href="..\index.html">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="..\rss\index.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <div class="main-header-background-square"></div>
+    <nav class="main-nav  clearfix">
+        <a class="blog-logo" href="..\index.html"><img src="..\content\images\2018\02\mosquito.png" alt="mymemoryleaks"></a>
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">Identity ou UniqueIdentifier (Guid) ?</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2010-10-26">26 octobre 2010</time> 
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div class="kg-card-markdown"><div xmlns="http://www.w3.org/1999/xhtml">Je dois être maudit ! Cela fait prés de 3 ans que sur tous les projets sur lesquels j’interviens, le sempiternel [troll](http://fr.wikipedia.org/wiki/Troll_%28Internet%29) du <u>Identity vs Guid</u> revient me hanter.
+<div align="center">![](http://img145.imageshack.us/img145/9742/grandecart.jpg)</div>Non, non, non… je ne suis pas un ayatollah de la base de donnée… je n’ai rien contre les GUID ! Mais pourtant j’ai quand même du mal à comprendre pourquoi on a tendance à en coller partout, même quand ca n’a aucun sens… et ca j’ai vraiment du mal…
+<p><strong><u>Mettons notre casquette de dba (je sais… beurk !)</u></strong></p>
+<p>Le Guid c’est le mal (sauf pour la réplication ou l’on n’a pas le choix)… car :</p>
+<ul>
+<li>en production, on a vu plus simple que d’écrire des jointures sur des choses aussi imbitables, et anti-mémorisable que B2F62BF0-5CE0-408c-B749-F37D76AF5629.</li>
+<li>Les perfs sont juste pourries par rapports à celles que l’on obtiendrait avec un int. J’en entends déjà plus d’un ricaner et prêt à me soutenir le contraire….Bien ! Rendez-vous sur ce <a href="http://blog.developpez.com/sqlpro/p7436/langage-sql-norme/guid-versus-auto-increment-le-verdict/">benchmark</a>, et prenez même 10 minutes pour lancer le test chez vous… c’est flagrant !Ce qui est étonnant, c’est qu’un grand nombre de développeurs, y compris des gens très brillant, passent à côté de ce point… certain m’ont déjà soutenu le contraire… au secours !</li>
+</ul>
+<p><strong><u>Mettons notre casquette de développeur : </u></strong></p>
+<p>Le Guid c’est la meilleure invention depuis le garbage collector… ! Si si je fais mon <a href="http://fr.wikipedia.org/wiki/Gloubi-boulga">gloubi-boulga</a> et puis je referme le capot, ca marche à tout les coups… c’est génial le GUID.</p>
+<p>Dans une architecture en couche, je peux générer des Id dans ma couche client, associer des entités entre elles… puis :</p>
+<p>Si j’ai envie de les persister, pas de soucis et pas d’aller retour avec la le tiers de persistance (base de données), mes identifiants sont à coup sur uniques.</p>
+<p>Si j’ai envie d’annuler tout ce que j’ai fais, bah je cache méthodiquement tout sous le tapis (lisez : je laisse travailler le garbage collector).</p>
+<p>Tandis qu’un Int en tant qu’identifiant, qu’est ce que c’est embêtant… je crée une entité sur mon client mais tant que je n’ai pas fait d’aller retour avec ma base de donnée, je n’ai aucun moyen de savoir son identifiant…</p>
+<p>Vous voulez associer un produit et sa catégorie de produit tout deux nouvellement crées ? Possible, mais on va devoir écrire un peu de code et faire des allers-retours avec la base.</p>
+<p>Bref… vu d’en haut l’identity c’est chiant… on est d’accord.</p>
+<p>PS : Pour ceux qui me diraient qu’on est pas obligé de faire des applications en couches séparées… bah…. ils ont raison, mais sur un projet un minimum important ca devient vite difficile à maintenir de tout coder dans la form (aussi bien web que win)… faut que vous jetiez un coup d’œil au <a href="http://fr.wikipedia.org/wiki/TDD">TDD</a>.</p>
+<p>Voila, c’est la que commence à mon sens notre vrai travail. Il nous faut estimer les avantages et les inconvénients des deux approches, et faire un choix entre la performance pure de la base et grosso modo la vitesse de développement de l’application… en ces temps ou le mot d’agilité et dans la bouche de tous, le choix est vite fait… Promis m’sieur y’a quelques temps j’arrivais encore à faire le grand écart…</p>
+<p>Bon tout ca c’est bien beau, mais alors quelqu’un pourrait m’expliquer pourquoi il m’arrive de tomber sur des bases qui sont truffées de GUID (seul type de donnée utilisé comme clé primaire des tables) lorsque celles-ci sont attaquées par une application en mode client-serveur ? Franchement, la, ca me dépasse !</p>
+<p>Bon, aller pour ceux qui ont réussi à me lire jusqu’ici, voici quelques liens supplémentaires sur le sujet :</p>
+<p><a href="http://www.sqlskills.com/BLOGS/KIMBERLY/post/GUIDs-as-PRIMARY-KEYs-andor-the-clustering-key.aspx">Les racines des problèmes que posent les GUID avec les index Clustered</a></p>
+<p><a href="http://msdn.microsoft.com/en-us/library/ms189786%28SQL.90%29.aspx">la fonction SQL-SERVER NEWSEQUENTIALID()</a> si on adore les GUID dans SQL et que l’on ne peut s’en passer.</p>
+<p>Et le meilleur pour la fin, je vous laisse réfléchir sur la phrase suivante trouvée dans la <a href="http://msdn.microsoft.com/en-us/library/ms190215.aspx">MSDN </a>:</p>
+<blockquote>
+<p>Consider using the IDENTITY property when global uniqueness is not required, or when having a serially incrementing key is preferred.</p>
+</blockquote>
+<p>Evidemment, si certain d’entre vous on envie de troller sur le sujet… les commentaires sont fait pour ca 🙂</p>
+</div>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="..\author\fabrice\index.html" style="background-image: url(//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&#x3D;250&amp;d&#x3D;mm&amp;r&#x3D;x)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="..\author\fabrice\index.html">Fabrice Michellonet</a></h4>
+
+                    <p>Read <a href="..\author\fabrice\index.html">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Identity%20ou%20UniqueIdentifier%20(Guid)%20%3F&amp;url=http://localhost:2368/identity-ou-uniqueidentifier-guid/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/identity-ou-uniqueidentifier-guid/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/identity-ou-uniqueidentifier-guid/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+    </article>
+</main>
+
+<aside class="read-next">
+    <a class="read-next-story no-cover" href="..\injection-html-a-base-dhttpmodule\index.html">
+        <section class="post">
+            <h2>Injection HTML à base d&#x27;HTTPModule</h2>
+            <p>Dernièrement j'ai échangé avec mon Boss, Jérôme, sur les possibilités d'enrichir un site web non dévellopé en .NET mais&hellip;</p>
+        </section>
+    </a>
+    <a class="read-next-story prev no-cover" href="..\jetbrains-supporte-lopen-source\index.html">
+        <section class="post">
+            <h2>JetBrains supporte l&#x27;Open Source</h2>
+            <p>Comme vous le savez sûrement, la version 5 de [Resharper](http://www.jetbrains.com/resharper/index.html) est disponible&hellip;</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="..\index.html">mymemoryleaks</a> &copy; 2018</section>
+            <section class="poweredby">Powered by <a href="http://boo-demo.tenoku.com/">Ghost + Boo</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="..\assets\js\jquery.fitvids.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\index.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\prism.js?v=e6afc982da"></script>
+    <script src="https://cdn.jsdelivr.net/mobile-detect.js/1.3.3/mobile-detect.min.js"></script>
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+
+</body>
+</html>

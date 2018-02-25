@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Razor plugin pour SyntaxHighlighter</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="..\favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="..\assets\css\screen.css?v=e6afc982da">
+    <link rel="stylesheet" type="text/css" href="..\assets\css\prism.css?v=e6afc982da">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <link rel="shortcut icon" href="..\favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="amphtml" href="amp\index.html">
+    
+    <meta property="og:site_name" content="mymemoryleaks">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Razor plugin pour SyntaxHighlighter">
+    <meta property="og:description" content="Comme beaucoup d&#x27;entre vous j&#x27;utilise l&#x27;excellent SyntaxHighlighter d&#x27;Alex Gorbatchev, pour mettre en forme les snippets de code sur mon blog. Bien qu&#x27;il dispose de nombreux plugin de prise en charge de language, parfois très ésotérique, je n&#x27;ai encore rien vu pour le language préféré de tous ceux qui font du">
+    <meta property="og:url" content="http://localhost:2368/razor-plugin-pour-syntaxhighlighter/">
+    <meta property="article:published_time" content="2011-02-28T22:47:00.000Z">
+    <meta property="article:modified_time" content="2011-02-28T22:47:00.000Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Razor plugin pour SyntaxHighlighter">
+    <meta name="twitter:description" content="Comme beaucoup d&#x27;entre vous j&#x27;utilise l&#x27;excellent SyntaxHighlighter d&#x27;Alex Gorbatchev, pour mettre en forme les snippets de code sur mon blog. Bien qu&#x27;il dispose de nombreux plugin de prise en charge de language, parfois très ésotérique, je n&#x27;ai encore rien vu pour le language préféré de tous ceux qui font du">
+    <meta name="twitter:url" content="http://localhost:2368/razor-plugin-pour-syntaxhighlighter/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Fabrice Michellonet">
+    <meta name="twitter:site" content="@MyMemoryLeaks">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "mymemoryleaks",
+        "logo": "http://localhost:2368/content/images/2018/02/mosquito.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Fabrice Michellonet",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "http://localhost:2368/author/fabrice/",
+        "sameAs": []
+    },
+    "headline": "Razor plugin pour SyntaxHighlighter",
+    "url": "http://localhost:2368/razor-plugin-pour-syntaxhighlighter/",
+    "datePublished": "2011-02-28T22:47:00.000Z",
+    "dateModified": "2011-02-28T22:47:00.000Z",
+    "description": "Comme beaucoup d&#x27;entre vous j&#x27;utilise l&#x27;excellent SyntaxHighlighter d&#x27;Alex Gorbatchev, pour mettre en forme les snippets de code sur mon blog. Bien qu&#x27;il dispose de nombreux plugin de prise en charge de language, parfois très ésotérique, je n&#x27;ai encore rien vu pour le language préféré de tous ceux qui font du",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:2368/"
+    }
+}
+    </script>
+
+    <script type="text/javascript" src="..\public\ghost-sdk.js?v=e6afc982da"></script>
+<script type="text/javascript">
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "85ce418ba3bc"
+});
+</script>
+    <meta name="generator" content="Ghost 1.21">
+    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="..\rss\index.xml">
+</head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home"><a href="..\index.html">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="..\rss\index.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <div class="main-header-background-square"></div>
+    <nav class="main-nav  clearfix">
+        <a class="blog-logo" href="..\index.html"><img src="..\content\images\2018\02\mosquito.png" alt="mymemoryleaks"></a>
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">Razor plugin pour SyntaxHighlighter</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2011-02-28">28 février 2011</time> 
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div class="kg-card-markdown"><p>Comme beaucoup d'entre vous j'utilise l'excellent <a href="http://alexgorbatchev.com/SyntaxHighlighter/">SyntaxHighlighter</a> d'Alex Gorbatchev, pour mettre en forme les snippets de code sur mon blog.</p>
+<p>Bien qu'il dispose de nombreux plugin de prise en charge de language, parfois très ésotérique, je n'ai encore rien vu pour le language préféré de tous ceux qui font du MVC 3 ou du WebMatrix, j'ai nommé <a href="http://www.asp.net/webmatrix/tutorials/2-introduction-to-asp-net-web-programming-using-the-razor-syntax">razor</a>.</p>
+<p><img src="http://fabrice.michellonet.free.fr/MyMemoryLeaks/Posts/38/razor.jpg" alt="razor"></p>
+<p>Du coup, je me suis lancé et voici une toute première version téléchargeable <a href="http://fabrice.michellonet.free.fr/MyMemoryLeaks/SH3/scripts/shBrushRazor.js">ici</a></p>
+<p>et voici un exemple de mise en forme</p>
+<p>@model CustomMVCScaffolder.Models.Employee @* This partial view defines form fields that will appear when creating and editing entities *@ <div> @Html.LabelFor(model =&gt; model.NationalIdNumber)</div><div> @Html.EditorFor(model =&gt; model.NationalIdNumber) @Html.ValidationMessageFor(model =&gt; model.NationalIdNumber)</div> @foreach (var ourItem in ourList) { if (ourItem != ourList.First()) { <span>outItem.Name</span> } } @Html.ActionLink(&quot;Edit&quot;, &quot;Edit&quot;, new { id=item.UserName }) | @Html.ActionLink(&quot;Details&quot;, &quot;Details&quot;, new { id=item.UserName }) | @Html.ActionLink(&quot;Delete&quot;, &quot;Delete&quot;, new { id=item.UserName }) @Html.Hidden(&quot;UserName&quot;, Model.UserName)</p>
+<p>Voici comment l'utiliser :</p>
+ <pre style="brush:razor"> @Html.Hidden("UserName", Model.UserName) </pre>
+<p>J'espère que cette petite contribution à la communauté viendra enjoliver les snippets de code que l'on voit ça et là.</p>
+<p>Ho... j'oubliais, si vous avez des propositions pour améliorer la mise en forme, je suis preneur.</p>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="..\author\fabrice\index.html" style="background-image: url(//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&#x3D;250&amp;d&#x3D;mm&amp;r&#x3D;x)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="..\author\fabrice\index.html">Fabrice Michellonet</a></h4>
+
+                    <p>Read <a href="..\author\fabrice\index.html">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Razor%20plugin%20pour%20SyntaxHighlighter&amp;url=http://localhost:2368/razor-plugin-pour-syntaxhighlighter/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/razor-plugin-pour-syntaxhighlighter/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/razor-plugin-pour-syntaxhighlighter/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+    </article>
+</main>
+
+<aside class="read-next">
+    <a class="read-next-story no-cover" href="..\mercurial-regler-les-problemes-de-certificats-ssl\index.html">
+        <section class="post">
+            <h2>Mercurial : Régler les problèmes de certificats SSL.</h2>
+            <p>Ce n'est pas dans mon habitude de poster des conseils sur des outils et leur configuration, mais cette fois&hellip;</p>
+        </section>
+    </a>
+    <a class="read-next-story prev no-cover" href="..\transformations-web-config-dune-web-application\index.html">
+        <section class="post">
+            <h2>Transformations web.config d&#x27;une Web application.</h2>
+            <p>On a tous connu ce cas de figure, ou l'on doit déployer une application web sur une plateforme autre&hellip;</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="..\index.html">mymemoryleaks</a> &copy; 2018</section>
+            <section class="poweredby">Powered by <a href="http://boo-demo.tenoku.com/">Ghost + Boo</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="..\assets\js\jquery.fitvids.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\index.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\prism.js?v=e6afc982da"></script>
+    <script src="https://cdn.jsdelivr.net/mobile-detect.js/1.3.3/mobile-detect.min.js"></script>
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+
+</body>
+</html>

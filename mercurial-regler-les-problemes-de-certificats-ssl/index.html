@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Mercurial : Régler les problèmes de certificats SSL.</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="..\favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="..\assets\css\screen.css?v=e6afc982da">
+    <link rel="stylesheet" type="text/css" href="..\assets\css\prism.css?v=e6afc982da">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <link rel="shortcut icon" href="..\favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="amphtml" href="amp\index.html">
+    
+    <meta property="og:site_name" content="mymemoryleaks">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Mercurial : Régler les problèmes de certificats SSL.">
+    <meta property="og:description" content="Ce n&#x27;est pas dans mon habitude de poster des conseils sur des outils et leur configuration, mais cette fois je vais faire une petite entorse au règlement; tout simplement car j&#x27;ai pas mal galéré pour résoudre ce soucis, et si ce post permet d&#x27;aider une seule personne alors cela en">
+    <meta property="og:url" content="http://localhost:2368/mercurial-regler-les-problemes-de-certificats-ssl/">
+    <meta property="article:published_time" content="2011-03-22T18:38:00.000Z">
+    <meta property="article:modified_time" content="2011-03-22T18:38:00.000Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Mercurial : Régler les problèmes de certificats SSL.">
+    <meta name="twitter:description" content="Ce n&#x27;est pas dans mon habitude de poster des conseils sur des outils et leur configuration, mais cette fois je vais faire une petite entorse au règlement; tout simplement car j&#x27;ai pas mal galéré pour résoudre ce soucis, et si ce post permet d&#x27;aider une seule personne alors cela en">
+    <meta name="twitter:url" content="http://localhost:2368/mercurial-regler-les-problemes-de-certificats-ssl/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Fabrice Michellonet">
+    <meta name="twitter:site" content="@MyMemoryLeaks">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "mymemoryleaks",
+        "logo": "http://localhost:2368/content/images/2018/02/mosquito.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Fabrice Michellonet",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "http://localhost:2368/author/fabrice/",
+        "sameAs": []
+    },
+    "headline": "Mercurial : Régler les problèmes de certificats SSL.",
+    "url": "http://localhost:2368/mercurial-regler-les-problemes-de-certificats-ssl/",
+    "datePublished": "2011-03-22T18:38:00.000Z",
+    "dateModified": "2011-03-22T18:38:00.000Z",
+    "description": "Ce n&#x27;est pas dans mon habitude de poster des conseils sur des outils et leur configuration, mais cette fois je vais faire une petite entorse au règlement; tout simplement car j&#x27;ai pas mal galéré pour résoudre ce soucis, et si ce post permet d&#x27;aider une seule personne alors cela en",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:2368/"
+    }
+}
+    </script>
+
+    <script type="text/javascript" src="..\public\ghost-sdk.js?v=e6afc982da"></script>
+<script type="text/javascript">
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "85ce418ba3bc"
+});
+</script>
+    <meta name="generator" content="Ghost 1.21">
+    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="..\rss\index.xml">
+</head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home"><a href="..\index.html">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="..\rss\index.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <div class="main-header-background-square"></div>
+    <nav class="main-nav  clearfix">
+        <a class="blog-logo" href="..\index.html"><img src="..\content\images\2018\02\mosquito.png" alt="mymemoryleaks"></a>
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">Mercurial : Régler les problèmes de certificats SSL.</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2011-03-22">22 mars 2011</time> 
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div class="kg-card-markdown"><p>Ce n'est pas dans mon habitude de poster des conseils sur des outils et leur configuration, mais cette fois je vais faire une petite entorse au règlement; tout simplement car j'ai pas mal galéré pour résoudre ce soucis, et si ce post permet d'aider une seule personne alors cela en aura valu le coup.</p>
+<p>Bref, depuis la version 1.7 le niveau de sécurité de Mercurial à été revu à la hausse, et donc évidement des petits tracas pour nous utilisateurs de <a href="http://tortoisehg.bitbucket.org/">Tortoise HG</a> &amp; <a href="http://visualhg.codeplex.com/">Visual HG</a> sous Windows. En résumé, les connexions HTTPS utilisant des certificats auto signés (Self-signed certificates) ne sont plus acceptés par le controleur de code source.</p>
+<p><img src="http://fabrice.michellonet.free.fr/MyMemoryLeaks/Posts/39/Tortoise.jpg" alt=""></p>
+<p>La <a href="http://mercurial.selenic.com/wiki/CACertificates">documentation</a> stipule qu'il est possible de rajouter dans le fichier cacert.pem de Tortoise le certificat que vous souhaitez autoriser; Le problème est qu'il va vous falloir utiliser <a href="http://www.openssl.org/">openssl</a>, non présent en standard sur un Windows. Je vous avouerais que je n'ai même pas tenté de le télécharger et de l'utiliser; Alors peut-être est-ce facilement faisable sous Windows... personnellement j'avais peur de me lancer dans une galère de plus.</p>
+<p>Par contre, laissez-moi vous montrer une façon de faire beaucoup plus simple, pour nous Windowsien de base et tout aussi sécurisée.</p>
+<p>L'idée est d'ajouter l'empreinte numérique du serveur hébergeant le repository dans la configuration de Tortoise; la doc étant un peu légère sur ce point, voici les étapes pour y arriver.</p>
+<p>Bon, tout d'abord ouvrez votre <a href="http://www.mozilla-europe.org/fr/">navigateur préféré</a> et rendez-vous sur la home page de votre repository. En cliquant sur le petit cadenas en bas de votre fenêtre vous devriez avoir une fenêtre comme celle-ci qui s'ouvre :</p>
+<p><a href="http://fabrice.michellonet.free.fr/MyMemoryLeaks/Posts/39/Certificat.png" title="Certificat"><img src="http://fabrice.michellonet.free.fr/MyMemoryLeaks/Posts/39/Certificat_thumb.png" alt="Certificat"></a></p>
+<p>Le bouton &quot;afficher certifat&quot; ouvre une nouvelle fenêtre dans laquelle vous copierez l'empreinte numérique SHA1. Cette empreinte identifie de manière unique le serveur hebergeant votre repository Mercurial.</p>
+<p>Ensuite, ouvrez Tortoise hg Workbench, puis dans la fenêtre de configuration, éditez le fichier de configuration mercurial.ini.</p>
+<p><a href="http://fabrice.michellonet.free.fr/MyMemoryLeaks/Posts/39/mercurial_ini.png" title="Config"><img src="http://fabrice.michellonet.free.fr/MyMemoryLeaks/Posts/39/mercurial_ini_thumb.png" alt="Config"></a></p>
+<p>Il ne reste plus qu'à ajouter une section hostfingerprints reprenant l'adresse de votre server ainsi que son empreinte.</p>
+<p><span lang="EN-US">[hostfingerprints]<br>
+mercurial.devolis.com = ..:..:..:..:02:76:B5:29:65:47:A1:43:8E:0F:F5:13:03:AC:9D:0A</span></p>
+<p>Voilà enregistrez le fichier et tout devrait désormais fonctionner comme avant.</p>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="..\author\fabrice\index.html" style="background-image: url(//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&#x3D;250&amp;d&#x3D;mm&amp;r&#x3D;x)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="..\author\fabrice\index.html">Fabrice Michellonet</a></h4>
+
+                    <p>Read <a href="..\author\fabrice\index.html">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Mercurial%20%3A%20R%C3%A9gler%20les%20probl%C3%A8mes%20de%20certificats%20SSL.&amp;url=http://localhost:2368/mercurial-regler-les-problemes-de-certificats-ssl/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/mercurial-regler-les-problemes-de-certificats-ssl/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/mercurial-regler-les-problemes-de-certificats-ssl/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+    </article>
+</main>
+
+<aside class="read-next">
+    <a class="read-next-story no-cover" href="..\quickstart-telerik-extensions-for-asp-net-mvc-via-nuget\index.html">
+        <section class="post">
+            <h2>Quickstart Telerik Extensions for ASP.NET MVC via Nuget</h2>
+            <p>Sans nul doute Nuget a grandement amélioré le process de déploiement/configuration/utilisation de bibliothèques tierces dans l'écosystème .NET.&hellip;</p>
+        </section>
+    </a>
+    <a class="read-next-story prev no-cover" href="..\razor-plugin-pour-syntaxhighlighter\index.html">
+        <section class="post">
+            <h2>Razor plugin pour SyntaxHighlighter</h2>
+            <p>Comme beaucoup d'entre vous j'utilise l'excellent SyntaxHighlighter d'Alex Gorbatchev, pour mettre en forme les snippets de code sur mon&hellip;</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="..\index.html">mymemoryleaks</a> &copy; 2018</section>
+            <section class="poweredby">Powered by <a href="http://boo-demo.tenoku.com/">Ghost + Boo</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="..\assets\js\jquery.fitvids.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\index.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\prism.js?v=e6afc982da"></script>
+    <script src="https://cdn.jsdelivr.net/mobile-detect.js/1.3.3/mobile-detect.min.js"></script>
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+
+</body>
+</html>

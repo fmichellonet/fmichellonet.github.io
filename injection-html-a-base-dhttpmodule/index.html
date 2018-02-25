@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Injection HTML à base d&#x27;HTTPModule</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="..\favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="..\assets\css\screen.css?v=e6afc982da">
+    <link rel="stylesheet" type="text/css" href="..\assets\css\prism.css?v=e6afc982da">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <link rel="shortcut icon" href="..\favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="amphtml" href="amp\index.html">
+    
+    <meta property="og:site_name" content="mymemoryleaks">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Injection HTML à base d&#x27;HTTPModule">
+    <meta property="og:description" content="Dernièrement j&#x27;ai échangé avec mon Boss, Jérôme, sur les possibilités d&#x27;enrichir un site web non dévellopé en .NET mais qui serait hosté dans IIS. On pourrait se mettre à apprendre le Python... mais voila on est un peu fainéant 🙂 Une des solutions que je lui ai proposé étais de tirer">
+    <meta property="og:url" content="http://localhost:2368/injection-html-a-base-dhttpmodule/">
+    <meta property="article:published_time" content="2011-01-18T22:22:00.000Z">
+    <meta property="article:modified_time" content="2011-01-18T22:22:00.000Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Injection HTML à base d&#x27;HTTPModule">
+    <meta name="twitter:description" content="Dernièrement j&#x27;ai échangé avec mon Boss, Jérôme, sur les possibilités d&#x27;enrichir un site web non dévellopé en .NET mais qui serait hosté dans IIS. On pourrait se mettre à apprendre le Python... mais voila on est un peu fainéant 🙂 Une des solutions que je lui ai proposé étais de tirer">
+    <meta name="twitter:url" content="http://localhost:2368/injection-html-a-base-dhttpmodule/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Fabrice Michellonet">
+    <meta name="twitter:site" content="@MyMemoryLeaks">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "mymemoryleaks",
+        "logo": "http://localhost:2368/content/images/2018/02/mosquito.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Fabrice Michellonet",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "http://localhost:2368/author/fabrice/",
+        "sameAs": []
+    },
+    "headline": "Injection HTML à base d&#x27;HTTPModule",
+    "url": "http://localhost:2368/injection-html-a-base-dhttpmodule/",
+    "datePublished": "2011-01-18T22:22:00.000Z",
+    "dateModified": "2011-01-18T22:22:00.000Z",
+    "description": "Dernièrement j&#x27;ai échangé avec mon Boss, Jérôme, sur les possibilités d&#x27;enrichir un site web non dévellopé en .NET mais qui serait hosté dans IIS. On pourrait se mettre à apprendre le Python... mais voila on est un peu fainéant 🙂 Une des solutions que je lui ai proposé étais de tirer",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:2368/"
+    }
+}
+    </script>
+
+    <script type="text/javascript" src="..\public\ghost-sdk.js?v=e6afc982da"></script>
+<script type="text/javascript">
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "85ce418ba3bc"
+});
+</script>
+    <meta name="generator" content="Ghost 1.21">
+    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="..\rss\index.xml">
+</head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home"><a href="..\index.html">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="..\rss\index.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <div class="main-header-background-square"></div>
+    <nav class="main-nav  clearfix">
+        <a class="blog-logo" href="..\index.html"><img src="..\content\images\2018\02\mosquito.png" alt="mymemoryleaks"></a>
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">Injection HTML à base d&#x27;HTTPModule</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2011-01-18">18 janvier 2011</time> 
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div class="kg-card-markdown"><p>Dernièrement j'ai échangé avec mon Boss, Jérôme, sur les possibilités d'enrichir un site web non dévellopé en .NET mais qui serait hosté dans IIS.<br>
+On pourrait se mettre à apprendre le Python... mais voila on est un peu fainéant 🙂</p>
+<p>Une des solutions que je lui ai proposé étais de tirer parti du mécanisme d'extensibilité du pipeline de IIS7 afin d'intervenir directement sur le code HTML renvoyé au navigateur.</p>
+<div align="center">![Green Injection](http://fc09.deviantart.net/fs49/f/2009/179/6/7/67d8d599f0b79628e410f38b21028f90.jpg)</div>Je me propose donc de présenter dans les grandes lignes comment mettre en place ce genre de solution.  
+Pour illustrer mes propos simplement nous allons nous rajouter un div en fin de page, le div contenant l'heure du système.
+<p>On commence par créer notre HTTPModule et on répond à l'évenement BeginRequest :</p>
+<p>using System; using System.IO; using System.Web; namespace InjectorModule { public class Injector : IHttpModule { private HttpApplication _application; public void Init(HttpApplication context) { context.BeginRequest += OnBeginRequest; _application = context; } private void OnBeginRequest(object sender, EventArgs e) { Stream filter = FilterFactory.GetFilter(_application); if (filter == null) return; _application.Response.Filter = filter; } public void Dispose() {} } }</p>
+<p>On délègue à une factory le role de créer ou non un filter en fonction de règles qui ne sont pas connues par le Module.<br>
+Le module reste ainsi une brique uniquement technique technique.</p>
+<p>Passons à la factory</p>
+<p>using System.IO; using System.Web; namespace InjectorModule { internal static class FilterFactory { public static Stream GetFilter(HttpApplication application) { if (application == null || application.Response.ContentType == null) return null; if (application.Response.ContentType.ToUpperInvariant().Contains(&quot;HTML&quot;)) return new AppendDateTimeFilter(application.Response.Filter, application.Request.ContentEncoding); return null; } } }</p>
+<p>Ici pas de règles métiers compliquées, on ajoute un Filter si le content type est de type HTML.</p>
+<p>Et finalement voici l'implémentation du Filter qui tranforme la réponse envoyée aux navigateurs :</p>
+<p>using System; using System.IO; using System.Text; using System.Text.RegularExpressions; namespace InjectorModule { internal class AppendDateTimeFilter : Stream { private readonly Stream _inputStream; private readonly Encoding _encoding; private readonly StringBuilder _responseHtml; public AppendDateTimeFilter(Stream input, Encoding contentEncoding) { _inputStream = input; _encoding = contentEncoding; _responseHtml = new StringBuilder(); } #region Filter overrides public override bool CanRead { get { return true; } } public override bool CanSeek { get { return true; } } public override bool CanWrite { get { return true; } } public override void Close() { _inputStream.Close(); } public override void Flush() { _inputStream.Flush(); } public override long Length { get { return 0; } } public override long Position { get; set; } public override long Seek(long offset, SeekOrigin origin) { return _inputStream.Seek(offset, origin); } public override void SetLength(long length) { _inputStream.SetLength(length); } public override int Read(byte[] buffer, int offset, int count) { return _inputStream.Read(buffer, offset, count); } #endregion public override void Write(byte[] buffer, int offset, int count) { try { string bufferContent = _encoding.GetString(buffer); // Wait for the closing tag Regex eof = new Regex(&quot;&quot;, RegexOptions.IgnoreCase); _responseHtml.Append(bufferContent); if (!eof.IsMatch(bufferContent)) return; // Transform the response and write it back out string finalHtml = _responseHtml .Replace(&quot;&quot;, string.Format(@&quot; <div>{0}</div> &quot;, DateTime.Now)) .ToString(); // Send. byte[] data = _encoding.GetBytes(finalHtml); _inputStream.Write(data, 0, data.Length); } catch (Exception) { } } } }</p>
+<p>Pour tester rien de plus simple, on compile l'assembly, on la place dans le dossier bin du site web que l'on veux trafiquer.<br>
+Dans notre cas, nous avons aussi du créer le dossier bin car non existant dans l'appli Web Python.<br>
+Le fait de placer l'assembly dans un dossier bin, est une contrainte technique imposée par IIS; je n'ai pas trouvé d'alternatives et a priorit il n'y a pas de configuration qui pourrait influer sur cette contrainte.<br>
+Finalement dans le gestionnaire IIS, rendez vous dans la section Modules de votre application Web.<br>
+En ouvrant la fenetre d'ajout de modules, votre assembly sera désormais présente; Sélectionnez la, et pointez votre navigateur sur ce dernier.</p>
+<p>Tadam!!! l'heure s'affiche tout en bas 🙂</p>
+<p>J'esperes que cette solutions vous ouvre de nouvelles possibilités.</p>
+<p>Un dernier mot pour vous conseiller l'excellente librairie <a href="http://htmlagilitypack.codeplex.com/">htmlagilitypack</a> qui vous donnera les moyens de parser facilement un document HTML, même malformé.</p>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="..\author\fabrice\index.html" style="background-image: url(//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&#x3D;250&amp;d&#x3D;mm&amp;r&#x3D;x)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="..\author\fabrice\index.html">Fabrice Michellonet</a></h4>
+
+                    <p>Read <a href="..\author\fabrice\index.html">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Injection%20HTML%20%C3%A0%20base%20d'HTTPModule&amp;url=http://localhost:2368/injection-html-a-base-dhttpmodule/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/injection-html-a-base-dhttpmodule/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/injection-html-a-base-dhttpmodule/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+    </article>
+</main>
+
+<aside class="read-next">
+    <a class="read-next-story no-cover" href="..\analysis-services-report-pack\index.html">
+        <section class="post">
+            <h2>Analysis Services Report Pack</h2>
+            <p>Avant-hier, mon client m'a demandé s'il était possible d'avoir une &quot;cartographie&quot; de sa base OLAP que nous&hellip;</p>
+        </section>
+    </a>
+    <a class="read-next-story prev no-cover" href="..\identity-ou-uniqueidentifier-guid\index.html">
+        <section class="post">
+            <h2>Identity ou UniqueIdentifier (Guid) ?</h2>
+            <p>Je dois être maudit ! Cela fait prés de 3 ans que sur tous les projets sur lesquels j’interviens,&hellip;</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="..\index.html">mymemoryleaks</a> &copy; 2018</section>
+            <section class="poweredby">Powered by <a href="http://boo-demo.tenoku.com/">Ghost + Boo</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="..\assets\js\jquery.fitvids.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\index.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\prism.js?v=e6afc982da"></script>
+    <script src="https://cdn.jsdelivr.net/mobile-detect.js/1.3.3/mobile-detect.min.js"></script>
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+
+</body>
+</html>

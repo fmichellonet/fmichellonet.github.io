@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Overriding et Shadowing de méthodes en IL.</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="..\favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="..\assets\css\screen.css?v=e6afc982da">
+    <link rel="stylesheet" type="text/css" href="..\assets\css\prism.css?v=e6afc982da">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <link rel="shortcut icon" href="..\favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="amphtml" href="amp\index.html">
+    
+    <meta property="og:site_name" content="mymemoryleaks">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Overriding et Shadowing de méthodes en IL.">
+    <meta property="og:description" content="En ce moment je fais joujou avec les [opcodes](http://msdn.microsoft.com/en-us/library/system.reflection.emit.opcodes_members.aspx) [CIL](http://fr.wikipedia.org/wiki/Common_Intermediate_Language) qui se cachent sous notre bon vieux C#. En voulant surcharger et cacher (shadow) successivement deux propriétés hérités, j&#x27;ai remarqué">
+    <meta property="og:url" content="http://localhost:2368/overriding-et-shadowing-de-methodes-en-il/">
+    <meta property="article:published_time" content="2010-04-22T22:22:00.000Z">
+    <meta property="article:modified_time" content="2010-04-22T22:22:00.000Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Overriding et Shadowing de méthodes en IL.">
+    <meta name="twitter:description" content="En ce moment je fais joujou avec les [opcodes](http://msdn.microsoft.com/en-us/library/system.reflection.emit.opcodes_members.aspx) [CIL](http://fr.wikipedia.org/wiki/Common_Intermediate_Language) qui se cachent sous notre bon vieux C#. En voulant surcharger et cacher (shadow) successivement deux propriétés hérités, j&#x27;ai remarqué">
+    <meta name="twitter:url" content="http://localhost:2368/overriding-et-shadowing-de-methodes-en-il/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Fabrice Michellonet">
+    <meta name="twitter:site" content="@MyMemoryLeaks">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "mymemoryleaks",
+        "logo": "http://localhost:2368/content/images/2018/02/mosquito.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Fabrice Michellonet",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "http://localhost:2368/author/fabrice/",
+        "sameAs": []
+    },
+    "headline": "Overriding et Shadowing de méthodes en IL.",
+    "url": "http://localhost:2368/overriding-et-shadowing-de-methodes-en-il/",
+    "datePublished": "2010-04-22T22:22:00.000Z",
+    "dateModified": "2010-04-22T22:22:00.000Z",
+    "description": "En ce moment je fais joujou avec les [opcodes](http://msdn.microsoft.com/en-us/library/system.reflection.emit.opcodes_members.aspx) [CIL](http://fr.wikipedia.org/wiki/Common_Intermediate_Language) qui se cachent sous notre bon vieux C#. En voulant surcharger et cacher (shadow) successivement deux propriétés hérités, j&#x27;ai remarqué",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:2368/"
+    }
+}
+    </script>
+
+    <script type="text/javascript" src="..\public\ghost-sdk.js?v=e6afc982da"></script>
+<script type="text/javascript">
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "85ce418ba3bc"
+});
+</script>
+    <meta name="generator" content="Ghost 1.21">
+    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="..\rss\index.xml">
+</head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home"><a href="..\index.html">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="..\rss\index.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <div class="main-header-background-square"></div>
+    <nav class="main-nav  clearfix">
+        <a class="blog-logo" href="..\index.html"><img src="..\content\images\2018\02\mosquito.png" alt="mymemoryleaks"></a>
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">Overriding et Shadowing de méthodes en IL.</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2010-04-23">23 avril 2010</time> 
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div class="kg-card-markdown"><div xmlns="http://www.w3.org/1999/xhtml">En ce moment je fais joujou avec les [opcodes](http://msdn.microsoft.com/en-us/library/system.reflection.emit.opcodes_members.aspx) [CIL](http://fr.wikipedia.org/wiki/Common_Intermediate_Language) qui se cachent sous notre bon vieux C#.
+<p>En voulant surcharger et cacher (shadow) successivement deux propriétés hérités, j'ai remarqué que le compilo générait une suite de metadata assez déroutante. Prenons l'exemple suivant :</p>
+<p>public class BaseClass { public int Prop1 { get; set; } public virtual int Prop2 { get; set; } public virtual int Prop3 { get; set; } } public class DerivClass : BaseClass { public int Prop1 { get; set; } public new int Prop2 { get; set; } public new virtual int Prop3 { get; set; } }</p>
+<p>Du coté de la classe de base on obtient les metadata suivantes sur le getter :</p>
+<p>non virtual :</p>
+<p>.method public hidebysig specialname instance int32 get_Prop1() cil managed</p>
+<p>virtual :</p>
+<p>.method public hidebysig specialname newslot virtual instance int32 get_Prop2() cil managed</p>
+<p>remarquez l'utilisation conjointes des metadata virtual et newslot, je reviendrais dessus juste après.</p>
+<p>Côté classe dérivée on obtient cela :</p>
+<p>non virtual :</p>
+<p>.method public hidebysig specialname instance int32 get_Prop1() cil managed</p>
+<p>new :</p>
+<p>.method public hidebysig specialname instance int32 get_Prop2() cil managed</p>
+<p>virtual new :</p>
+<p>.method public hidebysig specialname newslot virtual instance int32 get_Prop3() cil managed</p>
+<p>Oulaaa... c'est la que ca se corse!!<br>
+Dans la classe de base, comme je vous le faisait remarquer précédemment, le compilo utilise conjointement les metadata virtual et newslot. Logiquement, on aurait pu s'attendre a voir uniquement le virtual.</p>
+<p>Dans la classe dérivée, le shadowing non virtuel</p>
+<p>public new int Prop2 { get; set; }</p>
+<p>produit des metadata token strictement identiques à une propriété normale; et le shadowing virtuel produit un IL identique à propriété virtuelle.</p>
+<p>De ces constatation on peut en déduire que :<br>
+Le token newslot, ne suffit pas à affirmer qu'il s'agit d'une shadowing methode (le getter non-virtuel de la classe de base et le getter new de la classe dérivée ayant les mêmes metadata).</p>
+<p>Par contre, si une méthode contient le token virtual mais pas le newslot, alors c'est qu'il s'agit a coup sur d'un overriding et pas un shadowing.</p>
+<p>Par déduction, on peut donc penser que si une méthode n'est pas un overriding (le token newslot est présent), alors il n'y a shadowing que si la signature [type de retour, nom et paramètres de la méthode] de la méthode existe également dans la classe de base.</p>
+</div>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="..\author\fabrice\index.html" style="background-image: url(//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&#x3D;250&amp;d&#x3D;mm&amp;r&#x3D;x)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="..\author\fabrice\index.html">Fabrice Michellonet</a></h4>
+
+                    <p>Read <a href="..\author\fabrice\index.html">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Overriding%20et%20Shadowing%20de%20m%C3%A9thodes%20en%20IL.&amp;url=http://localhost:2368/overriding-et-shadowing-de-methodes-en-il/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/overriding-et-shadowing-de-methodes-en-il/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/overriding-et-shadowing-de-methodes-en-il/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+    </article>
+</main>
+
+<aside class="read-next">
+    <a class="read-next-story no-cover" href="..\jetbrains-supporte-lopen-source\index.html">
+        <section class="post">
+            <h2>JetBrains supporte l&#x27;Open Source</h2>
+            <p>Comme vous le savez sûrement, la version 5 de [Resharper](http://www.jetbrains.com/resharper/index.html) est disponible&hellip;</p>
+        </section>
+    </a>
+    <a class="read-next-story prev no-cover" href="..\interagir-avec-les-pages-asp-net-avant-linit\index.html">
+        <section class="post">
+            <h2>Interagir avec les pages ASP.NET avant l&#x27;Init.</h2>
+            <p>Au cours du développement de [Claymore](http://claymore.codeplex.com/), pour la partie ASP.NET plus précisément, j'ai eu&hellip;</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="..\index.html">mymemoryleaks</a> &copy; 2018</section>
+            <section class="poweredby">Powered by <a href="http://boo-demo.tenoku.com/">Ghost + Boo</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="..\assets\js\jquery.fitvids.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\index.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\prism.js?v=e6afc982da"></script>
+    <script src="https://cdn.jsdelivr.net/mobile-detect.js/1.3.3/mobile-detect.min.js"></script>
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+
+</body>
+</html>

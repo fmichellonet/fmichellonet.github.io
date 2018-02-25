@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Dojo Lightbox</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="..\favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="..\assets\css\screen.css?v=e6afc982da">
+    <link rel="stylesheet" type="text/css" href="..\assets\css\prism.css?v=e6afc982da">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <link rel="shortcut icon" href="..\favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="amphtml" href="amp\index.html">
+    
+    <meta property="og:site_name" content="mymemoryleaks">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Dojo Lightbox">
+    <meta property="og:description" content="Aujourd&#x27;hui je me propose d&#x27;illustrer la mise en place de [lightbox](http://www.lokeshdhakar.com/projects/lightbox2/) à la sauce [Dojo](http://www.dojotoolkit.org/) comme toujours. Pour ceux qui n&#x27;en ont jamais entendu parler, dépêchez-vous cliquez sur les images ci-dessous.    L&#x27;implémentation est fortement inspirée de la librairie de Lokesh">
+    <meta property="og:url" content="http://localhost:2368/dojo-lightbox/">
+    <meta property="article:published_time" content="2008-09-17T21:51:00.000Z">
+    <meta property="article:modified_time" content="2008-09-17T21:51:00.000Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Dojo Lightbox">
+    <meta name="twitter:description" content="Aujourd&#x27;hui je me propose d&#x27;illustrer la mise en place de [lightbox](http://www.lokeshdhakar.com/projects/lightbox2/) à la sauce [Dojo](http://www.dojotoolkit.org/) comme toujours. Pour ceux qui n&#x27;en ont jamais entendu parler, dépêchez-vous cliquez sur les images ci-dessous.    L&#x27;implémentation est fortement inspirée de la librairie de Lokesh">
+    <meta name="twitter:url" content="http://localhost:2368/dojo-lightbox/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Fabrice Michellonet">
+    <meta name="twitter:site" content="@MyMemoryLeaks">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "mymemoryleaks",
+        "logo": "http://localhost:2368/content/images/2018/02/mosquito.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Fabrice Michellonet",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "http://localhost:2368/author/fabrice/",
+        "sameAs": []
+    },
+    "headline": "Dojo Lightbox",
+    "url": "http://localhost:2368/dojo-lightbox/",
+    "datePublished": "2008-09-17T21:51:00.000Z",
+    "dateModified": "2008-09-17T21:51:00.000Z",
+    "description": "Aujourd&#x27;hui je me propose d&#x27;illustrer la mise en place de [lightbox](http://www.lokeshdhakar.com/projects/lightbox2/) à la sauce [Dojo](http://www.dojotoolkit.org/) comme toujours. Pour ceux qui n&#x27;en ont jamais entendu parler, dépêchez-vous cliquez sur les images ci-dessous.    L&#x27;implémentation est fortement inspirée de la librairie de Lokesh",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:2368/"
+    }
+}
+    </script>
+
+    <script type="text/javascript" src="..\public\ghost-sdk.js?v=e6afc982da"></script>
+<script type="text/javascript">
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "85ce418ba3bc"
+});
+</script>
+    <meta name="generator" content="Ghost 1.21">
+    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="..\rss\index.xml">
+</head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home"><a href="..\index.html">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="..\rss\index.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <div class="main-header-background-square"></div>
+    <nav class="main-nav  clearfix">
+        <a class="blog-logo" href="..\index.html"><img src="..\content\images\2018\02\mosquito.png" alt="mymemoryleaks"></a>
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">Dojo Lightbox</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2008-09-17">17 septembre 2008</time> 
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div class="kg-card-markdown"><div xmlns="http://www.w3.org/1999/xhtml">Aujourd'hui je me propose d'illustrer la mise en place de [lightbox](http://www.lokeshdhakar.com/projects/lightbox2/) à la sauce [Dojo](http://www.dojotoolkit.org/) comme toujours. Pour ceux qui n'en ont jamais entendu parler, dépêchez-vous cliquez sur les images ci-dessous.
+<p><a href="http://www.lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" title="Cliquez sur le bouton &gt; pour passer à la suite."><img src="http://www.lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="image 1 sur 3"></a> <a href="http://www.lokeshdhakar.com/projects/lightbox2/images/image-4.jpg" title="Sinon utilisez la flèche droite de votre clavier."><img src="http://www.lokeshdhakar.com/projects/lightbox2/images/thumb-4.jpg" alt="image 2 sur 3 "></a> <a href="http://www.lokeshdhakar.com/projects/lightbox2/images/image-6.jpg" title="Utilisez la touche Echap pour quitter."><img src="http://www.lokeshdhakar.com/projects/lightbox2/images/thumb-6.jpg" alt="image 3 sur 3"></a></p>
+<p>L'implémentation est fortement inspirée de la librairie de Lokesh Dhakar; d'ailleurs l'équipe <a href="http://www.dojotoolkit.org/">Dojo</a> n'hésite pas à le dire ouvertement <a href="http://dojotoolkit.org/book/dojo-book-0-9/part-5-dojox/dojox-image/lightbox">ici</a>. Mais alors quel intérêt à utiliser l'implémentation faite par <a href="http://www.dojotoolkit.org/">Dojo</a> plutôt que la version originale? Pour être franc, la seule raison qui puisse vous faire choisir celle de <a href="http://www.dojotoolkit.org/">Dojo</a> est le fait d'utiliser déjà ce framework, car honnêtement la version originale est esthétiquement un tout petit peu mieux.</p>
+<p>J'entends déjà certain d'entre vous dire, mais pourquoi ne pas utiliser <a href="http://www.lokeshdhakar.com/projects/lightbox2/">lightbox</a> et <a href="http://www.dojotoolkit.org/">Dojo</a> conjointement. C'est effectivement possible, mais sachez que <a href="http://www.lokeshdhakar.com/projects/lightbox2/">lightbox</a> se repose sur le framework <a href="http://script.aculo.us/">scriptaculous</a> lui-même reposant sur <a href="http://www.prototypejs.org/">prototype</a>.</p>
+<p>Voila... vous commencez à comprendre, vouloir les faire cohabiter signifie aussi ajouter les 2, 3 plus gros framework javascript dans vos pages; bonjour les performances!</p>
+<p>Le choix se fait donc assez rapidement, si vous utilisez déjà <a href="http://www.dojotoolkit.org/">Dojo</a> alors utilisez leur implémentation; si par contre votre coeur balance plutôt pour <a href="http://script.aculo.us/">scriptaculous</a> ou <a href="http://www.prototypejs.org/">prototype</a> alors vous préférerez l'implémentation de Lokesh Dhakar.</p>
+<p>Bon passons aux choses sérieuses, voici ce qu'il vous faut faire pour utiliser cette jolie feature.</p>
+<p>Import des css tundra et image</p>
+<p><strong>Notez l'url pointant vers la seconde css (<em>image.css</em>). La documentation officielle référence <em>Lightbox.css</em>, mais c'est malheureusement une erreur.</strong></p>
+<p>Import de la fonctionnalité dans un bloc javascript</p>
+<p>dojo.require(&quot;dojox.image.Lightbox&quot;);</p>
+<p>Il ne vous reste plus qu'a l'utiliser maintenant de la manière suivante :</p>
+<p><a href="http://mymemoryleaks.blogspot.com/img1.jpg" title="Ma description"><br>
+<img src="http://mymemoryleaks.blogspot.com/thumb-1.jpg" alt="image 1 sur n"><br>
+</a></p>
+<p><strong>Notez l'utilisation de l'attribut group, qui vous permet d'enchainer les images d'une même série.</strong></p>
+<p>J'espère que cette présentation vous donnera des idées pour vos galerie d'images.</p>
+<p><u><em>Les images utilisées dans l'exemple ci-dessus proviennent du site de <a href="http://www.lokeshdhakar.com/projects/lightbox2/">Lokesh Dhakar</a>, que je remercie bien évidemment.</em></u></p>
+</div>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="..\author\fabrice\index.html" style="background-image: url(//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&#x3D;250&amp;d&#x3D;mm&amp;r&#x3D;x)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="..\author\fabrice\index.html">Fabrice Michellonet</a></h4>
+
+                    <p>Read <a href="..\author\fabrice\index.html">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Dojo%20Lightbox&amp;url=http://localhost:2368/dojo-lightbox/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/dojo-lightbox/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/dojo-lightbox/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+    </article>
+</main>
+
+<aside class="read-next">
+    <a class="read-next-story no-cover" href="..\ogame-allystats\index.html">
+        <section class="post">
+            <h2>OGame AllyStats</h2>
+            <p>Je vous l'avais annoncé à demi mots le 12 septembre dernier (OGame Skript [Fr] releasé), j'allais écrire au moins&hellip;</p>
+        </section>
+    </a>
+    <a class="read-next-story prev no-cover" href="..\ogame-skript-fr-release\index.html">
+        <section class="post">
+            <h2>OGame Skript [Fr] releasé</h2>
+            <p>Ça y est c'est officiel OGame Skript est releasé en Français; j'ai d'ailleurs été intégré dans l'équipe.L'accueil qui&hellip;</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="..\index.html">mymemoryleaks</a> &copy; 2018</section>
+            <section class="poweredby">Powered by <a href="http://boo-demo.tenoku.com/">Ghost + Boo</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="..\assets\js\jquery.fitvids.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\index.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="..\assets\js\prism.js?v=e6afc982da"></script>
+    <script src="https://cdn.jsdelivr.net/mobile-detect.js/1.3.3/mobile-detect.min.js"></script>
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+
+</body>
+</html>
