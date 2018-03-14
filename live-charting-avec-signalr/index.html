@@ -1,44 +1,42 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <title>Live charting avec SignalR</title>
 
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="shortcut icon" href="..\favicon.ico">
+    <link rel="shortcut icon" href="../favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="..\assets\css\screen.css?v=e6afc982da">
-    <link rel="stylesheet" type="text/css" href="..\assets\css\prism.css?v=e6afc982da">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css@v=67e8edd762.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/prism.css@v=67e8edd762.css" />
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
 
-    <link rel="shortcut icon" href="..\favicon.ico" type="image/x-icon">
-    <link rel="canonical" href="index.html">
-    <meta name="referrer" content="no-referrer-when-downgrade">
-    <link rel="amphtml" href="amp\index.html">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
     
-    <meta property="og:site_name" content="mymemoryleaks">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="Live charting avec SignalR">
-    <meta property="og:description" content="SignalR is awesome ! Oui il va falloir vous habituer à entendre dire que cette librairie est un petit bijou. Mais qu&#x27;est-ce qu&#x27;elle a de si bien cette librairie SignalR ? SignalR fournit une couche d&#x27;abstraction au-dessus des WebSocket et des long polling connections pour les développeurs .NET et fonctionne sous IIS">
-    <meta property="og:url" content="http://localhost:2368/live-charting-avec-signalr/">
-    <meta property="og:image" content="http://mah1979.qsandbox.com/wp-content/uploads/2011/09/SignalR_awesome.png">
-    <meta property="article:published_time" content="2011-09-26T21:21:00.000Z">
-    <meta property="article:modified_time" content="2018-02-11T22:55:14.000Z">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Live charting avec SignalR">
-    <meta name="twitter:description" content="SignalR is awesome ! Oui il va falloir vous habituer à entendre dire que cette librairie est un petit bijou. Mais qu&#x27;est-ce qu&#x27;elle a de si bien cette librairie SignalR ? SignalR fournit une couche d&#x27;abstraction au-dessus des WebSocket et des long polling connections pour les développeurs .NET et fonctionne sous IIS">
-    <meta name="twitter:url" content="http://localhost:2368/live-charting-avec-signalr/">
-    <meta name="twitter:image" content="http://mah1979.qsandbox.com/wp-content/uploads/2011/09/SignalR_awesome.png">
-    <meta name="twitter:label1" content="Written by">
-    <meta name="twitter:data1" content="Fabrice Michellonet">
-    <meta name="twitter:site" content="@MyMemoryLeaks">
-    <meta property="og:image:width" content="519">
-    <meta property="og:image:height" content="83">
+    <meta property="og:site_name" content="mymemoryleaks" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Live charting avec SignalR" />
+    <meta property="og:description" content="SignalR is awesome ! Oui il va falloir vous habituer à entendre dire que cette librairie est un petit bijou. Mais qu&#x27;est-ce qu&#x27;elle a de si bien cette librairie SignalR ? SignalR fournit une couche d&#x27;abstraction au-dessus des WebSocket et des long polling connections pour les développeurs .NET et fonctionne sous IIS" />
+    <meta property="og:url" content="http://www.mymemoryleaks.fr/live-charting-avec-signalr/" />
+    <meta property="og:image" content="http://mah1979.qsandbox.com/wp-content/uploads/2011/09/SignalR_awesome.png" />
+    <meta property="article:published_time" content="2011-09-26T21:21:00.000Z" />
+    <meta property="article:modified_time" content="2018-02-11T22:55:14.000Z" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Live charting avec SignalR" />
+    <meta name="twitter:description" content="SignalR is awesome ! Oui il va falloir vous habituer à entendre dire que cette librairie est un petit bijou. Mais qu&#x27;est-ce qu&#x27;elle a de si bien cette librairie SignalR ? SignalR fournit une couche d&#x27;abstraction au-dessus des WebSocket et des long polling connections pour les développeurs .NET et fonctionne sous IIS" />
+    <meta name="twitter:url" content="http://www.mymemoryleaks.fr/live-charting-avec-signalr/" />
+    <meta name="twitter:image" content="http://mah1979.qsandbox.com/wp-content/uploads/2011/09/SignalR_awesome.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Fabrice Michellonet" />
+    <meta name="twitter:site" content="@mymemoryleaks" />
     
     <script type="application/ld+json">
 {
@@ -47,7 +45,7 @@
     "publisher": {
         "@type": "Organization",
         "name": "mymemoryleaks",
-        "logo": "http://localhost:2368/content/images/2018/02/mosquito.png"
+        "logo": "http://www.mymemoryleaks.fr/content/images/2018/03/mosquito.png"
     },
     "author": {
         "@type": "Person",
@@ -58,48 +56,43 @@
             "width": 250,
             "height": 250
         },
-        "url": "http://localhost:2368/author/fabrice/",
+        "url": "http://www.mymemoryleaks.fr/author/fabrice/",
         "sameAs": []
     },
     "headline": "Live charting avec SignalR",
-    "url": "http://localhost:2368/live-charting-avec-signalr/",
+    "url": "http://www.mymemoryleaks.fr/live-charting-avec-signalr/",
     "datePublished": "2011-09-26T21:21:00.000Z",
     "dateModified": "2018-02-11T22:55:14.000Z",
-    "image": {
-        "@type": "ImageObject",
-        "url": "http://mah1979.qsandbox.com/wp-content/uploads/2011/09/SignalR_awesome.png",
-        "width": 519,
-        "height": 83
-    },
+    "image": "http://mah1979.qsandbox.com/wp-content/uploads/2011/09/SignalR_awesome.png",
     "description": "SignalR is awesome ! Oui il va falloir vous habituer à entendre dire que cette librairie est un petit bijou. Mais qu&#x27;est-ce qu&#x27;elle a de si bien cette librairie SignalR ? SignalR fournit une couche d&#x27;abstraction au-dessus des WebSocket et des long polling connections pour les développeurs .NET et fonctionne sous IIS",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "http://localhost:2368/"
+        "@id": "http://www.mymemoryleaks.fr/"
     }
 }
     </script>
 
-    <script type="text/javascript" src="..\public\ghost-sdk.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="../public/ghost-sdk.js@v=67e8edd762"></script>
 <script type="text/javascript">
 ghost.init({
 	clientId: "ghost-frontend",
-	clientSecret: "85ce418ba3bc"
+	clientSecret: "a44cbdccbe24"
 });
 </script>
-    <meta name="generator" content="Ghost 1.21">
-    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="..\rss\index.xml">
+    <meta name="generator" content="Ghost 1.21" />
+    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="../rss/index.html" />
 </head>
 <body class="post-template nav-closed">
 
     <div class="nav">
     <h3 class="nav-title">Menu</h3>
-    <a href="#" class="nav-close">
+    <a href="index.html#" class="nav-close">
         <span class="hidden">Close</span>
     </a>
     <ul>
-            <li class="nav-home"><a href="..\index.html">Home</a></li>
+            <li class="nav-home"><a href="../index.html">Home</a></li>
     </ul>
-        <a class="subscribe-button icon-feed" href="..\rss\index.xml">Subscribe</a>
+        <a class="subscribe-button icon-feed" href="../rss/index.html">Subscribe</a>
 </div>
 <span class="nav-cover"></span>
 
@@ -112,8 +105,8 @@ ghost.init({
 <header class="main-header post-head " style="background-image: url(http://mah1979.qsandbox.com/wp-content/uploads/2011/09/SignalR_awesome.png)">
     <div class="main-header-background-square"></div>
     <nav class="main-nav overlay clearfix">
-        <a class="blog-logo" href="..\index.html"><img src="..\content\images\2018\02\mosquito.png" alt="mymemoryleaks"></a>
-            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+        <a class="blog-logo" href="../index.html"><img src="../content/images/2018/03/mosquito.png" alt="mymemoryleaks" /></a>
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
     </nav>
 </header>
 
@@ -123,7 +116,7 @@ ghost.init({
         <header class="post-header">
             <h1 class="post-title">Live charting avec SignalR</h1>
             <section class="post-meta">
-                <time class="post-date" datetime="2011-09-26">26 septembre 2011</time> 
+                <time class="post-date" datetime="2011-09-26">26 September 2011</time> 
             </section>
         </header>
 
@@ -144,7 +137,7 @@ Intéressons-nous au code javascript. (<em>A noter que le code lié à la config
 On se contente alors de faire appel à la méthode <code>connect</code>; nous implémenterons cette dernière côté serveur.... oui vous avez bien lu, côté serveur.</p>
 <p>Remarquez également la définition de la méthode <code>drawShareValue()</code> qui se charge de dessiner un nouveau point dans le chart, nous ferons appel à elle dans le code serveur.</p>
 <p>Côté serveur, nous allons définir un hub, la classe de base qui abstrait la communication client/serveur dans l'api SignalR.</p>
-<p>public class StockExchange : Hub { private Timer _timer; private double _fowlerPrice = 10.2; private double VaryPrice() { Random rnd = new Random(); _fowlerPrice = _fowlerPrice + (rnd.Next(-1, 2) * rnd.NextDouble()); return _fowlerPrice; } public bool Connect() { // Set unique id for client. Caller.Id = Context.ClientId; _timer = new Timer { Interval = 1000 }; _timer.Elapsed += (sender, e) =&gt; Send( new List<shareprice>(new[] { new SharePrice { Date = DateTime.Now, Price = VaryPrice(), Share = new Share {Name = &quot;Fowler-Corp&quot;} } })); _timer.Start(); return true; } public void Send(IEnumerable<shareprice> sp) { Clients.drawShareValue(Context.ClientId, sp); } }<p>
+<p>public class StockExchange : Hub { private Timer _timer; private double _fowlerPrice = 10.2; private double VaryPrice() { Random rnd = new Random(); _fowlerPrice = _fowlerPrice + (rnd.Next(-1, 2) * rnd.NextDouble()); return _fowlerPrice; } public bool Connect() { // Set unique id for client. Caller.Id = Context.ClientId; _timer = new Timer { Interval = 1000 }; _timer.Elapsed += (sender, e) =&gt; Send( new List<SharePrice>(new[] { new SharePrice { Date = DateTime.Now, Price = VaryPrice(), Share = new Share {Name = &quot;Fowler-Corp&quot;} } })); _timer.Start(); return true; } public void Send(IEnumerable<SharePrice> sp) { Clients.drawShareValue(Context.ClientId, sp); } }</p>
 <p>Avez-vous remarqué la méthode Connect()? On y a fait appel à partir du code JS.<br>
 Et l'appel à drawShareValue(), fait bien référence à la méthode que l'on à définit dans le javascript. Enorme, non?</p>
 <p>Tout cela est possible parce que SignalR utilise dans ses fondements le typage <a href="http://en.wikipedia.org/wiki/C_Sharp_4.0#Dynamic_member_lookup">dynamic</a> à laquelle vient s'ajouter une résolution de Propriété/Méthode &quot;simple&quot; par convention, évitant ainsi d'avoir à écrire du code verbeux.</p>
@@ -153,20 +146,20 @@ Et l'appel à drawShareValue(), fait bien référence à la méthode que l'on à
 <p>Bon ok, l'image ne bouge pas, il faut imaginer qu'un point vient s'ajouter chaque seconde dans le graph 🙂</p>
 <p>Pour ceux qui voudrait jeter un coup d’œil à la solution entière, vous pouvez la récupérer sur <a href="https://github.com/fmichellonet/SignalR.Samples.MVCLiveChart">Github</a></p>
 <p>Avez-vous utilisé d'autres technos/framework pour faciliter les communications &quot;temps réel&quot; entre le serveur et le browser?</p>
-</shareprice></shareprice></div>
+</div>
         </section>
 
         <footer class="post-footer">
 
 
             <figure class="author-image">
-                <a class="img" href="..\author\fabrice\index.html" style="background-image: url(//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&#x3D;250&amp;d&#x3D;mm&amp;r&#x3D;x)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
+                <a class="img" href="../author/fabrice/index.html" style="background-image: url(http://www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
             </figure>
 
             <section class="author">
-                <h4><a href="..\author\fabrice\index.html">Fabrice Michellonet</a></h4>
+                <h4><a href="../author/fabrice/index.html">Fabrice Michellonet</a></h4>
 
-                    <p>Read <a href="..\author\fabrice\index.html">more posts</a> by this author.</p>
+                    <p>Read <a href="../author/fabrice/index.html">more posts</a> by this author.</p>
                 <div class="author-meta">
                     
                     
@@ -176,13 +169,16 @@ Et l'appel à drawShareValue(), fait bien référence à la méthode que l'on à
 
             <section class="share">
                 <h4>Share this post</h4>
-                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Live%20charting%20avec%20SignalR&amp;url=http://localhost:2368/live-charting-avec-signalr/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Live%20charting%20avec%20SignalR&amp;url=http://www.mymemoryleaks.fr/live-charting-avec-signalr/"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                     <span class="hidden">Twitter</span>
                 </a>
-                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/live-charting-avec-signalr/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://www.mymemoryleaks.fr/live-charting-avec-signalr/"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                     <span class="hidden">Facebook</span>
                 </a>
-                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/live-charting-avec-signalr/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://www.mymemoryleaks.fr/live-charting-avec-signalr/"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                     <span class="hidden">Google+</span>
                 </a>
             </section>
@@ -193,13 +189,13 @@ Et l'appel à drawShareValue(), fait bien référence à la méthode que l'on à
 </main>
 
 <aside class="read-next">
-    <a class="read-next-story " style="background-image: url(http://mah1979.qsandbox.com/wp-content/uploads/2011/10/EF_Table.png)" href="..\entity-framework-et-aop\index.html">
+    <a class="read-next-story " style="background-image: url(http://mah1979.qsandbox.com/wp-content/uploads/2011/10/EF_Table.png)" href="../entity-framework-et-aop/index.html">
         <section class="post">
             <h2>Entity Framework et AOP</h2>
             <p>Cela fait des mois que je repousse la publication d'un post sur l'AOP, car je ne voulais pas vous&hellip;</p>
         </section>
     </a>
-    <a class="read-next-story prev no-cover" href="..\entityframework-patterns-repository-unit-of-work\index.html">
+    <a class="read-next-story prev no-cover" href="../entityframework-patterns-repository-unit-of-work/index.html">
         <section class="post">
             <h2>EntityFramework.Patterns : Repository &amp; Unit Of Work</h2>
             <p>Je vous propose un très rapide post pour faciliter la prise en main des Patterns Repository et Unit Of&hellip;</p>
@@ -210,17 +206,17 @@ Et l'appel à drawShareValue(), fait bien référence à la méthode que l'on à
 
 
         <footer class="site-footer clearfix">
-            <section class="copyright"><a href="..\index.html">mymemoryleaks</a> &copy; 2018</section>
+            <section class="copyright"><a href="../index.html">mymemoryleaks</a> &copy; 2018</section>
             <section class="poweredby">Powered by <a href="http://boo-demo.tenoku.com/">Ghost + Boo</a></section>
         </footer>
 
     </div>
 
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
     
-    <script type="text/javascript" src="..\assets\js\jquery.fitvids.js?v=e6afc982da"></script>
-    <script type="text/javascript" src="..\assets\js\index.js?v=e6afc982da"></script>
-    <script type="text/javascript" src="..\assets\js\prism.js?v=e6afc982da"></script>
+    <script type="text/javascript" src="../assets/js/jquery.fitvids.js@v=67e8edd762"></script>
+    <script type="text/javascript" src="../assets/js/index.js@v=67e8edd762"></script>
+    <script type="text/javascript" src="../assets/js/prism.js@v=67e8edd762"></script>
     <script src="https://cdn.jsdelivr.net/mobile-detect.js/1.3.3/mobile-detect.min.js"></script>
     <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
 
