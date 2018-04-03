@@ -1,4 +1,108 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[mymemoryleaks]]></title><description><![CDATA[Blog sur les technos Microsoft.]]></description><link>http://www.mymemoryleaks.fr/</link><image><url>http://www.mymemoryleaks.fr/favicon.png</url><title>mymemoryleaks</title><link>http://www.mymemoryleaks.fr/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Mon, 02 Apr 2018 22:03:50 GMT</lastBuildDate><atom:link href="http://www.mymemoryleaks.fr/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[J'recommence, je git mon blog!]]></title><description><![CDATA[J'ai passé 8 ans la-bas, sur blogger. Si je me souviens bien c'est Francois qui m'avais recommandé cette plateforme.]]></description><link>http://www.mymemoryleaks.fr/on-recommence-je-git-mon-blog/</link><guid isPermaLink="false">5ac27ad4a9a75b30c4d00a70</guid><category><![CDATA[git]]></category><category><![CDATA[blog]]></category><dc:creator><![CDATA[Fabrice Michellonet]]></dc:creator><pubDate>Mon, 02 Apr 2018 20:20:21 GMT</pubDate><media:content url="http://www.mymemoryleaks.fr/content/images/2018/04/github-1.png" medium="image"/><content:encoded><![CDATA[<div class="kg-card-markdown"><img src="http://www.mymemoryleaks.fr/content/images/2018/04/github-1.png" alt="J'recommence, je git mon blog!"><p>J'ai passé 8 ans la-bas, sur <a href="http://mymemoryleaks.blogspot.fr/">blogger</a>. Si je me souviens bien c'est <a href="https://fjehl.wordpress.com/">Francois</a> qui m'avais recommandé cette plateforme. Puis le temps à passé, François comme beaucoup d'autres ont bougé vers d'autres horizons, <a href="https://fr.wordpress.org/">wordpress</a> par exemple.</p>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[mymemoryleaks]]></title><description><![CDATA[Blog sur les technos Microsoft.]]></description><link>http://www.mymemoryleaks.fr/</link><image><url>http://www.mymemoryleaks.fr/favicon.png</url><title>mymemoryleaks</title><link>http://www.mymemoryleaks.fr/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Tue, 03 Apr 2018 21:47:33 GMT</lastBuildDate><atom:link href="http://www.mymemoryleaks.fr/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Combiner des Expressions Trees]]></title><description><![CDATA[<div class="kg-card-markdown"><p>Il y a tout juste quelques jours, on pair programmait avec <a href="https://fr.linkedin.com/in/hocquet">Anthony</a> sur un projet. Nous nous sommes retrouvés a vouloir combiner au runtime des <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/expression-trees/">Expressions trees</a> en fonction de parametres évalués au runtime.</p>
+<p>En gros on avait envie d'écrire un truc du genre</p>
+<pre><code class="language-csharp">Expression&lt;Func&lt;Person, bool&</code></pre></div>]]></description><link>http://www.mymemoryleaks.fr/combiner-des-expressions-trees/</link><guid isPermaLink="false">5ac3d3fab8151d4864f88e10</guid><category><![CDATA[C#]]></category><category><![CDATA[Expressions trees]]></category><dc:creator><![CDATA[Fabrice Michellonet]]></dc:creator><pubDate>Tue, 03 Apr 2018 21:43:43 GMT</pubDate><media:content url="http://www.mymemoryleaks.fr/content/images/2018/04/tress.jpg" medium="image"/><content:encoded><![CDATA[<div class="kg-card-markdown"><img src="http://www.mymemoryleaks.fr/content/images/2018/04/tress.jpg" alt="Combiner des Expressions Trees"><p>Il y a tout juste quelques jours, on pair programmait avec <a href="https://fr.linkedin.com/in/hocquet">Anthony</a> sur un projet. Nous nous sommes retrouvés a vouloir combiner au runtime des <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/expression-trees/">Expressions trees</a> en fonction de parametres évalués au runtime.</p>
+<p>En gros on avait envie d'écrire un truc du genre</p>
+<pre><code class="language-csharp">Expression&lt;Func&lt;Person, bool&gt;&gt; predicate = x =&gt; x.Id &gt; 1;
+</code></pre>
+<p>puis un peu plus loin</p>
+<pre><code class="language-csharp">predicate += x =&gt; x.Name.Length &lt; 6;
+</code></pre>
+<p>Ne cherchez pas à compiler ca, le compilo risque de se rebeller.</p>
+<p>On était un peu pris par le temps, du coup on a fait un simple. Néanmoins je profite de cet espace pour partager avec vous une facon de faire pour combiner des Expressions et faire du code un peu plus <em>sexy</em></p>
+<p>Pour faire plaisir à <a href="https://twitter.com/EjDel?lang=fr">maitre Etienne</a> on va travailler a base de tests unitaires.</p>
+<p>Commençons par la version naïve; En cherchant un peu sur la msdn on tombera facilement sur <a href="https://msdn.microsoft.com/fr-fr/library/bb382914(v=vs.110).aspx">Expression.AndAlso</a> permettant de créer une nouvelle expression qui combine deux Expressions <em>left</em> et <em>right</em></p>
+<pre><code class="language-csharp">        [Fact]
+        public void SimpleCombining_Fails()
+        {
+            // Arrange
+            Expression&lt;Func&lt;Person, bool&gt;&gt; firstPredicate = x =&gt; x.Id &gt; 1;
+            Expression&lt;Func&lt;Person, bool&gt;&gt; secondPredicate = x =&gt; x.Name.Length &lt; 6;
+            
+            Expression binaryexp = Expression.AndAlso(firstPredicate.Body, secondPredicate.Body);
+            ParameterExpression[] parameters = {
+                Expression.Parameter(typeof(Person), firstPredicate.Parameters.First().Name)
+            };
+            
+            Expression&lt;Func&lt;Person, bool&gt;&gt; lambda = Expression.Lambda&lt;Func&lt;Person, bool&gt;&gt;(binaryexp, parameters);
+            
+            // Act
+            Action filter = () =&gt; {
+                var combinedPredicate = lambda.Compile();
+                var result = _persons.Where(combinedPredicate);
+            };
+
+            // Assert
+            Assert.Throws&lt;InvalidOperationException&gt;(() =&gt; filter());
+        }
+</code></pre>
+<p>On commence par définir nos deux prédicats (left &amp; right) que l'on combine dans une expression binaire AndAlso (et logique) en utilisant comme paramètre générique <em><strong>T</strong></em> le paramètre utilisé dans la premiere expression initiale.<br>
+On essaye par la suite d'utiliser la lambda créée pour l'occasion dans une instruction <a href="https://msdn.microsoft.com/fr-fr/library/bb549418(v=vs.110).aspx">Where</a> que vous connaissez tous en Linq.</p>
+<p>Bon, j'avais déjà vendu la méche en disant que c'était une version naïve; effectivement a l'execution vous allez avoir une <a href="https://msdn.microsoft.com/fr-fr/library/system.invalidoperationexception(v=vs.110).aspx">InvalidOperationException</a></p>
+<pre><code class="language-xml">System.InvalidOperationException: 'variable 'x' of type 'AndOrExpressions.Person' referenced from scope '', but it is not defined'
+</code></pre>
+<p>Pour faire simple, dans nos deux expressions initiales, le paramètre <em>x</em> bien qu'il se nomme de la même maniere et soit du même type, il ne s'agit pas du meme objet. <em>x</em> est donc inconnu dans la seconde expression.</p>
+<p>Etant donné que les Expressions sont des objets <a href="https://en.wikipedia.org/wiki/Immutable_object">immutables</a> il va nous falloir un moyen de créer/réécrire une expression donnée.</p>
+<p>C'est pour ce genre de cas qu'MS a mis à notre disposition la classe <a href="https://msdn.microsoft.com/fr-fr/library/system.linq.expressions.expressionvisitor(v=vs.110).aspx">ExpressionVisitor</a>. Celle-ci  nous permet de traverser l'expression tree et d'apporter des modifications. Rappelez vous que chaque modification produira une nouvelle expression, c'est le principe même de l'immutabilité.</p>
+<p>Ok, commencons par créer une visiteur qui remplacera un paramètre <em><strong>T</strong></em> par un autre passé en paramètre.</p>
+<pre><code class="language-csharp">public class ReplaceExpressionVisitor : ExpressionVisitor
+    {
+        private readonly Expression _searched;
+        private readonly Expression _replacement;
+
+        public ReplaceExpressionVisitor(Expression searched, Expression replacement)
+        {
+            _searched = searched;
+            _replacement = replacement;
+        }
+
+        public override Expression Visit(Expression node)
+        {
+            if (node == _searched)
+            {
+                return _replacement;
+            }   
+            return base.Visit(node);
+        }
+    }
+</code></pre>
+<p>Simple, non?</p>
+<p>Du coup si on réécrivait notre test de la facon suivante en imaginant une methode And qui permet de combiner des Expressions</p>
+<pre><code class="language-csharp">[Fact]
+        public void ReplacingType_Succeed()
+        {
+            // Arrange
+            Expression&lt;Func&lt;Person, bool&gt;&gt; firstPredicate = x =&gt; x.Id &gt; 1;
+            Expression&lt;Func&lt;Person, bool&gt;&gt; secondPredicate = x =&gt; x.Name.Length &lt; 6;
+
+            Func&lt;Person, bool&gt; combinedPredicate = firstPredicate.And(secondPredicate);
+            
+            // Act
+            var result = _persons.Where(combinedPredicate);
+
+            // Assert
+            Assert.Collection(result, people =&gt; Assert.Equal(people, Anto));
+        }
+</code></pre>
+<p>Il ne nous reste qu'à définir une methode d'extension qui répond a cette signature, comme ceci :</p>
+<pre><code class="language-csharp">public static class ExpressionsExtensions
+    {
+        public static Func&lt;T, bool&gt; And&lt;T&gt;(this Expression&lt;Func&lt;T, bool&gt;&gt; firstOperand, Expression&lt;Func&lt;T, bool&gt;&gt; secondOperand)
+        {
+            var replacement = Expression.Parameter(typeof(T));
+
+            var leftVisitor = new ReplaceExpressionVisitor(firstOperand.Parameters[0], replacement);
+            var left = leftVisitor.Visit(firstOperand.Body);
+
+            var rightVisitor = new ReplaceExpressionVisitor(secondOperand.Parameters[0], replacement);
+            var right = rightVisitor.Visit(secondOperand.Body);
+
+            return Expression.Lambda&lt;Func&lt;T, bool&gt;&gt;(Expression.AndAlso(left, right), replacement)
+                             .Compile();
+        }
+    }
+</code></pre>
+<p>Cette methode va combiner avec <em>Expression.AndAlso</em> nos deux expressions initiales, mais cette fois ci on aura prit soin de les réécrire en utilisant le même paramètre générique. Et évidemment cette fois-ci, le test est vert :)</p>
+</div>]]></content:encoded></item><item><title><![CDATA[J'recommence, je git mon blog!]]></title><description><![CDATA[J'ai passé 8 ans la-bas, sur blogger. Si je me souviens bien c'est Francois qui m'avais recommandé cette plateforme.]]></description><link>http://www.mymemoryleaks.fr/on-recommence-je-git-mon-blog/</link><guid isPermaLink="false">5ac27ad4a9a75b30c4d00a70</guid><category><![CDATA[git]]></category><category><![CDATA[blog]]></category><dc:creator><![CDATA[Fabrice Michellonet]]></dc:creator><pubDate>Mon, 02 Apr 2018 20:20:21 GMT</pubDate><media:content url="http://www.mymemoryleaks.fr/content/images/2018/04/github-1.png" medium="image"/><content:encoded><![CDATA[<div class="kg-card-markdown"><img src="http://www.mymemoryleaks.fr/content/images/2018/04/github-1.png" alt="J'recommence, je git mon blog!"><p>J'ai passé 8 ans la-bas, sur <a href="http://mymemoryleaks.blogspot.fr/">blogger</a>. Si je me souviens bien c'est <a href="https://fjehl.wordpress.com/">Francois</a> qui m'avais recommandé cette plateforme. Puis le temps à passé, François comme beaucoup d'autres ont bougé vers d'autres horizons, <a href="https://fr.wordpress.org/">wordpress</a> par exemple.</p>
 <p>Pas moi... un peu par flemme, faut bien le dire.</p>
 <p>Parfois l'idée et l'envie de pondre un article est la, mais compliqué de le faire dans le train car faut etre connecté sur <a href="https://www.blogger.com/">blogger.com</a> pour pouvoir écrire. D'autres problématiques se font sentir, ou stocker les images/screenshots etc...</p>
 <p>Bref, il etait temps de demenager. Mais pour aller ou?</p>
@@ -396,32 +500,4 @@ Recherchons la config de notre site</p>
 <p>Ça signifie que mes chers utilisateurs vont pouvoir profiter des gains de performances apportées par EF 6; Quant au projet sur lequel je travaille actuellement, j'espère bien upgrader EF dès demain... <a href="http://ryvonnet.wordpress.com/">Romain</a>, si tu m'entends :p</p>
 <p>Dans un avenir proche, je pense ajouter un bout d'API asynchrone aux repository d'EntityFramework.Patterns.</p>
 <p>Bon upgrade de package !!</p>
-</div>]]></content:encoded></item><item><title><![CDATA[SSIS vs TPL.Dataflow]]></title><description><![CDATA[<div class="kg-card-markdown"><p>Il y a quelques jours je tweetais de joie, après être tombé sur la msdn concernant <a href="http://msdn.microsoft.com/en-us/library/hh228603(v=vs.110).aspx">TPL.Dataflow</a><br>
-L'API propose un système de pipeline que l'on peut aisément imaginer utiliser dans un process d'ETL.</p>
-<p>Ni une ni deux, je m'imagine délaisser SSII lors de mes prochaines alims de base de</p></div>]]></description><link>http://www.mymemoryleaks.fr/ssis-vs-tpl-dataflow/</link><guid isPermaLink="false">5a99b626f336bf15fc91af70</guid><dc:creator><![CDATA[Fabrice Michellonet]]></dc:creator><pubDate>Thu, 31 Oct 2013 17:18:00 GMT</pubDate><media:content url="http://mah1979.qsandbox.com/wp-content/uploads/2013/10/djoub.png" medium="image"/><content:encoded><![CDATA[<div class="kg-card-markdown"><img src="http://mah1979.qsandbox.com/wp-content/uploads/2013/10/djoub.png" alt="SSIS vs TPL.Dataflow"><p>Il y a quelques jours je tweetais de joie, après être tombé sur la msdn concernant <a href="http://msdn.microsoft.com/en-us/library/hh228603(v=vs.110).aspx">TPL.Dataflow</a><br>
-L'API propose un système de pipeline que l'on peut aisément imaginer utiliser dans un process d'ETL.</p>
-<p>Ni une ni deux, je m'imagine délaisser SSII lors de mes prochaines alims de base de données et enfin pouvoir unit tester mon ETL.<br>
-L'accueil fait par mes collègues purement BI fut plutôt frileux... n'est ce pas David 🙂</p>
-<p><img src="http://mah1979.qsandbox.com/wp-content/uploads/2013/10/djoub-300x53.png" alt="SSIS vs TPL.Dataflow"></p>
-<p>Au rayon des réponses constructives, <a href="http://fbro.wordpress.com/">Fred Brossard</a>, me fait revenir très vite sur terre, en demandant à voir les perfs du framework.</p>
-<p>C'est ce que je me propose de présenter ici avec un exemple simple.<br>
-L'idée est d'importer le snapshot de <a href="http://meta.stackoverflow.com/questions/198915/is-there-a-direct-download-link-with-a-raw-data-dump-of-stack-overflow-not-a-t">septembre des posts de stackoverflow</a>; d'abord avec notre bon vieux SSIS puis avec TPL.Dataflow.</p>
-<p>En entrée on a donc un bon gros fichier XML de 170MO correspondant aux nouveaux posts du mois.</p>
-<p>Commençons par SSIS, rien de sorcier, une XML source qui se déverse directement dans une SQL Destination pointant vers ma jolie table.</p>
-<p><img src="http://mah1979.qsandbox.com/wp-content/uploads/2013/10/ssis-300x264.png" alt="SSIS vs TPL.Dataflow"></p>
-<p>Ce qui nous donne env. 150K lignes intégrées en env. 20 sec</p>
-<p><img src="http://mah1979.qsandbox.com/wp-content/uploads/2013/10/ssis_executed-300x266.png" alt="SSIS vs TPL.Dataflow"><br>
-<img src="http://mah1979.qsandbox.com/wp-content/uploads/2013/10/ssis_elapsed-300x36.png" alt="SSIS vs TPL.Dataflow"></p>
-<p>Ok, passons à la version C#. Ce que je vous livre ici est une version non optimisée et naive d'un algo d'import avec TPL.Dataflow.</p>
-<p>Commencons par créer nos taches :</p>
-<p>// XML datasource var inputBlock = new BufferBlock<xdocument>(); // Split xml, one for each <row> element var xDocumentToXmlRow = new TransformManyBlock&lt;XDocument, XElement&gt;( x =&gt; x.Root.DescendantNodes().OfType<xelement>()); // Convert xml <row> element to a Post object. var xmlRowToObjectBlock = new TransformBlock&lt;XElement, Post&gt;( x =&gt; x.FromXElement<post>(), new ExecutionDataflowBlockOptions {MaxDegreeOfParallelism = DataflowBlockOptions.Unbounded}); // a buffer of 10000 elements var batch = new BatchBlock<post>(10000); // SQL destination, using bulk insert. var sqlBulk = new ActionBlock&lt;Post[]&gt;(x =&gt; { using (SqlBulkCopy sbc = new SqlBulkCopy(&quot;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=Stackoverflow;Data Source=(local)&quot;, SqlBulkCopyOptions.TableLock)) { sbc.DestinationTableName = &quot;Posts&quot;; // Number of records to be processed in one go sbc.BatchSize = 10000; // commit to the server sbc.WriteToServer(x.ToList().ToDataTable()); sbc.Close(); } }, new ExecutionDataflowBlockOptions { MaxDegreeOfParallelism = DataflowBlockOptions.Unbounded });</post></post></row></xelement></row></xdocument></p>
-<p>Il nous faut maintenant ordonnancer ces taches, comme nous le faisons dans SSIS en reliant les taches entre elles.</p>
-<p>using (inputBlock.LinkTo(xDocumentToXmlRow)) using (xDocumentToXmlRow.LinkTo(xmlRowToObjectBlock)) using (xmlRowToObjectBlock.LinkTo(batch)) using (batch.LinkTo(sqlBulk)) { inputBlock.Completion.ContinueWith(t =&gt; xDocumentToXmlRow.Complete()); xDocumentToXmlRow.Completion.ContinueWith(t =&gt; xmlRowToObjectBlock.Complete()); xmlRowToObjectBlock.Completion.ContinueWith(t =&gt; batch.Complete()); batch.Completion.ContinueWith(t =&gt; sqlBulk.Complete()); var inputfile = XDocument.Load(@&quot;C:!PoCStackoverflowSourcefilesPosts.xml&quot;); inputBlock.Post(inputfile); inputBlock.Complete(); sqlBulk.Completion.Wait(); }</p>
-<p>Aller, sans plus attendre, voici le résultat de l’exécution :</p>
-<p><img src="http://mah1979.qsandbox.com/wp-content/uploads/2013/10/TPL.Dataflow_executed-300x83.png" alt="SSIS vs TPL.Dataflow"></p>
-<p>Je suis sur que vous êtes aussi étonnés que moi... TPL est plus rapide (de quelques 15%) par rapport à SSIS dans ce cas simple.<br>
-Pour être tout à fait franc, je ne m'y attendais pas du tout. Je pensais qu'il y aurait vraisemblablement une 20 aine de % d'écart, mais en faveur de SSIS.</p>
-<p>Bien que cet exemple simplissime ne puisse pas permettre de généraliser, TPL.Dataflow semble apporter des performances suffisantes, si non meilleures qu'SSIS;<br>
-mais surtout, cet API va nous permettre d’écrire des tests unitaires sur nos jobs d'intégration. C'est ce que je vous présenterai dans un prochain article.</p>
-<p>Et vous, avez vous déjà utilisé TPL.Dataflow? Pourriez-vous l'utiliser dans vos projets? A la lumière de ce post, que pensez vous de ces performances?</p>
 </div>]]></content:encoded></item></channel></rss>
