@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Astuce Blazor : Séparer la vue du code</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css@v=cbcfaedfc4.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/prism.css@v=cbcfaedfc4.css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="mymemoryleaks" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Astuce Blazor : Séparer la vue du code" />
+    <meta property="og:description" content="Depuis quelque temps dans la communauté .NET on parle fait pas mal de marketing autour de Blazor. Je ne vais pas vous présenter cette nouvelle techno... si vous etes ici, c&#x27;est que vous connaissez déjà :). Une des premières choses qui m&#x27;a embété fut de voir dans les articles de présentation" />
+    <meta property="og:url" content="http://www.mymemoryleaks.fr/astuce-blazor/" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1489275960192-edc747009a6e?ixlib&#x3D;rb-0.3.5&amp;q&#x3D;80&amp;fm&#x3D;jpg&amp;crop&#x3D;entropy&amp;cs&#x3D;tinysrgb&amp;w&#x3D;1080&amp;fit&#x3D;max&amp;ixid&#x3D;eyJhcHBfaWQiOjExNzczfQ&amp;s&#x3D;c086ae98bdec024e34deb3acef877c4a" />
+    <meta property="article:published_time" content="2018-04-11T21:17:03.000Z" />
+    <meta property="article:modified_time" content="2018-04-11T21:17:03.000Z" />
+    <meta property="article:tag" content="Blazor" />
+    <meta property="article:tag" content="WebAssembly" />
+    <meta property="article:tag" content="wasm" />
+    <meta property="article:tag" content="C#" />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Astuce Blazor : Séparer la vue du code" />
+    <meta name="twitter:description" content="Depuis quelque temps dans la communauté .NET on parle fait pas mal de marketing autour de Blazor. Je ne vais pas vous présenter cette nouvelle techno... si vous etes ici, c&#x27;est que vous connaissez déjà :). Une des premières choses qui m&#x27;a embété fut de voir dans les articles de présentation" />
+    <meta name="twitter:url" content="http://www.mymemoryleaks.fr/astuce-blazor/" />
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1489275960192-edc747009a6e?ixlib&#x3D;rb-0.3.5&amp;q&#x3D;80&amp;fm&#x3D;jpg&amp;crop&#x3D;entropy&amp;cs&#x3D;tinysrgb&amp;w&#x3D;1080&amp;fit&#x3D;max&amp;ixid&#x3D;eyJhcHBfaWQiOjExNzczfQ&amp;s&#x3D;c086ae98bdec024e34deb3acef877c4a" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Fabrice Michellonet" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Blazor, WebAssembly, wasm, C#" />
+    <meta name="twitter:site" content="@mymemoryleaks" />
+    <meta property="og:image:width" content="1080" />
+    <meta property="og:image:height" content="720" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "mymemoryleaks",
+        "logo": "http://www.mymemoryleaks.fr/content/images/2018/03/mosquito.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Fabrice Michellonet",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "http://www.mymemoryleaks.fr/author/fabrice/",
+        "sameAs": []
+    },
+    "headline": "Astuce Blazor : Séparer la vue du code",
+    "url": "http://www.mymemoryleaks.fr/astuce-blazor/",
+    "datePublished": "2018-04-11T21:17:03.000Z",
+    "dateModified": "2018-04-11T21:17:03.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://images.unsplash.com/photo-1489275960192-edc747009a6e?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&s=c086ae98bdec024e34deb3acef877c4a",
+        "width": 1080,
+        "height": 720
+    },
+    "keywords": "Blazor, WebAssembly, wasm, C#",
+    "description": "Depuis quelque temps dans la communauté .NET on parle fait pas mal de marketing autour de Blazor. Je ne vais pas vous présenter cette nouvelle techno... si vous etes ici, c&#x27;est que vous connaissez déjà :). Une des premières choses qui m&#x27;a embété fut de voir dans les articles de présentation",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://www.mymemoryleaks.fr/"
+    }
+}
+    </script>
+
+    <script type="text/javascript" src="../public/ghost-sdk.js@v=cbcfaedfc4"></script>
+<script type="text/javascript">
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "a44cbdccbe24"
+});
+</script>
+    <meta name="generator" content="Ghost 1.21" />
+    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="../rss/index.html" />
+</head>
+<body class="post-template tag-blazor tag-webassembly tag-wasm tag-c nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home"><a href="../index.html">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="../rss/index.html">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head " style="background-image: url(https://images.unsplash.com/photo-1489275960192-edc747009a6e?ixlib&#x3D;rb-0.3.5&amp;q&#x3D;80&amp;fm&#x3D;jpg&amp;crop&#x3D;entropy&amp;cs&#x3D;tinysrgb&amp;w&#x3D;1080&amp;fit&#x3D;max&amp;ixid&#x3D;eyJhcHBfaWQiOjExNzczfQ&amp;s&#x3D;c086ae98bdec024e34deb3acef877c4a)">
+    <div class="main-header-background-square"></div>
+    <nav class="main-nav overlay clearfix">
+        <a class="blog-logo" href="../index.html"><img src="../content/images/2018/03/mosquito.png" alt="mymemoryleaks" /></a>
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-blazor tag-webassembly tag-wasm tag-c">
+
+        <header class="post-header">
+            <h1 class="post-title">Astuce Blazor : Séparer la vue du code</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2018-04-11">11 April 2018</time>  on <a href="../tag/blazor/index.html">Blazor</a>, <a href="../tag/webassembly/index.html">WebAssembly</a>, <a href="../tag/wasm/index.html">wasm</a>, <a href="../tag/c/index.html">C#</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div class="kg-card-markdown"><p>Depuis quelque temps dans la communauté .NET on <s>parle</s> fait pas mal de marketing autour de <a href="https://visualstudiomagazine.com/articles/2018/03/23/blazor-alpha.aspx">Blazor</a>. Je ne vais pas vous présenter cette nouvelle techno... si vous etes ici, c'est que vous connaissez déjà :).</p>
+<p>Une des premières choses qui m'a embété fut de voir dans les articles de présentation un mélange sans vergogne du code html et du code .NET wrappé dans la section <em><strong>@functions</strong></em></p>
+<p>je parle de ca :</p>
+<pre><code class="language-csharp">@using System
+@page &quot;/guid&quot;
+
+
+    &lt;h1&gt;Guid Generator&lt;/h1&gt;
+
+    &lt;input type=&quot;text&quot; value=&quot;@generatedGuid&quot;/&gt;&lt;button type=&quot;button&quot; @onclick(Generate)&gt;Generate!&lt;/button&gt;
+
+    @functions {
+
+        string generatedGuid = string.Empty;
+
+        private void Generate()
+        {
+            generatedGuid = Guid.NewGuid().ToString();
+        }
+    }
+</code></pre>
+<p>Evidemment, ici le code est extremement simple, mais dans la vraie vie j'vous le donne dans le mille on aurait envie de faire des tests unitaires de notre code C#.</p>
+<p>Je vous propose donc cette facon de faire. On va créer un classe qui hérite de <strong>BlazorComponent</strong> et on y mettra notre code métier.</p>
+<p>Commençons par créér une classe qui contiendra notre code behind</p>
+<pre><code class="language-csharp">using System;
+using Microsoft.AspNetCore.Blazor.Components;
+
+namespace OwnBlazor.Pages
+{
+    public class GuidGenerator : BlazorComponent
+    {
+        public string GeneratedGuid { get; set; }
+
+        public void Generate()
+        {
+            GeneratedGuid = Guid.NewGuid().ToString();
+        }
+    }
+}
+</code></pre>
+<p>la seule chose qu'il faut noter ici, c'est que notre classe hérite de <strong>BlazorComponent</strong></p>
+<p>Passons à notre vue qui est maintenant beaucoup plus propre.</p>
+<pre><code class="language-csharp">@page &quot;/guid2&quot;
+@inherits OwnBlazor.Pages.GuidGenerator
+
+    &lt;h1&gt;Guid Generator&lt;/h1&gt;
+
+    &lt;input type=&quot;text&quot; value=&quot;@GeneratedGuid&quot;/&gt;&lt;button type=&quot;button&quot; @onclick(Generate)&gt;Generate&lt;/button&gt;
+</code></pre>
+<p>Dans la vue on spécifiera que l'on hérite de notre classe <strong>GuidGenerator</strong> précédement créée.</p>
+<p>Voila, c'est quand même un peu plus propre et surtout pn peut facilement tester notre code C#.</p>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../author/fabrice/index.html" style="background-image: url(http://www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../author/fabrice/index.html">Fabrice Michellonet</a></h4>
+
+                    <p>Read <a href="../author/fabrice/index.html">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Astuce%20Blazor%20%3A%20S%C3%A9parer%20la%20vue%20du%20code&amp;url=http://www.mymemoryleaks.fr/astuce-blazor/"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://www.mymemoryleaks.fr/astuce-blazor/"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://www.mymemoryleaks.fr/astuce-blazor/"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+        <div id="disqus_thread"></div>
+    </article>
+</main>
+
+<aside class="read-next">
+    <a class="read-next-story prev " style="background-image: url(../content/images/2018/04/tress.jpg)" href="../combiner-des-expressions-trees/index.html">
+        <section class="post">
+            <h2>Combiner des Expressions Trees</h2>
+            <p>Il y a tout juste quelques jours, on pair programmait avec Anthony sur un projet. Nous nous sommes retrouvés&hellip;</p>
+        </section>
+    </a>
+</aside>
+
+
+
+<script>
+var disqus_config = function () {
+this.page.url = 'http://www.mymemoryleaks.fr/astuce-blazor/';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-5ace6f9b90a63023940f731f'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://www-mymemoryleaks-fr.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="../index.html">mymemoryleaks</a> &copy; 2018</section>
+            <section class="poweredby">Powered by <a href="http://boo-demo.tenoku.com/">Ghost + Boo</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="../assets/js/jquery.fitvids.js@v=cbcfaedfc4"></script>
+    <script type="text/javascript" src="../assets/js/index.js@v=cbcfaedfc4"></script>
+    <script type="text/javascript" src="../assets/js/prism.js@v=cbcfaedfc4"></script>
+    <script src="https://cdn.jsdelivr.net/mobile-detect.js/1.3.3/mobile-detect.min.js"></script>
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+
+</body>
+</html>
