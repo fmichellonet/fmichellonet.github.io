@@ -1,4 +1,65 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[mymemoryleaks]]></title><description><![CDATA[Blog sur les technos Microsoft.]]></description><link>http://www.mymemoryleaks.fr/</link><image><url>http://www.mymemoryleaks.fr/favicon.png</url><title>mymemoryleaks</title><link>http://www.mymemoryleaks.fr/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 11 Apr 2018 21:19:40 GMT</lastBuildDate><atom:link href="http://www.mymemoryleaks.fr/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Astuce Blazor : Séparer la vue du code]]></title><description><![CDATA[<div class="kg-card-markdown"><p>Depuis quelque temps dans la communauté .NET on <s>parle</s> fait pas mal de marketing autour de <a href="https://visualstudiomagazine.com/articles/2018/03/23/blazor-alpha.aspx">Blazor</a>. Je ne vais pas vous présenter cette nouvelle techno... si vous etes ici, c'est que vous connaissez déjà :).</p>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[mymemoryleaks]]></title><description><![CDATA[Blog sur les technos Microsoft.]]></description><link>http://www.mymemoryleaks.fr/</link><image><url>http://www.mymemoryleaks.fr/favicon.png</url><title>mymemoryleaks</title><link>http://www.mymemoryleaks.fr/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Fri, 20 Apr 2018 12:40:41 GMT</lastBuildDate><atom:link href="http://www.mymemoryleaks.fr/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Blazor : Injectez vos interop Javascript]]></title><description><![CDATA[<div class="kg-card-markdown"><p>Commençons par ce qui fait mal. Je dois avouer que ce blog post fait suite à un fail.<br>
+Dans cette <a href="https://blogs.msdn.microsoft.com/webdev/2018/04/17/blazor-0-2-0-release-now-available/">version 0.2</a> de Blazor, il y a pas mal de code glue à produire pour pouvoir appeler une fonction javascript à partir de votre code C#.</p>
+<p>Cela se passe</p></div>]]></description><link>http://www.mymemoryleaks.fr/blazor-injectez-vos-interop-js/</link><guid isPermaLink="false">5ad8f208dfa53d0bcc07902f</guid><category><![CDATA[Blazor]]></category><category><![CDATA[WebAssembly]]></category><category><![CDATA[C#]]></category><category><![CDATA[Dynamic Proxy]]></category><category><![CDATA[NSubstitute]]></category><dc:creator><![CDATA[Fabrice Michellonet]]></dc:creator><pubDate>Fri, 20 Apr 2018 12:40:03 GMT</pubDate><media:content url="https://images.unsplash.com/photo-1492515114975-b062d1a270ae?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ&amp;s=24bcab6dc09b4d46b648321080c94d23" medium="image"/><content:encoded><![CDATA[<div class="kg-card-markdown"><img src="https://images.unsplash.com/photo-1492515114975-b062d1a270ae?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&s=24bcab6dc09b4d46b648321080c94d23" alt="Blazor : Injectez vos interop Javascript"><p>Commençons par ce qui fait mal. Je dois avouer que ce blog post fait suite à un fail.<br>
+Dans cette <a href="https://blogs.msdn.microsoft.com/webdev/2018/04/17/blazor-0-2-0-release-now-available/">version 0.2</a> de Blazor, il y a pas mal de code glue à produire pour pouvoir appeler une fonction javascript à partir de votre code C#.</p>
+<p>Cela se passe en 2 étapes :</p>
+<ul>
+<li>A partir de votre code javascript, il faut enregistrer une fonction dans le contexte de Blazor.</li>
+</ul>
+<pre><code class="language-javascript">Blazor.registerFunction('DisplayAlert', (data) =&gt; {
+        alert(data);
+        return true;
+});
+</code></pre>
+<ul>
+<li>Quand vous souhaitez faire appel à cette fonction on utilisera alors un code de ce type, cette fois ci dans votre code C#.</li>
+</ul>
+<pre><code class="language-csharp">RegisteredFunction.Invoke&lt;bool&gt;(&quot;DisplayAlert&quot;, text);
+</code></pre>
+<p>On remarque que tout ca fonctionne à base de magic strings (le nom de la methode), que les functions sont obligées de retourner une valeur (void n'est pas prit en compte pour l'instant), et puis ce <em><strong>RegisteredFunction.Invoke</strong></em> c'est vraiment pas super sexy.</p>
+<p>Du coup je m'étais dis, ca pourrait être sympa d'au moins <em>cacher</em> <em><strong>RegisteredFunction.Invoke</strong></em>, et voici comment j'imaginais la chose.</p>
+<p>On pourrait commencer par définir l'ensemble des fonctions js dans une interface C#, un peu comme ca :</p>
+<pre><code class="language-csharp">public interface IAlerter
+{
+    bool DisplayAlert(string text);
+}
+</code></pre>
+<p>Le choix de l'interface n'est pas complétement anodin, <a href="https://retyped.com">Retyped</a> propose un grand nombre de librairies js exposées sous forme d'interface C#, ce qui nous ouvre la porte a plein de possibilités.</p>
+<p>Pour en revenir à notre interface IAlerter, on peut l'injectée dans notre component Blazor à l'aide de l'attribut ***[Inject]***, comme ceci.</p>
+<pre><code class="language-csharp">public class Interoper : BlazorComponent
+{
+    [Inject]
+    protected IAlerter Alerter { get; set; }
+
+    public string Sometext { get; set; }
+
+    public virtual void Say()
+    {
+        Alerter.DisplayAlert(Sometext);
+    }
+}
+</code></pre>
+<p>Et finalement il nous ne nous manque qu'un petit helper <em>magique</em> produisant une implémentation de l'interface IAlerter se chargeant de faire les <em><strong>RegisteredFunction.Invoke</strong></em> qui vont bien. Un truc qui pourrait ressembler à ca :</p>
+<pre><code class="language-csharp">var alerter = Substitute.For&lt;IAlerter&gt;();
+alerter.DisplayAlert(Arg.Any&lt;string&gt;())
+       .Returns(info =&gt; RegisteredFunction.Invoke&lt;bool&gt;(&quot;DisplayAlert&quot;, info.ArgAt&lt;string&gt;(0)));
+</code></pre>
+<p>Evidemment ici, je vous présente la version naïve qui ne fonctionne que pour notre interface, mais avec un peu de reflection on peut rendre cela générique sans trop de mal.</p>
+<p>Le fail est sous vos yeux, si vous executez ça dans la console de votre navigateur vous aller voir une très belle exception avec un stack de 3 pieds de long. (<a href="https://sauget-ch.fr/">@Charly</a>, elle est pour toi celle-ci)</p>
+<p><img src="http://www.mymemoryleaks.fr/content/images/2018/04/stack.png" alt="Blazor : Injectez vos interop Javascript"></p>
+<p>Une grosse <a href="https://msdn.microsoft.com/en-us/library/system.platformnotsupportedexception(v=vs.110).aspx"><em><strong>PlatformNotSupportedException</strong></em></a>! Impossible d' utiliser l'api System.Reflection.Emit avec <a href="http://www.mono-project.com/news/2018/01/16/mono-static-webassembly-compilation/">Mono Webassembly</a>. C'est emmerdant, mais en y reflechissant bien, c'est pas déconnant si on veut maintenir un framework pas trop fat dans le navigateur.</p>
+<p>L'expérimentation sur ce point précis s'arrete donc la, mais tout n'est pas à jeter.<br>
+Je retiens de cette aventure l'organisation du code. Une interface décrivant l'interop javascript, qui sera injectée dans les BlazorComponent, et une implémentation concrète de l'interface, comme ceci.</p>
+<pre><code class="language-csharp">public class Alerter : IAlerter
+{
+    public bool DisplayAlert(string text)
+    {
+        return RegisteredFunction.Invoke&lt;bool&gt;(&quot;say&quot;, text);
+    }
+}
+</code></pre>
+<p>On est pas allé aussi loin que je ne l'aurais espéré, mais qui sait dans une prochaine version de Blazor cela sera peut etre possible.</p>
+</div>]]></content:encoded></item><item><title><![CDATA[Astuce Blazor : Séparer la vue du code]]></title><description><![CDATA[<div class="kg-card-markdown"><p>Depuis quelque temps dans la communauté .NET on <s>parle</s> fait pas mal de marketing autour de <a href="https://visualstudiomagazine.com/articles/2018/03/23/blazor-alpha.aspx">Blazor</a>. Je ne vais pas vous présenter cette nouvelle techno... si vous etes ici, c'est que vous connaissez déjà :).</p>
 <p>Une des premières choses qui m'a embété fut de voir dans les articles de présentation</p></div>]]></description><link>http://www.mymemoryleaks.fr/astuce-blazor/</link><guid isPermaLink="false">5ace6f9b90a63023940f731f</guid><category><![CDATA[Blazor]]></category><category><![CDATA[WebAssembly]]></category><category><![CDATA[wasm]]></category><category><![CDATA[C#]]></category><dc:creator><![CDATA[Fabrice Michellonet]]></dc:creator><pubDate>Wed, 11 Apr 2018 21:17:03 GMT</pubDate><media:content url="https://images.unsplash.com/photo-1489275960192-edc747009a6e?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ&amp;s=c086ae98bdec024e34deb3acef877c4a" medium="image"/><content:encoded><![CDATA[<div class="kg-card-markdown"><img src="https://images.unsplash.com/photo-1489275960192-edc747009a6e?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&s=c086ae98bdec024e34deb3acef877c4a" alt="Astuce Blazor : Séparer la vue du code"><p>Depuis quelque temps dans la communauté .NET on <s>parle</s> fait pas mal de marketing autour de <a href="https://visualstudiomagazine.com/articles/2018/03/23/blazor-alpha.aspx">Blazor</a>. Je ne vais pas vous présenter cette nouvelle techno... si vous etes ici, c'est que vous connaissez déjà :).</p>
 <p>Une des premières choses qui m'a embété fut de voir dans les articles de présentation un mélange sans vergogne du code html et du code .NET wrappé dans la section <em><strong>@functions</strong></em></p>
 <p>je parle de ca :</p>
@@ -519,31 +580,4 @@ Commençons par définir une interface, qui nous permettra <a href="http://blog.
 <p>Voici un exemple d'utilisation.</p>
 <p>IEnumerable<product> products = _cache.GetOrInsert(&quot;Ma_Clef_Unique_Cache&quot;, () =&gt; { return _productService.GetFrenchProducts(); } );</product></p>
 <p>Simple non?</p>
-</div>]]></content:encoded></item><item><title><![CDATA[IISExpress : Servir des pages vers l’extérieur.]]></title><description><![CDATA[<div class="kg-card-markdown"><p>Nul doute, IISExpress nous a simplifié la vie au quotidien de par sa facilité d'utilisation et son intégration à Visual Studio.<br>
-Aujourd'hui, je devais travailler à rendre un site compatible avec l'ipad. Ni une ni deux, je lance safari et pointe vers l'ip de ma machine de dev.<br>
-Et boom</p></div>]]></description><link>http://www.mymemoryleaks.fr/iisexpress-servir-des-pages-vers-lexterieur/</link><guid isPermaLink="false">5a99b626f336bf15fc91af72</guid><dc:creator><![CDATA[Fabrice Michellonet]]></dc:creator><pubDate>Fri, 28 Mar 2014 22:23:00 GMT</pubDate><content:encoded><![CDATA[<div class="kg-card-markdown"><p>Nul doute, IISExpress nous a simplifié la vie au quotidien de par sa facilité d'utilisation et son intégration à Visual Studio.<br>
-Aujourd'hui, je devais travailler à rendre un site compatible avec l'ipad. Ni une ni deux, je lance safari et pointe vers l'ip de ma machine de dev.<br>
-Et boom une belle erreur, me prévient que IISExpress ne servira de pages qu'en local.</p>
-<p>Voici comment je l'ai configuré afin de pouvoir tester sur mon Ipad.</p>
-<h3 id="1configuronsnotresitewebafinquilsoitbindsurtouteslesipdenotremachinededev">1 - Configurons notre site web afin qu'il soit bindé sur toutes les IP de notre machine de dev.</h3>
-<p>Pour ce faire ouvrons le fichier de config de IISExpress qui se trouve sur : %userprofile%My DocumentsIISExpressconfigapplicationhost.config<br>
-Recherchons la config de notre site</p>
-<p><site name="MonSite" id="10"> <application path="/" applicationpool="Clr4IntegratedAppPool"> <virtualdirectory path="/" physicalpath="C:!ProjectMonSite"> </virtualdirectory></application> <bindings> <binding protocol="https" bindinginformation="*:44300:localhost"> </binding></bindings> </site></p>
-<p>remplaçons le binding afin que le site soit servi quelque soit l'ip sur laquelle arrive la requete</p>
-<p><site name="MonSite" id="10"> <application path="/" applicationpool="Clr4IntegratedAppPool"> <virtualdirectory path="/" physicalpath="C:!ProjectMonSite"> </virtualdirectory></application> <bindings> <binding protocol="https" bindinginformation="*:44300:*"> </binding></bindings> </site></p>
-<h3 id="2rservonslurlauniveaudukernelhttpsys">2 - Réservons l'url au niveau du kernel (HTTP.sys)</h3>
-<p>Cela se fait via la ligne de commande suivante, a executée dans une console en mode admin.</p>
-<blockquote>
-<p>netsh http add urlacl url=https://*:44300/ user=everyone</p>
-</blockquote>
-<p>Note : pour ceux qui travaillent sur un windows en français il faudra alors taper</p>
-<blockquote>
-<p>netsh http add urlacl url=https://*:44300/ user=&quot;tout le monde&quot;</p>
-</blockquote>
-<h3 id="3autoriserletraficautraversdufirewall">3 - Autoriser le trafic au travers du firewall</h3>
-<p>De nouveau une commande à exécuter via une console en mode admin :</p>
-<blockquote>
-<p>netsh firewall add portopening TCP 44300 IISExpressWeb enable ALL</p>
-</blockquote>
-<p>Voila, j'espère que cette astuce pourra vous éviter de rester coincé si vous devez exposer un site hebergé sur votre machine de dev</p>
 </div>]]></content:encoded></item></channel></rss>
