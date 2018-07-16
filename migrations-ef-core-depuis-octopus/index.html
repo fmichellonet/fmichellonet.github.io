@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Migrations EF Core depuis Octopus</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css@v=b603fda4ce.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/prism.css@v=b603fda4ce.css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="mymemoryleaks" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Migrations EF Core depuis Octopus" />
+    <meta property="og:description" content="Exécutez les migrations EF Core durant la phase de déploiement dans Octopus." />
+    <meta property="og:url" content="http://www.mymemoryleaks.fr/migrations-ef-core-depuis-octopus/" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1469073082817-a29a4270b679?ixlib&#x3D;rb-0.3.5&amp;q&#x3D;80&amp;fm&#x3D;jpg&amp;crop&#x3D;entropy&amp;cs&#x3D;tinysrgb&amp;w&#x3D;1080&amp;fit&#x3D;max&amp;ixid&#x3D;eyJhcHBfaWQiOjExNzczfQ&amp;s&#x3D;5814dcb74e57b8c83d4b6f0fb0f42b37" />
+    <meta property="article:published_time" content="2018-07-16T21:24:55.000Z" />
+    <meta property="article:modified_time" content="2018-07-16T21:37:22.000Z" />
+    <meta property="article:tag" content="octopus" />
+    <meta property="article:tag" content="C#" />
+    <meta property="article:tag" content="EF" />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Migrations EF Core depuis Octopus" />
+    <meta name="twitter:description" content="Exécutez les migrations EF Core durant la phase de déploiement dans Octopus." />
+    <meta name="twitter:url" content="http://www.mymemoryleaks.fr/migrations-ef-core-depuis-octopus/" />
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1469073082817-a29a4270b679?ixlib&#x3D;rb-0.3.5&amp;q&#x3D;80&amp;fm&#x3D;jpg&amp;crop&#x3D;entropy&amp;cs&#x3D;tinysrgb&amp;w&#x3D;1080&amp;fit&#x3D;max&amp;ixid&#x3D;eyJhcHBfaWQiOjExNzczfQ&amp;s&#x3D;5814dcb74e57b8c83d4b6f0fb0f42b37" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Fabrice Michellonet" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="octopus, C#, EF" />
+    <meta name="twitter:site" content="@mymemoryleaks" />
+    <meta property="og:image:width" content="1080" />
+    <meta property="og:image:height" content="720" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "mymemoryleaks",
+        "logo": "http://www.mymemoryleaks.fr/content/images/2018/03/mosquito.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Fabrice Michellonet",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "http://www.mymemoryleaks.fr/author/fabrice/",
+        "sameAs": []
+    },
+    "headline": "Migrations EF Core depuis Octopus",
+    "url": "http://www.mymemoryleaks.fr/migrations-ef-core-depuis-octopus/",
+    "datePublished": "2018-07-16T21:24:55.000Z",
+    "dateModified": "2018-07-16T21:37:22.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://images.unsplash.com/photo-1469073082817-a29a4270b679?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&s=5814dcb74e57b8c83d4b6f0fb0f42b37",
+        "width": 1080,
+        "height": 720
+    },
+    "keywords": "octopus, C#, EF",
+    "description": "Exécutez les migrations EF Core durant la phase de déploiement dans Octopus.",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://www.mymemoryleaks.fr/"
+    }
+}
+    </script>
+
+    <script type="text/javascript" src="../public/ghost-sdk.js@v=b603fda4ce"></script>
+<script type="text/javascript">
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "a44cbdccbe24"
+});
+</script>
+    <meta name="generator" content="Ghost 1.21" />
+    <link rel="alternate" type="application/rss+xml" title="mymemoryleaks" href="../rss/index.html" />
+</head>
+<body class="post-template tag-octopus tag-c tag-ef nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home"><a href="../index.html">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="../rss/index.html">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head " style="background-image: url(https://images.unsplash.com/photo-1469073082817-a29a4270b679?ixlib&#x3D;rb-0.3.5&amp;q&#x3D;80&amp;fm&#x3D;jpg&amp;crop&#x3D;entropy&amp;cs&#x3D;tinysrgb&amp;w&#x3D;1080&amp;fit&#x3D;max&amp;ixid&#x3D;eyJhcHBfaWQiOjExNzczfQ&amp;s&#x3D;5814dcb74e57b8c83d4b6f0fb0f42b37)">
+    <div class="main-header-background-square"></div>
+    <nav class="main-nav overlay clearfix">
+        <a class="blog-logo" href="../index.html"><img src="../content/images/2018/03/mosquito.png" alt="mymemoryleaks" /></a>
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-octopus tag-c tag-ef">
+
+        <header class="post-header">
+            <h1 class="post-title">Migrations EF Core depuis Octopus</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2018-07-16">16 July 2018</time>  on <a href="../tag/octopus/index.html">octopus</a>, <a href="../tag/c/index.html">C#</a>, <a href="../tag/ef/index.html">EF</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div class="kg-card-markdown"><p>Ca vous est déjà arrivé de déployer en prod une nouvelle version de votre application et d'oublier de passer la migration <a href="https://docs.microsoft.com/en-us/ef/#pivot=efcore">EF</a> à la mano ? Eh ben moi aussi. On se retrouve alors à executer le script sql de migration en urgence, en espérant que tout se passera bien. Bref, c'est la panique à bord!</p>
+<p>Histoire de ne plus revivre cette situation inconfortable, on est tenté d'avoir recours à la migration EF par le code. Ainsi, on est certains qu'a chaque exécution de notre app, la migration sera effectuée si le schéma de la BDD n'est pas à jour. Le problème, c'est que si la migration se passe mal, on se retrouve à nouveau avec une application plantée en production → retour à la case départ.</p>
+<p>Et si on pouvait appliquer la migration EF par le code, mais <em>pendant</em> le déploiement. Après tout, avec la cli dotnet, il est tout à fait possible d'exécuter une migration. Alors pourquoi ne pas le faire à travers un script powershell durant le deploy ? Si vous utilisez <a href="https://octopus.com/">Octopus</a> comme chez <a href="https://www.younited-credit.com/">Younited Credit</a>, alors c'est possible !</p>
+<h1 id="migrationavecladotnetcli">Migration avec la dotnet cli</h1>
+<p>Supposons que vous ayez découpé classiquement votre application en couche de manière à avoir votre startup project et votre DAL séparés, par exemple :</p>
+<ul>
+<li>MyCompany.AppOfTheFuture : application console en .NET Core</li>
+<li>MyCompany.AppOfTheFuture.DAL : Votre Data Access Layer, celle qui contient vos repositories Entity Framework, votre DbContext et votre code de migration</li>
+</ul>
+<p>Afin d'exécuter une migration avec la cli .NET Core, on peut utiliser la commande suivante depuis PowerShell :</p>
+<pre><code class="language-powershell">dotnet.exe exec `
+    --depsfile &quot;MyCompany.AppOfTheFuture.deps.json&quot; `
+    --runtimeconfig &quot;MyCompany.AppOfTheFuture.runtimeconfig.json&quot; `
+    &quot;${env:ProgramFiles}\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore.tools\2.1.1\tools\netcoreapp2.0\any\ef.dll&quot; database update `
+    --context AppOfTheFutureContext `
+    --verbose `
+    --no-color `
+    --prefix-output `
+    --assembly &quot;MyCompany.AppOfTheFuture.DataAccess.dll&quot; `
+    --startup-assembly &quot;MyCompany.AppOfTheFuture.dll&quot; `
+    --project-dir &quot;.&quot; `
+    --root-namespace MyCompany.AppOfTheFuture.DataAccess
+</code></pre>
+<p>La ressource <code>ef.dll</code> peut être considérée comme l'équivalent de <a href="https://msdn.microsoft.com/en-us/library/jj618307(v=vs.113).aspx"><code>migrate.exe</code></a> pour EF6. C'est la dedans que se trouve le code qui sera exécuté pour appliquer la migration en base de donnée. Il est important de renseigner le chemin correct de la DLL selon la version de .Net core que vous avez installé.</p>
+<p>Les paramètres importants de la commande sont :</p>
+<ul>
+<li><code>ef.dll database update</code> : définit le type d'opération à appliquer sur la BDD.  Parmis les options possibles, il existe également la commande <code>create</code> afin d'initialiser une BDD.</li>
+<li><code>--context AppOfTheFutureContext</code> Définit la classe de contexte EF</li>
+<li><code>--assembly &quot;MyCompany.AppOfTheFuture.DataAccess.dll&quot;</code> Définit le nom de l'assembly contenant la classe contexte</li>
+<li><code>--startup-assembly &quot;MyCompany.AppOfTheFuture.dll&quot;</code> Définit le nom de votre startup project. En outre, il s'agira vraisemblablement du projet où se trouve votre <code>appsettings.json</code> et la chaîne de connexion à la BDD.</li>
+</ul>
+<p>A la suite de l'exécution de cette commande, si tout s'est bien passé, votre BDD doit être à jour et aligné sur la dernière migration.</p>
+<h1 id="intgrationdelamigrationdansoctopus">Intégration de la migration dans Octopus</h1>
+<p>Maintenant que nous savons jouer une migration en CLI, la migration depuis Octopus n'est plus très compliquée à mettre en place. En effet, il suffit de jouer un bout de script PowerShell pendant la tâche de déploiement et c'est joué !</p>
+<p>A titre d'exemple, on va se baser sur le déploiement d'une webapp Azure et donc du template Octopus <a href="https://octopus.com/docs/deployment-examples/azure-deployments/deploying-a-package-to-an-azure-web-app#DeployingapackagetoanAzureWebApp-Step4:ConfigureyourAzureWebAppstep">Deploy an Azure Web App</a> :</p>
+<p><img src="../content/images/2018/07/deploy-azure-webapp.png" alt="deploy-azure-webapp"></p>
+<p>Dans ce template, il est possible de renseigner un script PowerShell à exécuter en Pre-Deploy/Deploy/Post-Deploy. On va s'intéresser à la mise en place du script <em>pendant</em> le deploy. Si on le fait trop tôt, on ne pourra pas profiter de la valorisation des variables dans notre <code>appsettings.json</code>.</p>
+<p>Il nous suffit juste de recopier la ligne de commande précédemment mentionnée dans la section <strong>Features / Configuration Scripts</strong> et c'est tout bon :</p>
+<p><img src="../content/images/2018/07/octopus-custom-script.png" alt="octopus-custom-script"></p>
+<p>L'intérêt de cette approche est de mettre en évidence un problème de base de données rapidement, et surtout avant que votre webapp soit en ligne. <a href="https://en.wikipedia.org/wiki/Fail-fast">Fail Fast!</a> Dans notre cas, si la migration échoue dans Octopus, alors ce dernier ne poursuivra pas le déploiement.</p>
+<h4 id="auteurs">Auteurs</h4>
+<p>Cet article a été rédigé avec mon ami et collègue <a href="https://hocquet.fr/">Anthony Hocquet</a>. Vous le retrouverez sur son nouveau blog que je vous incite à suivre tant les futurs articles sont prometteurs !</p>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../author/fabrice/index.html" style="background-image: url(http://www.gravatar.com/avatar/65244b78c89aff8f81952bd8a452ac0a?s&)"><span class="hidden">Fabrice Michellonet's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../author/fabrice/index.html">Fabrice Michellonet</a></h4>
+
+                    <p>Read <a href="../author/fabrice/index.html">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Migrations%20EF%20Core%20depuis%20Octopus&amp;url=http://www.mymemoryleaks.fr/migrations-ef-core-depuis-octopus/"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://www.mymemoryleaks.fr/migrations-ef-core-depuis-octopus/"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://www.mymemoryleaks.fr/migrations-ef-core-depuis-octopus/"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+        <div id="disqus_thread"></div>
+    </article>
+</main>
+
+<aside class="read-next">
+    <a class="read-next-story prev " style="background-image: url(https://images.unsplash.com/photo-1492515114975-b062d1a270ae?ixlib&#x3D;rb-0.3.5&amp;q&#x3D;80&amp;fm&#x3D;jpg&amp;crop&#x3D;entropy&amp;cs&#x3D;tinysrgb&amp;w&#x3D;1080&amp;fit&#x3D;max&amp;ixid&#x3D;eyJhcHBfaWQiOjExNzczfQ&amp;s&#x3D;24bcab6dc09b4d46b648321080c94d23)" href="../blazor-injectez-vos-interop-js/index.html">
+        <section class="post">
+            <h2>Blazor : Injectez vos interop Javascript</h2>
+            <p>Commençons par ce qui fait mal. Je dois avouer que ce blog post fait suite à un fail. Dans&hellip;</p>
+        </section>
+    </a>
+</aside>
+
+
+
+<script>
+var disqus_config = function () {
+this.page.url = 'http://www.mymemoryleaks.fr/migrations-ef-core-depuis-octopus/';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-5b4cf83018d3df3d74b0ff1c'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://www-mymemoryleaks-fr.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="../index.html">mymemoryleaks</a> &copy; 2018</section>
+            <section class="poweredby">Powered by <a href="http://boo-demo.tenoku.com/">Ghost + Boo</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="../assets/js/jquery.fitvids.js@v=b603fda4ce"></script>
+    <script type="text/javascript" src="../assets/js/index.js@v=b603fda4ce"></script>
+    <script type="text/javascript" src="../assets/js/prism.js@v=b603fda4ce"></script>
+    <script src="https://cdn.jsdelivr.net/mobile-detect.js/1.3.3/mobile-detect.min.js"></script>
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+
+</body>
+</html>
